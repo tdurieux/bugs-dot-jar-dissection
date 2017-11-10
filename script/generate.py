@@ -16,7 +16,6 @@ for project_name in os.listdir(DATA_PATH):
       bug['linesAdd'] = bug['patch'].count("\n+") - bug['files']
       bug['linesRem'] = bug['patch'].count("\n-") - bug['files']
       bug['singleLine'] = (bug['linesAdd'] == 1 and bug['linesRem'] == 0) or (bug['linesAdd'] == 0 and bug['linesRem'] == 1)
-      print bug['singleLine']
       bugs += [bug]
 
 print "Processed %d bugs" % len(bugs)
