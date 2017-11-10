@@ -1,0 +1,6 @@
+{
+	"name": "accumulo",
+	"repository": "https://github.com/apache/accumulo",
+	"jira": "https://issues.apache.org/jira/",
+	"nb_bug": 0
+}

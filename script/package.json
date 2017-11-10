@@ -1,0 +1,15 @@
+{
+  "name": "defects4j-dessection",
+  "version": "1.0.0",
+  "description": "The open-science data t",
+  "main": "src/generate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Victor Sobreira, Thomas Durieux, Fernanda Madeiral, Martin Monperrus and Marcelo A. Maia",
+  "license": "MIT",
+  "dependencies": {
+    "csv-parse": "^1.2.2",
+    "stream-transform": "^0.1.2"
+  }
+}
