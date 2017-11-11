@@ -1,1 +1,20 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["importUUIDCreateNew[3](org.apache.jackrabbit.oak.jcr.RepositoryTest)", "importUUIDCreateNew[0](org.apache.jackrabbit.oak.jcr.RepositoryTest)", "importUUIDCreateNew[2](org.apache.jackrabbit.oak.jcr.RepositoryTest)", "importUUIDCreateNew[1](org.apache.jackrabbit.oak.jcr.RepositoryTest)"], "nb_test": 1795, "patch": "diff --git a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/ImporterImpl.java b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/ImporterImpl.java\nindex bc2eb6b..f6d2c44 100644\n--- a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/ImporterImpl.java\n+++ b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/ImporterImpl.java\n@@ -404,7 +404,12 @@ public class ImporterImpl implements Importer {\n                     conflicting = currentStateIdManager.getTree(id);\n                 }\n \n-                if (conflicting != null && conflicting.exists()) {\n+                // resolve conflict if there is one or force\n+                // conflict resolution when behavior is IMPORT_UUID_CREATE_NEW.\n+                // the latter will always create a new UUID even if no\n+                // conflicting node exists. see OAK-1244\n+                if ((conflicting != null && conflicting.exists())\n+                        || uuidBehavior == ImportUUIDBehavior.IMPORT_UUID_CREATE_NEW) {\n                     // resolve uuid conflict\n                     tree = resolveUUIDConflict(parent, conflicting, id, nodeInfo);\n                     if (tree == null) {\n", "project": "jackrabbit-oak", "linesAdd": 6, "nb_skipped": 5, "fix_commit": "b4a93c81", "nb_failure": 4, "id": "1244", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "importUUIDCreateNew[3](org.apache.jackrabbit.oak.jcr.RepositoryTest)", 
+    "importUUIDCreateNew[0](org.apache.jackrabbit.oak.jcr.RepositoryTest)", 
+    "importUUIDCreateNew[2](org.apache.jackrabbit.oak.jcr.RepositoryTest)", 
+    "importUUIDCreateNew[1](org.apache.jackrabbit.oak.jcr.RepositoryTest)"
+  ], 
+  "nb_test": 1795, 
+  "patch": "diff --git a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/ImporterImpl.java b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/ImporterImpl.java\nindex bc2eb6b..f6d2c44 100644\n--- a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/ImporterImpl.java\n+++ b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/ImporterImpl.java\n@@ -404,7 +404,12 @@ public class ImporterImpl implements Importer {\n                     conflicting = currentStateIdManager.getTree(id);\n                 }\n \n-                if (conflicting != null && conflicting.exists()) {\n+                // resolve conflict if there is one or force\n+                // conflict resolution when behavior is IMPORT_UUID_CREATE_NEW.\n+                // the latter will always create a new UUID even if no\n+                // conflicting node exists. see OAK-1244\n+                if ((conflicting != null && conflicting.exists())\n+                        || uuidBehavior == ImportUUIDBehavior.IMPORT_UUID_CREATE_NEW) {\n                     // resolve uuid conflict\n                     tree = resolveUUIDConflict(parent, conflicting, id, nodeInfo);\n                     if (tree == null) {\n", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 6, 
+  "nb_skipped": 5, 
+  "fix_commit": "b4a93c81", 
+  "nb_failure": 4, 
+  "id": "1244", 
+  "linesRem": 1
+}

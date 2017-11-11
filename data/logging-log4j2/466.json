@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["FileUtilsTest.testFileFromUriWithPlusCharactersInName:37 expected:<log4j[+config+with+plus+]characters.xml> but was:<log4j[ config with plus ]characters.xml>"], "nb_test": 491, "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/helpers/FileUtils.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/helpers/FileUtils.java\nindex 5752f77..2e38b52 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/helpers/FileUtils.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/helpers/FileUtils.java\n@@ -63,7 +63,11 @@ public final class FileUtils {\n             }\n         }\n         try {\n-            return new File(URLDecoder.decode(uri.toURL().getFile(), \"UTF8\"));\n+            String fileName = uri.toURL().getFile();\n+            if (new File(fileName).exists()) {\n+                return new File(fileName);\n+            }\n+            return new File(URLDecoder.decode(fileName, \"UTF8\"));\n         } catch (final MalformedURLException ex) {\n             LOGGER.warn(\"Invalid URL \" + uri, ex);\n         } catch (final UnsupportedEncodingException uee) {\n", "project": "logging-log4j2", "linesAdd": 5, "nb_skipped": 8, "fix_commit": "7b9e48e8", "nb_failure": 1, "id": "466", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "FileUtilsTest.testFileFromUriWithPlusCharactersInName:37 expected:<log4j[+config+with+plus+]characters.xml> but was:<log4j[ config with plus ]characters.xml>"
+  ], 
+  "nb_test": 491, 
+  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/helpers/FileUtils.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/helpers/FileUtils.java\nindex 5752f77..2e38b52 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/helpers/FileUtils.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/helpers/FileUtils.java\n@@ -63,7 +63,11 @@ public final class FileUtils {\n             }\n         }\n         try {\n-            return new File(URLDecoder.decode(uri.toURL().getFile(), \"UTF8\"));\n+            String fileName = uri.toURL().getFile();\n+            if (new File(fileName).exists()) {\n+                return new File(fileName);\n+            }\n+            return new File(URLDecoder.decode(fileName, \"UTF8\"));\n         } catch (final MalformedURLException ex) {\n             LOGGER.warn(\"Invalid URL \" + uri, ex);\n         } catch (final UnsupportedEncodingException uee) {\n", 
+  "project": "logging-log4j2", 
+  "linesAdd": 5, 
+  "nb_skipped": 8, 
+  "fix_commit": "7b9e48e8", 
+  "nb_failure": 1, 
+  "id": "466", 
+  "linesRem": 1
+}

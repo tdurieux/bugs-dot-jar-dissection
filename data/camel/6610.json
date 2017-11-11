@@ -1,1 +1,18 @@
-{"files": 1, "singleLine": false, "nb_error": 2, "failing_tests": ["WireTapTest>TestSupport.runBare:58->setUp:54->ContextTestSupport.setUp:115 \u00bb IndexOutOfBounds", "WireTapTest>TestSupport.runBare:58->setUp:54->ContextTestSupport.setUp:115 \u00bb IndexOutOfBounds"], "nb_test": 4621, "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/model/ProcessorDefinition.java b/camel-core/src/main/java/org/apache/camel/model/ProcessorDefinition.java\nindex ff16150..9b93a1a 100644\n--- a/camel-core/src/main/java/org/apache/camel/model/ProcessorDefinition.java\n+++ b/camel-core/src/main/java/org/apache/camel/model/ProcessorDefinition.java\n@@ -1015,6 +1015,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>\n             // set id on this\n             setId(id);\n         } else {\n+            \n             // set it on last output as this is what the user means to do\n             // for Block(s) with non empty getOutputs() the id probably refers\n             //  to the last definition in the current Block\n@@ -1027,7 +1028,12 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>\n                     }\n                 }\n             }\n-            outputs.get(outputs.size() - 1).setId(id);\n+            if (!getOutputs().isEmpty()) {\n+                outputs.get(outputs.size() - 1).setId(id);\n+            } else {\n+                // the output could be empty\n+                setId(id);\n+            }\n         }\n \n         return (Type) this;\n", "project": "camel", "linesAdd": 7, "nb_skipped": 1, "fix_commit": "ed7e7c9f", "nb_failure": 0, "id": "6610", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 2, 
+  "failing_tests": [
+    "WireTapTest>TestSupport.runBare:58->setUp:54->ContextTestSupport.setUp:115 \u00bb IndexOutOfBounds", 
+    "WireTapTest>TestSupport.runBare:58->setUp:54->ContextTestSupport.setUp:115 \u00bb IndexOutOfBounds"
+  ], 
+  "nb_test": 4621, 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/model/ProcessorDefinition.java b/camel-core/src/main/java/org/apache/camel/model/ProcessorDefinition.java\nindex ff16150..9b93a1a 100644\n--- a/camel-core/src/main/java/org/apache/camel/model/ProcessorDefinition.java\n+++ b/camel-core/src/main/java/org/apache/camel/model/ProcessorDefinition.java\n@@ -1015,6 +1015,7 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>\n             // set id on this\n             setId(id);\n         } else {\n+            \n             // set it on last output as this is what the user means to do\n             // for Block(s) with non empty getOutputs() the id probably refers\n             //  to the last definition in the current Block\n@@ -1027,7 +1028,12 @@ public abstract class ProcessorDefinition<Type extends ProcessorDefinition<Type>\n                     }\n                 }\n             }\n-            outputs.get(outputs.size() - 1).setId(id);\n+            if (!getOutputs().isEmpty()) {\n+                outputs.get(outputs.size() - 1).setId(id);\n+            } else {\n+                // the output could be empty\n+                setId(id);\n+            }\n         }\n \n         return (Type) this;\n", 
+  "project": "camel", 
+  "linesAdd": 7, 
+  "nb_skipped": 1, 
+  "fix_commit": "ed7e7c9f", 
+  "nb_failure": 0, 
+  "id": "6610", 
+  "linesRem": 1
+}

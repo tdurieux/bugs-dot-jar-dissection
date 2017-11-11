@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["testIsValid(org.apache.wicket.validation.validator.UrlValidatorTest): http://go.local:80/test1?action=view expected:<true> but was:<false>"], "nb_test": 1251, "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/validation/validator/UrlValidator.java b/wicket-core/src/main/java/org/apache/wicket/validation/validator/UrlValidator.java\nindex 9cc917c..a259c51 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/validation/validator/UrlValidator.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/validation/validator/UrlValidator.java\n@@ -427,7 +427,7 @@ public class UrlValidator implements IValidator<String>\n \t\t\tif (segmentCount > 1)\n \t\t\t{\n \t\t\t\tString topLevel = domainSegment[segmentCount - 1];\n-\t\t\t\tif (topLevel.length() < 2 || topLevel.length() > 4)\n+\t\t\t\tif (topLevel.length() < 2)\n \t\t\t\t{\n \t\t\t\t\treturn false;\n \t\t\t\t}\n", "project": "wicket", "linesAdd": 1, "nb_skipped": 3, "fix_commit": "c250db9c", "nb_failure": 1, "id": "4255", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "testIsValid(org.apache.wicket.validation.validator.UrlValidatorTest): http://go.local:80/test1?action=view expected:<true> but was:<false>"
+  ], 
+  "nb_test": 1251, 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/validation/validator/UrlValidator.java b/wicket-core/src/main/java/org/apache/wicket/validation/validator/UrlValidator.java\nindex 9cc917c..a259c51 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/validation/validator/UrlValidator.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/validation/validator/UrlValidator.java\n@@ -427,7 +427,7 @@ public class UrlValidator implements IValidator<String>\n \t\t\tif (segmentCount > 1)\n \t\t\t{\n \t\t\t\tString topLevel = domainSegment[segmentCount - 1];\n-\t\t\t\tif (topLevel.length() < 2 || topLevel.length() > 4)\n+\t\t\t\tif (topLevel.length() < 2)\n \t\t\t\t{\n \t\t\t\t\treturn false;\n \t\t\t\t}\n", 
+  "project": "wicket", 
+  "linesAdd": 1, 
+  "nb_skipped": 3, 
+  "fix_commit": "c250db9c", 
+  "nb_failure": 1, 
+  "id": "4255", 
+  "linesRem": 1
+}

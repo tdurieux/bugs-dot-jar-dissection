@@ -1,1 +1,18 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["TcpJsonSocketServerTest>AbstractSocketServerTest.testMessagesWithSpecialChars:167->AbstractSocketServerTest.testServer:216 Incorrect number of events received expected:<1> but was:<0>", "UdpJsonSocketServerTest>AbstractSocketServerTest.testMessagesWithSpecialChars:167->AbstractSocketServerTest.testServer:216 Incorrect number of events received expected:<1> but was:<0>"], "nb_test": 774, "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/net/server/JsonInputStreamLogEventBridge.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/net/server/JsonInputStreamLogEventBridge.java\nindex 1b81644..8ed2732 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/net/server/JsonInputStreamLogEventBridge.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/net/server/JsonInputStreamLogEventBridge.java\n@@ -55,8 +55,10 @@ public class JsonInputStreamLogEventBridge extends InputStreamLogEventBridge {\n         boolean inEsc = false;\n         for (int i = start; i < charArray.length; i++) {\n             final char c = charArray[i];\n-            if (!inEsc) {\n-                inEsc = false;\n+            if (inEsc) {\n+            \t// Skip this char and continue\n+            \tinEsc = false;\n+            } else { \n                 switch (c) {\n                 case EVENT_START_MARKER:\n                     if (!inStr) {\n", "project": "logging-log4j2", "linesAdd": 4, "nb_skipped": 2, "fix_commit": "e9b628ec", "nb_failure": 2, "id": "1069", "linesRem": 2}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "TcpJsonSocketServerTest>AbstractSocketServerTest.testMessagesWithSpecialChars:167->AbstractSocketServerTest.testServer:216 Incorrect number of events received expected:<1> but was:<0>", 
+    "UdpJsonSocketServerTest>AbstractSocketServerTest.testMessagesWithSpecialChars:167->AbstractSocketServerTest.testServer:216 Incorrect number of events received expected:<1> but was:<0>"
+  ], 
+  "nb_test": 774, 
+  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/net/server/JsonInputStreamLogEventBridge.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/net/server/JsonInputStreamLogEventBridge.java\nindex 1b81644..8ed2732 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/net/server/JsonInputStreamLogEventBridge.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/net/server/JsonInputStreamLogEventBridge.java\n@@ -55,8 +55,10 @@ public class JsonInputStreamLogEventBridge extends InputStreamLogEventBridge {\n         boolean inEsc = false;\n         for (int i = start; i < charArray.length; i++) {\n             final char c = charArray[i];\n-            if (!inEsc) {\n-                inEsc = false;\n+            if (inEsc) {\n+            \t// Skip this char and continue\n+            \tinEsc = false;\n+            } else { \n                 switch (c) {\n                 case EVENT_START_MARKER:\n                     if (!inStr) {\n", 
+  "project": "logging-log4j2", 
+  "linesAdd": 4, 
+  "nb_skipped": 2, 
+  "fix_commit": "e9b628ec", 
+  "nb_failure": 2, 
+  "id": "1069", 
+  "linesRem": 2
+}

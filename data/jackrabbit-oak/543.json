@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 1, "failing_tests": ["putTokenImpl(org.apache.jackrabbit.mk.store.DefaultRevisionStoreTest): java.lang.AssertionError"], "nb_test": 78, "patch": "diff --git a/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java b/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java\nindex 4e299c3..533ccc8 100644\n--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java\n+++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java\n@@ -223,12 +223,12 @@ public class DefaultRevisionStore extends AbstractRevisionStore implements\n      */\n     static class PutTokenImpl extends PutToken {\n \n-        private static int idCounter;\n+        private static final AtomicInteger ID_COUNTER = new AtomicInteger();\n         private int id;\n         private StoredNode lastModifiedNode;\n \n         public PutTokenImpl() {\n-            this.id = ++idCounter;\n+            this.id = ID_COUNTER.incrementAndGet();\n         }\n \n         @Override\n", "project": "jackrabbit-oak", "linesAdd": 2, "nb_skipped": 2, "fix_commit": "3ce758b7", "nb_failure": 0, "id": "543", "linesRem": 2}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 1, 
+  "failing_tests": [
+    "putTokenImpl(org.apache.jackrabbit.mk.store.DefaultRevisionStoreTest): java.lang.AssertionError"
+  ], 
+  "nb_test": 78, 
+  "patch": "diff --git a/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java b/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java\nindex 4e299c3..533ccc8 100644\n--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java\n+++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/store/DefaultRevisionStore.java\n@@ -223,12 +223,12 @@ public class DefaultRevisionStore extends AbstractRevisionStore implements\n      */\n     static class PutTokenImpl extends PutToken {\n \n-        private static int idCounter;\n+        private static final AtomicInteger ID_COUNTER = new AtomicInteger();\n         private int id;\n         private StoredNode lastModifiedNode;\n \n         public PutTokenImpl() {\n-            this.id = ++idCounter;\n+            this.id = ID_COUNTER.incrementAndGet();\n         }\n \n         @Override\n", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 2, 
+  "nb_skipped": 2, 
+  "fix_commit": "3ce758b7", 
+  "nb_failure": 0, 
+  "id": "543", 
+  "linesRem": 2
+}

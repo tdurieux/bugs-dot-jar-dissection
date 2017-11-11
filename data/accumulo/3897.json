@@ -1,1 +1,15 @@
-{"files": 1, "singleLine": true, "nb_error": 0, "failing_tests": [], "nb_test": 0, "patch": "diff --git a/server/master/src/main/java/org/apache/accumulo/master/tserverOps/ShutdownTServer.java b/server/master/src/main/java/org/apache/accumulo/master/tserverOps/ShutdownTServer.java\nindex 11cd91b..171e312 100644\n--- a/server/master/src/main/java/org/apache/accumulo/master/tserverOps/ShutdownTServer.java\n+++ b/server/master/src/main/java/org/apache/accumulo/master/tserverOps/ShutdownTServer.java\n@@ -58,6 +58,7 @@ public class ShutdownTServer extends MasterRepo {\n     // only send this request once\n     if (!requestedShutdown) {\n       master.shutdownTServer(server);\n+      requestedShutdown = true;\n     }\n \n     if (master.onlineTabletServers().contains(server)) {\n", "project": "accumulo", "linesAdd": 1, "nb_skipped": 0, "fix_commit": "699b8bf0", "nb_failure": 0, "id": "3897", "linesRem": 0}
+{
+  "files": 1, 
+  "singleLine": true, 
+  "nb_error": 0, 
+  "failing_tests": [], 
+  "nb_test": 0, 
+  "patch": "diff --git a/server/master/src/main/java/org/apache/accumulo/master/tserverOps/ShutdownTServer.java b/server/master/src/main/java/org/apache/accumulo/master/tserverOps/ShutdownTServer.java\nindex 11cd91b..171e312 100644\n--- a/server/master/src/main/java/org/apache/accumulo/master/tserverOps/ShutdownTServer.java\n+++ b/server/master/src/main/java/org/apache/accumulo/master/tserverOps/ShutdownTServer.java\n@@ -58,6 +58,7 @@ public class ShutdownTServer extends MasterRepo {\n     // only send this request once\n     if (!requestedShutdown) {\n       master.shutdownTServer(server);\n+      requestedShutdown = true;\n     }\n \n     if (master.onlineTabletServers().contains(server)) {\n", 
+  "project": "accumulo", 
+  "linesAdd": 1, 
+  "nb_skipped": 0, 
+  "fix_commit": "699b8bf0", 
+  "nb_failure": 0, 
+  "id": "3897", 
+  "linesRem": 0
+}

@@ -1,1 +1,18 @@
-{"files": 1, "singleLine": false, "nb_error": 1, "failing_tests": ["ManagedThrottlerTest>TestSupport.runBare:58->testThrottleAsyncVisableViaJmx:189 expected:<10> but was:<9>", "DefaultEndpointTest>TestSupport.runBare:58->testToString:48 \u00bb IllegalArgument ..."], "nb_test": 4886, "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/impl/DefaultEndpoint.java b/camel-core/src/main/java/org/apache/camel/impl/DefaultEndpoint.java\nindex 3dae289..badd48e 100644\n--- a/camel-core/src/main/java/org/apache/camel/impl/DefaultEndpoint.java\n+++ b/camel-core/src/main/java/org/apache/camel/impl/DefaultEndpoint.java\n@@ -136,7 +136,13 @@ public abstract class DefaultEndpoint extends ServiceSupport implements Endpoint\n \n     @Override\n     public String toString() {\n-        return String.format(\"Endpoint[%s]\", URISupport.sanitizeUri(getEndpointUri()));\n+        String value = null;\n+        try {\n+            value = getEndpointUri();\n+        } catch (RuntimeException e) {\n+            // ignore any exception and use null for building the string value\n+        }\n+        return String.format(\"Endpoint[%s]\", URISupport.sanitizeUri(value));\n     }\n \n     /**\n", "project": "camel", "linesAdd": 7, "nb_skipped": 3, "fix_commit": "91228815", "nb_failure": 1, "id": "7344", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 1, 
+  "failing_tests": [
+    "ManagedThrottlerTest>TestSupport.runBare:58->testThrottleAsyncVisableViaJmx:189 expected:<10> but was:<9>", 
+    "DefaultEndpointTest>TestSupport.runBare:58->testToString:48 \u00bb IllegalArgument ..."
+  ], 
+  "nb_test": 4886, 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/impl/DefaultEndpoint.java b/camel-core/src/main/java/org/apache/camel/impl/DefaultEndpoint.java\nindex 3dae289..badd48e 100644\n--- a/camel-core/src/main/java/org/apache/camel/impl/DefaultEndpoint.java\n+++ b/camel-core/src/main/java/org/apache/camel/impl/DefaultEndpoint.java\n@@ -136,7 +136,13 @@ public abstract class DefaultEndpoint extends ServiceSupport implements Endpoint\n \n     @Override\n     public String toString() {\n-        return String.format(\"Endpoint[%s]\", URISupport.sanitizeUri(getEndpointUri()));\n+        String value = null;\n+        try {\n+            value = getEndpointUri();\n+        } catch (RuntimeException e) {\n+            // ignore any exception and use null for building the string value\n+        }\n+        return String.format(\"Endpoint[%s]\", URISupport.sanitizeUri(value));\n     }\n \n     /**\n", 
+  "project": "camel", 
+  "linesAdd": 7, 
+  "nb_skipped": 3, 
+  "fix_commit": "91228815", 
+  "nb_failure": 1, 
+  "id": "7344", 
+  "linesRem": 1
+}

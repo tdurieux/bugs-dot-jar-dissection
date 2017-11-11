@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["FastMathTest.testMath1269:226 exp(709.8125) is NaN instead of Infinity"], "nb_test": 5866, "patch": "diff --git a/src/main/java/org/apache/commons/math4/util/FastMath.java b/src/main/java/org/apache/commons/math4/util/FastMath.java\nindex 3d6d27d..2532c62 100644\n--- a/src/main/java/org/apache/commons/math4/util/FastMath.java\n+++ b/src/main/java/org/apache/commons/math4/util/FastMath.java\n@@ -968,6 +968,13 @@ public class FastMath {\n        much larger than the others.  If there are extra bits specified from the\n        pow() function, use them. */\n         final double tempC = tempB + tempA;\n+\n+        // If tempC is positive infinite, the evaluation below could result in NaN,\n+        // because z could be negative at the same time.\n+        if (tempC == Double.POSITIVE_INFINITY) {\n+            return Double.POSITIVE_INFINITY;\n+        }\n+\n         final double result;\n         if (extra != 0.0) {\n             result = tempC*extra*z + tempC*extra + tempC*z + tempB + tempA;\n", "project": "commons-math", "linesAdd": 7, "nb_skipped": 3, "fix_commit": "a94ff90a", "nb_failure": 1, "id": "1269", "linesRem": 0}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "FastMathTest.testMath1269:226 exp(709.8125) is NaN instead of Infinity"
+  ], 
+  "nb_test": 5866, 
+  "patch": "diff --git a/src/main/java/org/apache/commons/math4/util/FastMath.java b/src/main/java/org/apache/commons/math4/util/FastMath.java\nindex 3d6d27d..2532c62 100644\n--- a/src/main/java/org/apache/commons/math4/util/FastMath.java\n+++ b/src/main/java/org/apache/commons/math4/util/FastMath.java\n@@ -968,6 +968,13 @@ public class FastMath {\n        much larger than the others.  If there are extra bits specified from the\n        pow() function, use them. */\n         final double tempC = tempB + tempA;\n+\n+        // If tempC is positive infinite, the evaluation below could result in NaN,\n+        // because z could be negative at the same time.\n+        if (tempC == Double.POSITIVE_INFINITY) {\n+            return Double.POSITIVE_INFINITY;\n+        }\n+\n         final double result;\n         if (extra != 0.0) {\n             result = tempC*extra*z + tempC*extra + tempC*z + tempB + tempA;\n", 
+  "project": "commons-math", 
+  "linesAdd": 7, 
+  "nb_skipped": 3, 
+  "fix_commit": "a94ff90a", 
+  "nb_failure": 1, 
+  "id": "1269", 
+  "linesRem": 0
+}

@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 1, "failing_tests": ["ThrowableProxyTest.testLogStackTraceWithClassThatCannotInitialize:111 \u00bb NoClassDefFound"], "nb_test": 731, "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\nindex 2320ad7..51a924e 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n@@ -500,7 +500,7 @@ public class ThrowableProxy implements Serializable {\n                 if (clazz != null) {\n                     return clazz;\n                 }\n-            } catch (final Exception ignore) {\n+            } catch (final Throwable ignore) {\n                 // Ignore exception.\n             }\n         }\n", "project": "logging-log4j2", "linesAdd": 1, "nb_skipped": 2, "fix_commit": "411dad65", "nb_failure": 0, "id": "832", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 1, 
+  "failing_tests": [
+    "ThrowableProxyTest.testLogStackTraceWithClassThatCannotInitialize:111 \u00bb NoClassDefFound"
+  ], 
+  "nb_test": 731, 
+  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\nindex 2320ad7..51a924e 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n@@ -500,7 +500,7 @@ public class ThrowableProxy implements Serializable {\n                 if (clazz != null) {\n                     return clazz;\n                 }\n-            } catch (final Exception ignore) {\n+            } catch (final Throwable ignore) {\n                 // Ignore exception.\n             }\n         }\n", 
+  "project": "logging-log4j2", 
+  "linesAdd": 1, 
+  "nb_skipped": 2, 
+  "fix_commit": "411dad65", 
+  "nb_failure": 0, 
+  "id": "832", 
+  "linesRem": 1
+}

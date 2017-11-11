@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["recoverFromMissingCpRef(org.apache.jackrabbit.oak.plugins.index.AsyncIndexUpdateTest)"], "nb_test": 1843, "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java\nindex 88eb0f7..6401f23 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java\n@@ -318,7 +318,7 @@ public class AsyncIndexUpdate implements Runnable {\n                     throws CommitFailedException {\n                 // check for concurrent updates by this async task\n                 NodeState async = before.getChildNode(ASYNC);\n-                if (Objects.equal(checkpoint, async.getString(name))\n+                if (checkpoint == null || Objects.equal(checkpoint, async.getString(name))\n                         && lease == async.getLong(name + \"-lease\")) {\n                     return after;\n                 } else {\n", "project": "jackrabbit-oak", "linesAdd": 1, "nb_skipped": 9, "fix_commit": "93c1aa40", "nb_failure": 1, "id": "1959", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "recoverFromMissingCpRef(org.apache.jackrabbit.oak.plugins.index.AsyncIndexUpdateTest)"
+  ], 
+  "nb_test": 1843, 
+  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java\nindex 88eb0f7..6401f23 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/AsyncIndexUpdate.java\n@@ -318,7 +318,7 @@ public class AsyncIndexUpdate implements Runnable {\n                     throws CommitFailedException {\n                 // check for concurrent updates by this async task\n                 NodeState async = before.getChildNode(ASYNC);\n-                if (Objects.equal(checkpoint, async.getString(name))\n+                if (checkpoint == null || Objects.equal(checkpoint, async.getString(name))\n                         && lease == async.getLong(name + \"-lease\")) {\n                     return after;\n                 } else {\n", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 1, 
+  "nb_skipped": 9, 
+  "fix_commit": "93c1aa40", 
+  "nb_failure": 1, 
+  "id": "1959", 
+  "linesRem": 1
+}

@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 1, "failing_tests": ["testBadVisibility(org.apache.accumulo.core.iterators.system.VisibilityFilterTest): empty term near index 2(..)"], "nb_test": 307, "patch": "diff --git a/core/src/main/java/org/apache/accumulo/core/iterators/system/VisibilityFilter.java b/core/src/main/java/org/apache/accumulo/core/iterators/system/VisibilityFilter.java\nindex a41f7be..4902e61 100644\n--- a/core/src/main/java/org/apache/accumulo/core/iterators/system/VisibilityFilter.java\n+++ b/core/src/main/java/org/apache/accumulo/core/iterators/system/VisibilityFilter.java\n@@ -25,6 +25,7 @@ import org.apache.accumulo.core.security.Authorizations;\n import org.apache.accumulo.core.security.ColumnVisibility;\n import org.apache.accumulo.core.security.VisibilityEvaluator;\n import org.apache.accumulo.core.security.VisibilityParseException;\n+import org.apache.accumulo.core.util.BadArgumentException;\n import org.apache.accumulo.core.util.TextUtil;\n import org.apache.commons.collections.map.LRUMap;\n import org.apache.hadoop.io.Text;\n@@ -73,6 +74,9 @@ public class VisibilityFilter extends Filter {\n     } catch (VisibilityParseException e) {\n       log.error(\"Parse Error\", e);\n       return false;\n+    } catch (BadArgumentException e) {\n+      log.error(\"Parse Error\", e);\n+      return false;\n     }\n   }\n }\n", "project": "accumulo", "linesAdd": 4, "nb_skipped": 0, "fix_commit": "692efde2", "nb_failure": 0, "id": "844", "linesRem": 0}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 1, 
+  "failing_tests": [
+    "testBadVisibility(org.apache.accumulo.core.iterators.system.VisibilityFilterTest): empty term near index 2(..)"
+  ], 
+  "nb_test": 307, 
+  "patch": "diff --git a/core/src/main/java/org/apache/accumulo/core/iterators/system/VisibilityFilter.java b/core/src/main/java/org/apache/accumulo/core/iterators/system/VisibilityFilter.java\nindex a41f7be..4902e61 100644\n--- a/core/src/main/java/org/apache/accumulo/core/iterators/system/VisibilityFilter.java\n+++ b/core/src/main/java/org/apache/accumulo/core/iterators/system/VisibilityFilter.java\n@@ -25,6 +25,7 @@ import org.apache.accumulo.core.security.Authorizations;\n import org.apache.accumulo.core.security.ColumnVisibility;\n import org.apache.accumulo.core.security.VisibilityEvaluator;\n import org.apache.accumulo.core.security.VisibilityParseException;\n+import org.apache.accumulo.core.util.BadArgumentException;\n import org.apache.accumulo.core.util.TextUtil;\n import org.apache.commons.collections.map.LRUMap;\n import org.apache.hadoop.io.Text;\n@@ -73,6 +74,9 @@ public class VisibilityFilter extends Filter {\n     } catch (VisibilityParseException e) {\n       log.error(\"Parse Error\", e);\n       return false;\n+    } catch (BadArgumentException e) {\n+      log.error(\"Parse Error\", e);\n+      return false;\n     }\n   }\n }\n", 
+  "project": "accumulo", 
+  "linesAdd": 4, 
+  "nb_skipped": 0, 
+  "fix_commit": "692efde2", 
+  "nb_failure": 0, 
+  "id": "844", 
+  "linesRem": 0
+}

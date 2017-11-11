@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["testFilter(org.apache.logging.log4j.core.filter.ThreadContextMapFilterTest)"], "nb_test": 112, "patch": "diff --git a/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java b/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\nindex 9ad6cab..b3f3838 100644\n--- a/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\n+++ b/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\n@@ -96,7 +96,7 @@ public class ThreadContextMapFilter extends MapFilter {\n                 }\n             }\n         } else {\n-            match = key.equals(ThreadContext.get(key));\n+            match = value.equals(ThreadContext.get(key));\n         }\n         return match ? onMatch : onMismatch;\n     }\n", "project": "logging-log4j2", "linesAdd": 1, "nb_skipped": 0, "fix_commit": "17296089", "nb_failure": 1, "id": "147", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "testFilter(org.apache.logging.log4j.core.filter.ThreadContextMapFilterTest)"
+  ], 
+  "nb_test": 112, 
+  "patch": "diff --git a/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java b/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\nindex 9ad6cab..b3f3838 100644\n--- a/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\n+++ b/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\n@@ -96,7 +96,7 @@ public class ThreadContextMapFilter extends MapFilter {\n                 }\n             }\n         } else {\n-            match = key.equals(ThreadContext.get(key));\n+            match = value.equals(ThreadContext.get(key));\n         }\n         return match ? onMatch : onMismatch;\n     }\n", 
+  "project": "logging-log4j2", 
+  "linesAdd": 1, 
+  "nb_skipped": 0, 
+  "fix_commit": "17296089", 
+  "nb_failure": 1, 
+  "id": "147", 
+  "linesRem": 1
+}

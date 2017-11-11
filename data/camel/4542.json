@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["testSplitUsingMethodCall(org.apache.camel.component.vm.VMSplitterTest): mock://result Received message count. Expected: <3> but was: <0>"], "nb_test": 3872, "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/model/language/MethodCallExpression.java b/camel-core/src/main/java/org/apache/camel/model/language/MethodCallExpression.java\nindex 796cbdd..2ac12c3 100644\n--- a/camel-core/src/main/java/org/apache/camel/model/language/MethodCallExpression.java\n+++ b/camel-core/src/main/java/org/apache/camel/model/language/MethodCallExpression.java\n@@ -170,7 +170,7 @@ public class MethodCallExpression extends ExpressionDefinition {\n             BeanHolder holder = new RegistryBean(camelContext, ref);\n             // get the bean which will check that it exists\n             instance = holder.getBean();\n-            answer = new BeanExpression(ref, getMethod());\n+            answer = new BeanExpression(instance, getMethod());\n         }\n \n         validateHasMethod(camelContext, instance, beanType, getMethod());\n", "project": "camel", "linesAdd": 1, "nb_skipped": 0, "fix_commit": "c408c3ed", "nb_failure": 1, "id": "4542", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "testSplitUsingMethodCall(org.apache.camel.component.vm.VMSplitterTest): mock://result Received message count. Expected: <3> but was: <0>"
+  ], 
+  "nb_test": 3872, 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/model/language/MethodCallExpression.java b/camel-core/src/main/java/org/apache/camel/model/language/MethodCallExpression.java\nindex 796cbdd..2ac12c3 100644\n--- a/camel-core/src/main/java/org/apache/camel/model/language/MethodCallExpression.java\n+++ b/camel-core/src/main/java/org/apache/camel/model/language/MethodCallExpression.java\n@@ -170,7 +170,7 @@ public class MethodCallExpression extends ExpressionDefinition {\n             BeanHolder holder = new RegistryBean(camelContext, ref);\n             // get the bean which will check that it exists\n             instance = holder.getBean();\n-            answer = new BeanExpression(ref, getMethod());\n+            answer = new BeanExpression(instance, getMethod());\n         }\n \n         validateHasMethod(camelContext, instance, beanType, getMethod());\n", 
+  "project": "camel", 
+  "linesAdd": 1, 
+  "nb_skipped": 0, 
+  "fix_commit": "c408c3ed", 
+  "nb_failure": 1, 
+  "id": "4542", 
+  "linesRem": 1
+}

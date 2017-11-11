@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["costEstimation(org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexTest): cost: 0.0"], "nb_test": 1269, "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/strategy/ContentMirrorStoreStrategy.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/strategy/ContentMirrorStoreStrategy.java\nindex 433bac3..97a3408 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/strategy/ContentMirrorStoreStrategy.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/strategy/ContentMirrorStoreStrategy.java\n@@ -164,7 +164,9 @@ public class ContentMirrorStoreStrategy implements IndexStoreStrategy {\n             int i = 0;\n             for (String p : values) {\n                 if (count > max && i > 3) {\n-                    count = count / size / i;\n+                    // the total count is extrapolated from the the number \n+                    // of values counted so far to the total number of values\n+                    count = count * size / i;\n                     break;\n                 }\n                 NodeState s = index.getChildNode(p);\n", "project": "jackrabbit-oak", "linesAdd": 3, "nb_skipped": 8, "fix_commit": "b2ca8baa", "nb_failure": 1, "id": "1035", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "costEstimation(org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexTest): cost: 0.0"
+  ], 
+  "nb_test": 1269, 
+  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/strategy/ContentMirrorStoreStrategy.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/strategy/ContentMirrorStoreStrategy.java\nindex 433bac3..97a3408 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/strategy/ContentMirrorStoreStrategy.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/strategy/ContentMirrorStoreStrategy.java\n@@ -164,7 +164,9 @@ public class ContentMirrorStoreStrategy implements IndexStoreStrategy {\n             int i = 0;\n             for (String p : values) {\n                 if (count > max && i > 3) {\n-                    count = count / size / i;\n+                    // the total count is extrapolated from the the number \n+                    // of values counted so far to the total number of values\n+                    count = count * size / i;\n                     break;\n                 }\n                 NodeState s = index.getChildNode(p);\n", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 3, 
+  "nb_skipped": 8, 
+  "fix_commit": "b2ca8baa", 
+  "nb_failure": 1, 
+  "id": "1035", 
+  "linesRem": 1
+}

@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["InterpolatorTest.testLookupWithDefaultInterpolator:96 No Date"], "nb_test": 531, "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\nindex a768f4e..f50293f 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\n@@ -71,6 +71,8 @@ public class Interpolator implements StrLookup {\n         lookups.put(\"sys\", new SystemPropertiesLookup());\n         lookups.put(\"env\", new EnvironmentLookup());\n         lookups.put(\"jndi\", new JndiLookup());\n+        lookups.put(\"date\", new DateLookup());\n+        lookups.put(\"ctx\", new ContextMapLookup());\n         try {\n             if (Class.forName(\"javax.servlet.ServletContext\") != null) {\n                 lookups.put(\"web\", new WebLookup());\n", "project": "logging-log4j2", "linesAdd": 2, "nb_skipped": 1, "fix_commit": "ef8517e4", "nb_failure": 1, "id": "378", "linesRem": 0}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "InterpolatorTest.testLookupWithDefaultInterpolator:96 No Date"
+  ], 
+  "nb_test": 531, 
+  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\nindex a768f4e..f50293f 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\n@@ -71,6 +71,8 @@ public class Interpolator implements StrLookup {\n         lookups.put(\"sys\", new SystemPropertiesLookup());\n         lookups.put(\"env\", new EnvironmentLookup());\n         lookups.put(\"jndi\", new JndiLookup());\n+        lookups.put(\"date\", new DateLookup());\n+        lookups.put(\"ctx\", new ContextMapLookup());\n         try {\n             if (Class.forName(\"javax.servlet.ServletContext\") != null) {\n                 lookups.put(\"web\", new WebLookup());\n", 
+  "project": "logging-log4j2", 
+  "linesAdd": 2, 
+  "nb_skipped": 1, 
+  "fix_commit": "ef8517e4", 
+  "nb_failure": 1, 
+  "id": "378", 
+  "linesRem": 0
+}

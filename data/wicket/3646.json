@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["testExceptionRequestHandlers(org.apache.wicket.request.cycle.RequestCycleListenerTest)"], "nb_test": 1119, "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/request/cycle/RequestCycle.java b/wicket-core/src/main/java/org/apache/wicket/request/cycle/RequestCycle.java\nindex d4a45d2..f1208b6 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/request/cycle/RequestCycle.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/request/cycle/RequestCycle.java\n@@ -668,7 +668,10 @@ public class RequestCycle implements IRequestCycle, IEventSink\n \t{\n \t\t// just delegating the call to {@link IRequestHandlerExecutor} and invoking listeners\n \t\trequestHandlerExecutor.schedule(handler);\n-\t\tlisteners.onRequestHandlerScheduled(handler);\n+\n+\t\t// only forward calls to the listeners when handler is null\n+\t\tif (handler != null)\n+\t\t\tlisteners.onRequestHandlerScheduled(handler);\n \t}\n \n \t/**\n", "project": "wicket", "linesAdd": 4, "nb_skipped": 0, "fix_commit": "12124902", "nb_failure": 1, "id": "3646", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "testExceptionRequestHandlers(org.apache.wicket.request.cycle.RequestCycleListenerTest)"
+  ], 
+  "nb_test": 1119, 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/request/cycle/RequestCycle.java b/wicket-core/src/main/java/org/apache/wicket/request/cycle/RequestCycle.java\nindex d4a45d2..f1208b6 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/request/cycle/RequestCycle.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/request/cycle/RequestCycle.java\n@@ -668,7 +668,10 @@ public class RequestCycle implements IRequestCycle, IEventSink\n \t{\n \t\t// just delegating the call to {@link IRequestHandlerExecutor} and invoking listeners\n \t\trequestHandlerExecutor.schedule(handler);\n-\t\tlisteners.onRequestHandlerScheduled(handler);\n+\n+\t\t// only forward calls to the listeners when handler is null\n+\t\tif (handler != null)\n+\t\t\tlisteners.onRequestHandlerScheduled(handler);\n \t}\n \n \t/**\n", 
+  "project": "wicket", 
+  "linesAdd": 4, 
+  "nb_skipped": 0, 
+  "fix_commit": "12124902", 
+  "nb_failure": 1, 
+  "id": "3646", 
+  "linesRem": 1
+}

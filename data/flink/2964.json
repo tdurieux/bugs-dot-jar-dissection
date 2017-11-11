@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 1, "failing_tests": ["HashTableTest.testSpillingWhenBuildingTableWithoutOverflow:234 \u00bb Runtime Bug i..."], "nb_test": 892, "patch": "diff --git a/flink-runtime/src/main/java/org/apache/flink/runtime/operators/hash/HashPartition.java b/flink-runtime/src/main/java/org/apache/flink/runtime/operators/hash/HashPartition.java\nindex 32fd74a..97bef4a 100644\n--- a/flink-runtime/src/main/java/org/apache/flink/runtime/operators/hash/HashPartition.java\n+++ b/flink-runtime/src/main/java/org/apache/flink/runtime/operators/hash/HashPartition.java\n@@ -207,7 +207,8 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See\n \t */\n \tpublic int getNumOccupiedMemorySegments() {\n \t\t// either the number of memory segments, or one for spilling\n-\t\tfinal int numPartitionBuffers = this.partitionBuffers != null ? this.partitionBuffers.length : 1;\n+\t\tfinal int numPartitionBuffers = this.partitionBuffers != null ?\n+\t\t\tthis.partitionBuffers.length : this.buildSideWriteBuffer.getNumOccupiedMemorySegments();\n \t\treturn numPartitionBuffers + numOverflowSegments;\n \t}\n \t\n@@ -541,6 +542,11 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See\n \t\tint getBlockCount() {\n \t\t\treturn this.currentBlockNumber + 1;\n \t\t}\n+\n+\t\tint getNumOccupiedMemorySegments() {\n+\t\t\t// return the current segment + all filled segments\n+\t\t\treturn this.targetList.size() + 1;\n+\t\t}\n \t\t\n \t\tint spill(BlockChannelWriter<MemorySegment> writer) throws IOException {\n \t\t\tthis.writer = writer;\n", "project": "flink", "linesAdd": 7, "nb_skipped": 1, "fix_commit": "76bebd42", "nb_failure": 0, "id": "2964", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 1, 
+  "failing_tests": [
+    "HashTableTest.testSpillingWhenBuildingTableWithoutOverflow:234 \u00bb Runtime Bug i..."
+  ], 
+  "nb_test": 892, 
+  "patch": "diff --git a/flink-runtime/src/main/java/org/apache/flink/runtime/operators/hash/HashPartition.java b/flink-runtime/src/main/java/org/apache/flink/runtime/operators/hash/HashPartition.java\nindex 32fd74a..97bef4a 100644\n--- a/flink-runtime/src/main/java/org/apache/flink/runtime/operators/hash/HashPartition.java\n+++ b/flink-runtime/src/main/java/org/apache/flink/runtime/operators/hash/HashPartition.java\n@@ -207,7 +207,8 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See\n \t */\n \tpublic int getNumOccupiedMemorySegments() {\n \t\t// either the number of memory segments, or one for spilling\n-\t\tfinal int numPartitionBuffers = this.partitionBuffers != null ? this.partitionBuffers.length : 1;\n+\t\tfinal int numPartitionBuffers = this.partitionBuffers != null ?\n+\t\t\tthis.partitionBuffers.length : this.buildSideWriteBuffer.getNumOccupiedMemorySegments();\n \t\treturn numPartitionBuffers + numOverflowSegments;\n \t}\n \t\n@@ -541,6 +542,11 @@ public class HashPartition<BT, PT> extends AbstractPagedInputView implements See\n \t\tint getBlockCount() {\n \t\t\treturn this.currentBlockNumber + 1;\n \t\t}\n+\n+\t\tint getNumOccupiedMemorySegments() {\n+\t\t\t// return the current segment + all filled segments\n+\t\t\treturn this.targetList.size() + 1;\n+\t\t}\n \t\t\n \t\tint spill(BlockChannelWriter<MemorySegment> writer) throws IOException {\n \t\t\tthis.writer = writer;\n", 
+  "project": "flink", 
+  "linesAdd": 7, 
+  "nb_skipped": 1, 
+  "fix_commit": "76bebd42", 
+  "nb_failure": 0, 
+  "id": "2964", 
+  "linesRem": 1
+}

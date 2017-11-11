@@ -1,1 +1,15 @@
-{"files": 1, "singleLine": true, "nb_error": 0, "failing_tests": [], "nb_test": 25, "patch": "diff --git a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java\nindex 2d2f29b..73f0a89 100644\n--- a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java\n+++ b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java\n@@ -274,6 +274,7 @@ public class OutputHandler<OUT> {\n \t\t@Override\n \t\tpublic void collect(T record) {\n \t\t\ttry {\n+\t\t\t\toperator.getRuntimeContext().setNextInput(record);\n \t\t\t\toperator.processElement(serializer.copy(record));\n \t\t\t} catch (Exception e) {\n \t\t\t\tif (LOG.isErrorEnabled()) {\n", "project": "flink", "linesAdd": 1, "nb_skipped": 0, "fix_commit": "fef9f115", "nb_failure": 0, "id": "2294", "linesRem": 0}
+{
+  "files": 1, 
+  "singleLine": true, 
+  "nb_error": 0, 
+  "failing_tests": [], 
+  "nb_test": 25, 
+  "patch": "diff --git a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java\nindex 2d2f29b..73f0a89 100644\n--- a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java\n+++ b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/runtime/tasks/OutputHandler.java\n@@ -274,6 +274,7 @@ public class OutputHandler<OUT> {\n \t\t@Override\n \t\tpublic void collect(T record) {\n \t\t\ttry {\n+\t\t\t\toperator.getRuntimeContext().setNextInput(record);\n \t\t\t\toperator.processElement(serializer.copy(record));\n \t\t\t} catch (Exception e) {\n \t\t\t\tif (LOG.isErrorEnabled()) {\n", 
+  "project": "flink", 
+  "linesAdd": 1, 
+  "nb_skipped": 0, 
+  "fix_commit": "fef9f115", 
+  "nb_failure": 0, 
+  "id": "2294", 
+  "linesRem": 0
+}

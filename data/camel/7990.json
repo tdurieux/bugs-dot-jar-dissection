@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 1, "failing_tests": ["IdempotentConsumerNoMessageIdTest>TestSupport.runBare:58->testNoMessageId:58 \u00bb CamelExecution"], "nb_test": 5103, "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/processor/idempotent/IdempotentConsumer.java b/camel-core/src/main/java/org/apache/camel/processor/idempotent/IdempotentConsumer.java\nindex 100a660..d3afe7a 100644\n--- a/camel-core/src/main/java/org/apache/camel/processor/idempotent/IdempotentConsumer.java\n+++ b/camel-core/src/main/java/org/apache/camel/processor/idempotent/IdempotentConsumer.java\n@@ -80,7 +80,9 @@ public class IdempotentConsumer extends ServiceSupport implements AsyncProcessor\n     public boolean process(Exchange exchange, AsyncCallback callback) {\n         final String messageId = messageIdExpression.evaluate(exchange, String.class);\n         if (messageId == null) {\n-            throw new NoMessageIdException(exchange, messageIdExpression);\n+            exchange.setException(new NoMessageIdException(exchange, messageIdExpression));\n+            callback.done(true);\n+            return true;\n         }\n \n         boolean newKey;\n", "project": "camel", "linesAdd": 3, "nb_skipped": 3, "fix_commit": "d581c4a4", "nb_failure": 0, "id": "7990", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 1, 
+  "failing_tests": [
+    "IdempotentConsumerNoMessageIdTest>TestSupport.runBare:58->testNoMessageId:58 \u00bb CamelExecution"
+  ], 
+  "nb_test": 5103, 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/processor/idempotent/IdempotentConsumer.java b/camel-core/src/main/java/org/apache/camel/processor/idempotent/IdempotentConsumer.java\nindex 100a660..d3afe7a 100644\n--- a/camel-core/src/main/java/org/apache/camel/processor/idempotent/IdempotentConsumer.java\n+++ b/camel-core/src/main/java/org/apache/camel/processor/idempotent/IdempotentConsumer.java\n@@ -80,7 +80,9 @@ public class IdempotentConsumer extends ServiceSupport implements AsyncProcessor\n     public boolean process(Exchange exchange, AsyncCallback callback) {\n         final String messageId = messageIdExpression.evaluate(exchange, String.class);\n         if (messageId == null) {\n-            throw new NoMessageIdException(exchange, messageIdExpression);\n+            exchange.setException(new NoMessageIdException(exchange, messageIdExpression));\n+            callback.done(true);\n+            return true;\n         }\n \n         boolean newKey;\n", 
+  "project": "camel", 
+  "linesAdd": 3, 
+  "nb_skipped": 3, 
+  "fix_commit": "d581c4a4", 
+  "nb_failure": 0, 
+  "id": "7990", 
+  "linesRem": 1
+}

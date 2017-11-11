@@ -1,1 +1,18 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["org.apache.maven.model.interpolation.StringSearchModelInterpolatorTest#testDefaultBuildTimestampFormatShouldFormatTimeIn24HourFormat ComparisonFailure", "org.apache.maven.model.interpolation.StringSearchModelInterpolatorTest#testDefaultBuildTimestampFormatWithLocalTimeZoneMidnightRollover ComparisonFailure"], "nb_test": 98, "patch": "diff --git a/maven-model-builder/src/main/java/org/apache/maven/model/interpolation/MavenBuildTimestamp.java b/maven-model-builder/src/main/java/org/apache/maven/model/interpolation/MavenBuildTimestamp.java\nindex d342566..447f0ef 100644\n--- a/maven-model-builder/src/main/java/org/apache/maven/model/interpolation/MavenBuildTimestamp.java\n+++ b/maven-model-builder/src/main/java/org/apache/maven/model/interpolation/MavenBuildTimestamp.java\n@@ -26,7 +26,8 @@\n \n public class MavenBuildTimestamp\n {\n-    public static final String DEFAULT_BUILD_TIMESTAMP_FORMAT = \"yyyyMMdd-HHmm\";\n+    // ISO 8601-compliant timestamp for machine readability\n+    public static final String DEFAULT_BUILD_TIMESTAMP_FORMAT = \"yyyy-MM-dd'T'HH:mm:ss'Z'\";\n \n     public static final String BUILD_TIMESTAMP_FORMAT_PROPERTY = \"maven.build.timestamp.format\";\n \n@@ -35,8 +36,8 @@\n     public MavenBuildTimestamp()\n     {\n         this( new Date() );\n-    }    \n-    \n+    }\n+\n     public MavenBuildTimestamp( Date time )\n     {\n         this( time, DEFAULT_BUILD_TIMESTAMP_FORMAT );\n", "project": "maven", "linesAdd": 4, "nb_skipped": 0, "fix_commit": "cdb8ad6d", "nb_failure": 2, "id": "5647", "linesRem": 3}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "org.apache.maven.model.interpolation.StringSearchModelInterpolatorTest#testDefaultBuildTimestampFormatShouldFormatTimeIn24HourFormat ComparisonFailure", 
+    "org.apache.maven.model.interpolation.StringSearchModelInterpolatorTest#testDefaultBuildTimestampFormatWithLocalTimeZoneMidnightRollover ComparisonFailure"
+  ], 
+  "nb_test": 98, 
+  "patch": "diff --git a/maven-model-builder/src/main/java/org/apache/maven/model/interpolation/MavenBuildTimestamp.java b/maven-model-builder/src/main/java/org/apache/maven/model/interpolation/MavenBuildTimestamp.java\nindex d342566..447f0ef 100644\n--- a/maven-model-builder/src/main/java/org/apache/maven/model/interpolation/MavenBuildTimestamp.java\n+++ b/maven-model-builder/src/main/java/org/apache/maven/model/interpolation/MavenBuildTimestamp.java\n@@ -26,7 +26,8 @@\n \n public class MavenBuildTimestamp\n {\n-    public static final String DEFAULT_BUILD_TIMESTAMP_FORMAT = \"yyyyMMdd-HHmm\";\n+    // ISO 8601-compliant timestamp for machine readability\n+    public static final String DEFAULT_BUILD_TIMESTAMP_FORMAT = \"yyyy-MM-dd'T'HH:mm:ss'Z'\";\n \n     public static final String BUILD_TIMESTAMP_FORMAT_PROPERTY = \"maven.build.timestamp.format\";\n \n@@ -35,8 +36,8 @@\n     public MavenBuildTimestamp()\n     {\n         this( new Date() );\n-    }    \n-    \n+    }\n+\n     public MavenBuildTimestamp( Date time )\n     {\n         this( time, DEFAULT_BUILD_TIMESTAMP_FORMAT );\n", 
+  "project": "maven", 
+  "linesAdd": 4, 
+  "nb_skipped": 0, 
+  "fix_commit": "cdb8ad6d", 
+  "nb_failure": 2, 
+  "id": "5647", 
+  "linesRem": 3
+}

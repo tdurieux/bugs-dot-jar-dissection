@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["testAggregateExpressionSize(org.apache.camel.processor.aggregator.AggregateExpressionSizeOverrideFixedTest): mock://aggregated Body of message: 0. Expected: <A+B+C> but was: <A+B>"], "nb_test": 4324, "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/processor/aggregate/AggregateProcessor.java b/camel-core/src/main/java/org/apache/camel/processor/aggregate/AggregateProcessor.java\nindex a5c592b..00cb744 100644\n--- a/camel-core/src/main/java/org/apache/camel/processor/aggregate/AggregateProcessor.java\n+++ b/camel-core/src/main/java/org/apache/camel/processor/aggregate/AggregateProcessor.java\n@@ -313,6 +313,9 @@ public class AggregateProcessor extends ServiceSupport implements Processor, Nav\n                 int size = exchange.getProperty(Exchange.AGGREGATED_SIZE, 1, Integer.class);\n                 if (size >= value) {\n                     return \"size\";\n+                } else {\n+                    // not completed yet\n+                    return null;\n                 }\n             }\n         }\n", "project": "camel", "linesAdd": 3, "nb_skipped": 1, "fix_commit": "4a05eccf", "nb_failure": 1, "id": "5720", "linesRem": 0}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "testAggregateExpressionSize(org.apache.camel.processor.aggregator.AggregateExpressionSizeOverrideFixedTest): mock://aggregated Body of message: 0. Expected: <A+B+C> but was: <A+B>"
+  ], 
+  "nb_test": 4324, 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/processor/aggregate/AggregateProcessor.java b/camel-core/src/main/java/org/apache/camel/processor/aggregate/AggregateProcessor.java\nindex a5c592b..00cb744 100644\n--- a/camel-core/src/main/java/org/apache/camel/processor/aggregate/AggregateProcessor.java\n+++ b/camel-core/src/main/java/org/apache/camel/processor/aggregate/AggregateProcessor.java\n@@ -313,6 +313,9 @@ public class AggregateProcessor extends ServiceSupport implements Processor, Nav\n                 int size = exchange.getProperty(Exchange.AGGREGATED_SIZE, 1, Integer.class);\n                 if (size >= value) {\n                     return \"size\";\n+                } else {\n+                    // not completed yet\n+                    return null;\n                 }\n             }\n         }\n", 
+  "project": "camel", 
+  "linesAdd": 3, 
+  "nb_skipped": 1, 
+  "fix_commit": "4a05eccf", 
+  "nb_failure": 1, 
+  "id": "5720", 
+  "linesRem": 0
+}

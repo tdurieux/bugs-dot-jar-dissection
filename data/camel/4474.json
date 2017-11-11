@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 1, "failing_tests": ["testAutoCreateDirectoryWithDot(org.apache.camel.component.file.FileConsumerAutoCreateDirectoryTest): Only directory is supported. Endpoint must be configured with a valid starting directory: target/file/foo.bar"], "nb_test": 3836, "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/component/file/FileEndpoint.java b/camel-core/src/main/java/org/apache/camel/component/file/FileEndpoint.java\nindex 8109971..b8aaff3 100644\n--- a/camel-core/src/main/java/org/apache/camel/component/file/FileEndpoint.java\n+++ b/camel-core/src/main/java/org/apache/camel/component/file/FileEndpoint.java\n@@ -49,14 +49,8 @@ public class FileEndpoint extends GenericFileEndpoint<File> {\n         ObjectHelper.notNull(operations, \"operations\");\n         ObjectHelper.notNull(file, \"file\");\n \n-        // we assume its a file if the name has a dot in it (eg foo.txt)\n-        boolean isDirectory = file.isDirectory();\n-        if (!isDirectory && file.getName().contains(\".\")) {\n-            throw new IllegalArgumentException(\"Only directory is supported. Endpoint must be configured with a valid starting directory: \" + file);\n-        }\n-\n         // auto create starting directory if needed\n-        if (!file.exists() && !isDirectory) {\n+        if (!file.exists() && !file.isDirectory()) {\n             if (isAutoCreate()) {\n                 log.debug(\"Creating non existing starting directory: {}\", file);\n                 boolean absolute = FileUtil.isAbsolute(file);\n", "project": "camel", "linesAdd": 1, "nb_skipped": 0, "fix_commit": "06a8489a", "nb_failure": 0, "id": "4474", "linesRem": 7}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 1, 
+  "failing_tests": [
+    "testAutoCreateDirectoryWithDot(org.apache.camel.component.file.FileConsumerAutoCreateDirectoryTest): Only directory is supported. Endpoint must be configured with a valid starting directory: target/file/foo.bar"
+  ], 
+  "nb_test": 3836, 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/component/file/FileEndpoint.java b/camel-core/src/main/java/org/apache/camel/component/file/FileEndpoint.java\nindex 8109971..b8aaff3 100644\n--- a/camel-core/src/main/java/org/apache/camel/component/file/FileEndpoint.java\n+++ b/camel-core/src/main/java/org/apache/camel/component/file/FileEndpoint.java\n@@ -49,14 +49,8 @@ public class FileEndpoint extends GenericFileEndpoint<File> {\n         ObjectHelper.notNull(operations, \"operations\");\n         ObjectHelper.notNull(file, \"file\");\n \n-        // we assume its a file if the name has a dot in it (eg foo.txt)\n-        boolean isDirectory = file.isDirectory();\n-        if (!isDirectory && file.getName().contains(\".\")) {\n-            throw new IllegalArgumentException(\"Only directory is supported. Endpoint must be configured with a valid starting directory: \" + file);\n-        }\n-\n         // auto create starting directory if needed\n-        if (!file.exists() && !isDirectory) {\n+        if (!file.exists() && !file.isDirectory()) {\n             if (isAutoCreate()) {\n                 log.debug(\"Creating non existing starting directory: {}\", file);\n                 boolean absolute = FileUtil.isAbsolute(file);\n", 
+  "project": "camel", 
+  "linesAdd": 1, 
+  "nb_skipped": 0, 
+  "fix_commit": "06a8489a", 
+  "nb_failure": 0, 
+  "id": "4474", 
+  "linesRem": 7
+}

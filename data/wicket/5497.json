@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 1, "failing_tests": ["asArray(org.apache.wicket.ajax.json.JsonUtilsTest)"], "nb_test": 1575, "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/ajax/json/JsonUtils.java b/wicket-core/src/main/java/org/apache/wicket/ajax/json/JsonUtils.java\nindex f4b8a9b..ece4997 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/ajax/json/JsonUtils.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/ajax/json/JsonUtils.java\n@@ -58,23 +58,23 @@ public final class JsonUtils\n \t\t\t\t\t\t}\n \t\t\t\t\t}\n \t\t\t\t}\n-\t\t\t\telse if (value.getClass().isArray())\n+\t\t\t\telse if (value != null)\n \t\t\t\t{\n-\t\t\t\t\tObject[] array = (Object[]) value;\n-\t\t\t\t\tfor (Object v : array)\n+\t\t\t\t\tif (value.getClass().isArray())\n \t\t\t\t\t{\n-\t\t\t\t\t\tif (v != null)\n+\t\t\t\t\t\tObject[] array = (Object[]) value;\n+\t\t\t\t\t\tfor (Object v : array)\n \t\t\t\t\t\t{\n-\t\t\t\t\t\t\tJSONObject object = new JSONObject();\n-\t\t\t\t\t\t\tobject.put(\"name\", name);\n-\t\t\t\t\t\t\tobject.put(\"value\", v);\n-\t\t\t\t\t\t\tjsonArray.put(object);\n+\t\t\t\t\t\t\tif (v != null)\n+\t\t\t\t\t\t\t{\n+\t\t\t\t\t\t\t\tJSONObject object = new JSONObject();\n+\t\t\t\t\t\t\t\tobject.put(\"name\", name);\n+\t\t\t\t\t\t\t\tobject.put(\"value\", v);\n+\t\t\t\t\t\t\t\tjsonArray.put(object);\n+\t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n \t\t\t\t\t}\n-\t\t\t\t}\n-\t\t\t\telse\n-\t\t\t\t{\n-\t\t\t\t\tif (value != null)\n+\t\t\t\t\telse\n \t\t\t\t\t{\n \t\t\t\t\t\tJSONObject object = new JSONObject();\n \t\t\t\t\t\tobject.put(\"name\", name);\n", "project": "wicket", "linesAdd": 12, "nb_skipped": 2, "fix_commit": "724066f4", "nb_failure": 0, "id": "5497", "linesRem": 12}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 1, 
+  "failing_tests": [
+    "asArray(org.apache.wicket.ajax.json.JsonUtilsTest)"
+  ], 
+  "nb_test": 1575, 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/ajax/json/JsonUtils.java b/wicket-core/src/main/java/org/apache/wicket/ajax/json/JsonUtils.java\nindex f4b8a9b..ece4997 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/ajax/json/JsonUtils.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/ajax/json/JsonUtils.java\n@@ -58,23 +58,23 @@ public final class JsonUtils\n \t\t\t\t\t\t}\n \t\t\t\t\t}\n \t\t\t\t}\n-\t\t\t\telse if (value.getClass().isArray())\n+\t\t\t\telse if (value != null)\n \t\t\t\t{\n-\t\t\t\t\tObject[] array = (Object[]) value;\n-\t\t\t\t\tfor (Object v : array)\n+\t\t\t\t\tif (value.getClass().isArray())\n \t\t\t\t\t{\n-\t\t\t\t\t\tif (v != null)\n+\t\t\t\t\t\tObject[] array = (Object[]) value;\n+\t\t\t\t\t\tfor (Object v : array)\n \t\t\t\t\t\t{\n-\t\t\t\t\t\t\tJSONObject object = new JSONObject();\n-\t\t\t\t\t\t\tobject.put(\"name\", name);\n-\t\t\t\t\t\t\tobject.put(\"value\", v);\n-\t\t\t\t\t\t\tjsonArray.put(object);\n+\t\t\t\t\t\t\tif (v != null)\n+\t\t\t\t\t\t\t{\n+\t\t\t\t\t\t\t\tJSONObject object = new JSONObject();\n+\t\t\t\t\t\t\t\tobject.put(\"name\", name);\n+\t\t\t\t\t\t\t\tobject.put(\"value\", v);\n+\t\t\t\t\t\t\t\tjsonArray.put(object);\n+\t\t\t\t\t\t\t}\n \t\t\t\t\t\t}\n \t\t\t\t\t}\n-\t\t\t\t}\n-\t\t\t\telse\n-\t\t\t\t{\n-\t\t\t\t\tif (value != null)\n+\t\t\t\t\telse\n \t\t\t\t\t{\n \t\t\t\t\t\tJSONObject object = new JSONObject();\n \t\t\t\t\t\tobject.put(\"name\", name);\n", 
+  "project": "wicket", 
+  "linesAdd": 12, 
+  "nb_skipped": 2, 
+  "fix_commit": "724066f4", 
+  "nb_failure": 0, 
+  "id": "5497", 
+  "linesRem": 12
+}

@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["testPcts(org.apache.commons.math.stat.FrequencyTest)"], "nb_test": 2125, "patch": "diff --git a/src/main/java/org/apache/commons/math/stat/Frequency.java b/src/main/java/org/apache/commons/math/stat/Frequency.java\nindex c45d728..68c8bf2 100644\n--- a/src/main/java/org/apache/commons/math/stat/Frequency.java\n+++ b/src/main/java/org/apache/commons/math/stat/Frequency.java\n@@ -300,7 +300,7 @@ public class Frequency implements Serializable {\n      */\n     @Deprecated\n     public double getPct(Object v) {\n-        return getCumPct((Comparable<?>) v);\n+        return getPct((Comparable<?>) v);\n     }\n \n     /**\n", "project": "commons-math", "linesAdd": 1, "nb_skipped": 0, "fix_commit": "6dd3724b", "nb_failure": 1, "id": "329", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "testPcts(org.apache.commons.math.stat.FrequencyTest)"
+  ], 
+  "nb_test": 2125, 
+  "patch": "diff --git a/src/main/java/org/apache/commons/math/stat/Frequency.java b/src/main/java/org/apache/commons/math/stat/Frequency.java\nindex c45d728..68c8bf2 100644\n--- a/src/main/java/org/apache/commons/math/stat/Frequency.java\n+++ b/src/main/java/org/apache/commons/math/stat/Frequency.java\n@@ -300,7 +300,7 @@ public class Frequency implements Serializable {\n      */\n     @Deprecated\n     public double getPct(Object v) {\n-        return getCumPct((Comparable<?>) v);\n+        return getPct((Comparable<?>) v);\n     }\n \n     /**\n", 
+  "project": "commons-math", 
+  "linesAdd": 1, 
+  "nb_skipped": 0, 
+  "fix_commit": "6dd3724b", 
+  "nb_failure": 1, 
+  "id": "329", 
+  "linesRem": 1
+}

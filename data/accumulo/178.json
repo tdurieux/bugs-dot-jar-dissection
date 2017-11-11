@@ -1,1 +1,19 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["test3(org.apache.accumulo.core.iterators.FamilyIntersectingIteratorTest)", "test1(org.apache.accumulo.core.iterators.FamilyIntersectingIteratorTest)", "test2(org.apache.accumulo.core.iterators.FamilyIntersectingIteratorTest)"], "nb_test": 259, "patch": "diff --git a/src/core/src/main/java/org/apache/accumulo/core/iterators/FamilyIntersectingIterator.java b/src/core/src/main/java/org/apache/accumulo/core/iterators/FamilyIntersectingIterator.java\nindex 6df0e80..f870b30 100644\n--- a/src/core/src/main/java/org/apache/accumulo/core/iterators/FamilyIntersectingIterator.java\n+++ b/src/core/src/main/java/org/apache/accumulo/core/iterators/FamilyIntersectingIterator.java\n@@ -151,7 +151,7 @@ public class FamilyIntersectingIterator extends IntersectingIterator {\n     if (log.isTraceEnabled())\n       log.trace(zeroIndex + \" \" + currentDocID.getLength());\n     Text colq = new Text();\n-    colq.set(currentDocID.getBytes(), zeroIndex + 1, currentDocID.getLength() - zeroIndex - 2);\n+    colq.set(currentDocID.getBytes(), zeroIndex + 1, currentDocID.getLength() - zeroIndex - 1);\n     Key k = new Key(currentPartition, colf, colq);\n     if (log.isTraceEnabled())\n       log.trace(\"built doc key for seek: \" + k.toString());\n", "project": "accumulo", "linesAdd": 1, "nb_skipped": 0, "fix_commit": "efef09b0", "nb_failure": 3, "id": "178", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "test3(org.apache.accumulo.core.iterators.FamilyIntersectingIteratorTest)", 
+    "test1(org.apache.accumulo.core.iterators.FamilyIntersectingIteratorTest)", 
+    "test2(org.apache.accumulo.core.iterators.FamilyIntersectingIteratorTest)"
+  ], 
+  "nb_test": 259, 
+  "patch": "diff --git a/src/core/src/main/java/org/apache/accumulo/core/iterators/FamilyIntersectingIterator.java b/src/core/src/main/java/org/apache/accumulo/core/iterators/FamilyIntersectingIterator.java\nindex 6df0e80..f870b30 100644\n--- a/src/core/src/main/java/org/apache/accumulo/core/iterators/FamilyIntersectingIterator.java\n+++ b/src/core/src/main/java/org/apache/accumulo/core/iterators/FamilyIntersectingIterator.java\n@@ -151,7 +151,7 @@ public class FamilyIntersectingIterator extends IntersectingIterator {\n     if (log.isTraceEnabled())\n       log.trace(zeroIndex + \" \" + currentDocID.getLength());\n     Text colq = new Text();\n-    colq.set(currentDocID.getBytes(), zeroIndex + 1, currentDocID.getLength() - zeroIndex - 2);\n+    colq.set(currentDocID.getBytes(), zeroIndex + 1, currentDocID.getLength() - zeroIndex - 1);\n     Key k = new Key(currentPartition, colf, colq);\n     if (log.isTraceEnabled())\n       log.trace(\"built doc key for seek: \" + k.toString());\n", 
+  "project": "accumulo", 
+  "linesAdd": 1, 
+  "nb_skipped": 0, 
+  "fix_commit": "efef09b0", 
+  "nb_failure": 3, 
+  "id": "178", 
+  "linesRem": 1
+}

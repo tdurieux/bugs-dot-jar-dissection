@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["testEndpointShutdown(org.apache.camel.impl.EndpointShutdownOnceTest)"], "nb_test": 3167, "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java b/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\nindex a8b9c80..f1dd98d 100644\n--- a/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\n+++ b/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\n@@ -891,7 +891,8 @@ public class DefaultCamelContext extends ServiceSupport implements CamelContext,\n             if (service instanceof IsSingleton) {\n                 singleton = ((IsSingleton) service).isSingleton();\n             }\n-            if (singleton) {\n+            // do not add endpoints as they have their own list\n+            if (singleton && !(service instanceof Endpoint)) {\n                 servicesToClose.add(service);\n             }\n         }\n", "project": "camel", "linesAdd": 2, "nb_skipped": 0, "fix_commit": "2a3f3392", "nb_failure": 1, "id": "3690", "linesRem": 1}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "testEndpointShutdown(org.apache.camel.impl.EndpointShutdownOnceTest)"
+  ], 
+  "nb_test": 3167, 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java b/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\nindex a8b9c80..f1dd98d 100644\n--- a/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\n+++ b/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\n@@ -891,7 +891,8 @@ public class DefaultCamelContext extends ServiceSupport implements CamelContext,\n             if (service instanceof IsSingleton) {\n                 singleton = ((IsSingleton) service).isSingleton();\n             }\n-            if (singleton) {\n+            // do not add endpoints as they have their own list\n+            if (singleton && !(service instanceof Endpoint)) {\n                 servicesToClose.add(service);\n             }\n         }\n", 
+  "project": "camel", 
+  "linesAdd": 2, 
+  "nb_skipped": 0, 
+  "fix_commit": "2a3f3392", 
+  "nb_failure": 1, 
+  "id": "3690", 
+  "linesRem": 1
+}

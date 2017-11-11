@@ -1,1 +1,17 @@
-{"files": 1, "singleLine": false, "nb_error": 0, "failing_tests": ["testDelete(org.apache.accumulo.proxy.SimpleTest): expected:<0> but was:<1>"], "nb_test": 33, "patch": "diff --git a/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java b/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\nindex 3c5c88a..c6e74f1 100644\n--- a/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\n+++ b/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\n@@ -1126,14 +1126,14 @@ public class ProxyServer implements AccumuloProxy.Iface {\n           if (update.isSetDeleteCell()) {\n             m.putDelete(update.getColFamily(), update.getColQualifier(), viz, update.getTimestamp());\n           } else {\n-            if (update.isSetDeleteCell()) {\n-              m.putDelete(update.getColFamily(), update.getColQualifier(), viz, update.getTimestamp());\n-            } else {\n-              m.put(update.getColFamily(), update.getColQualifier(), viz, update.getTimestamp(), value);\n+            m.put(new Text(update.getColFamily()), new Text(update.getColQualifier()), viz, update.getTimestamp(), new Value(value));\n             }\n-          }\n         } else {\n-          m.put(update.getColFamily(), update.getColQualifier(), viz, value);\n+          if (update.isSetDeleteCell()) {\n+            m.putDelete(new Text(update.getColFamily()), new Text(update.getColQualifier()), viz);\n+          } else {\n+            m.put(new Text(update.getColFamily()), new Text(update.getColQualifier()), viz, new Value(value));\n+          }\n         }\n       }\n       try {\n", "project": "accumulo", "linesAdd": 6, "nb_skipped": 0, "fix_commit": "8ec4cb84", "nb_failure": 1, "id": "1800", "linesRem": 6}
+{
+  "files": 1, 
+  "singleLine": false, 
+  "nb_error": 0, 
+  "failing_tests": [
+    "testDelete(org.apache.accumulo.proxy.SimpleTest): expected:<0> but was:<1>"
+  ], 
+  "nb_test": 33, 
+  "patch": "diff --git a/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java b/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\nindex 3c5c88a..c6e74f1 100644\n--- a/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\n+++ b/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\n@@ -1126,14 +1126,14 @@ public class ProxyServer implements AccumuloProxy.Iface {\n           if (update.isSetDeleteCell()) {\n             m.putDelete(update.getColFamily(), update.getColQualifier(), viz, update.getTimestamp());\n           } else {\n-            if (update.isSetDeleteCell()) {\n-              m.putDelete(update.getColFamily(), update.getColQualifier(), viz, update.getTimestamp());\n-            } else {\n-              m.put(update.getColFamily(), update.getColQualifier(), viz, update.getTimestamp(), value);\n+            m.put(new Text(update.getColFamily()), new Text(update.getColQualifier()), viz, update.getTimestamp(), new Value(value));\n             }\n-          }\n         } else {\n-          m.put(update.getColFamily(), update.getColQualifier(), viz, value);\n+          if (update.isSetDeleteCell()) {\n+            m.putDelete(new Text(update.getColFamily()), new Text(update.getColQualifier()), viz);\n+          } else {\n+            m.put(new Text(update.getColFamily()), new Text(update.getColQualifier()), viz, new Value(value));\n+          }\n         }\n       }\n       try {\n", 
+  "project": "accumulo", 
+  "linesAdd": 6, 
+  "nb_skipped": 0, 
+  "fix_commit": "8ec4cb84", 
+  "nb_failure": 1, 
+  "id": "1800", 
+  "linesRem": 6
+}
