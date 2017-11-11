@@ -14,7 +14,7 @@ def get_bug_branches(project_path):
     output = subprocess.check_output(cmd, shell=True)
     for line in output.split():
         if "bugs-dot-jar_" in line:
-            branches += [line]
+            branches += [line.replace(")", "")]
     return branches
 
 
@@ -25,9 +25,18 @@ def extract_bug_id(branch):
 
 
 def create_bug(project_path, branch_name, destination):
-    cmd = "cd %s; git checkout %s;" % (project_path, branch_name)
-    subprocess.call(cmd, shell=True)
+    FNULL = open(os.devnull, 'w')
+
+    cmd = "cd %s; git checkout checkout -- .; git checkout %s;" % (project_path, branch_name)
+    subprocess.call(cmd, shell=True, stdout=FNULL, stderr=FNULL)
     shutil.copytree(project_path, destination)
+    # generate a simplified patch
+    cmd = "cd %s;  git apply .bugs-dot-jar/developer-patch.diff; git diff --ignore-all-space --minimal --ignore-blank-lines;" % destination
+    human_patch = subprocess.check_output(cmd, shell=True)
+    cmd = "cd %s;  git checkout -- .;" % destination
+    subprocess.call(cmd, shell=True, stdout=FNULL, stderr=FNULL)
+    with open(os.path.join(destination, ".bugs-dot-jar", "developer-patch.diff"), 'w') as fd:
+        fd.write(human_patch)
     shutil.rmtree(os.path.join(destination, ".git"))
 
 
@@ -44,7 +53,7 @@ def get_failing_tests(bug_path):
     with open(diff_patch) as fd:
         maven_log = fd.read()
         if "Results :" not in maven_log:
-            print("Test results not found", bug_path)
+            print("[Error] Test results not found: %s" % bug_path)
             return tests, total, failure, error, skipped
         index = maven_log.index("Results :") + 10
         for line in maven_log[index::].split("\n"):
@@ -98,6 +107,7 @@ for project_name in os.listdir(REPOSITORIES_PATH):
         bug_data_path = os.path.join(project_data_path, jira_id + ".json")
 
         if not os.path.exists(bug_path):
+            print("[Checkout] %s %s %s" % (project_name, jira_id, fix_commit))
             create_bug(project_path, branch, bug_path)
 
         bug = {
@@ -112,7 +122,7 @@ for project_name in os.listdir(REPOSITORIES_PATH):
         bug['linesAdd'] = bug['patch'].count("\n+") - bug['files']
         bug['linesRem'] = bug['patch'].count("\n-") - bug['files']
         bug['singleLine'] = (bug['linesAdd'] == 1 and bug['linesRem'] == 0) or (
-        bug['linesAdd'] == 0 and bug['linesRem'] == 1)
+            bug['linesAdd'] == 0 and bug['linesRem'] == 1)
 
         # failing tests
         (tests, total, failure, error, skipped) = get_failing_tests(bug_path)
@@ -123,7 +133,7 @@ for project_name in os.listdir(REPOSITORIES_PATH):
         bug['nb_skipped'] = skipped
 
         with open(bug_data_path, 'w') as fd:
-            json.dump(bug, fd)
+            json.dump(bug, fd, indent=2)
 
         with open(os.path.join(bug_path, ".bugs-dot-jar", "info.json"), 'w') as fd:
-            json.dump(bug, fd)
+            json.dump(bug, fd, indent=2)
