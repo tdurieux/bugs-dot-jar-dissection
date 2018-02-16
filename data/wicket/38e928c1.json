@@ -1,0 +1,22 @@
+{
+  "files": 1, 
+  "nb_test": 1279, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "testPage1(org.apache.wicket.resource.aggregator.ResourceAggregatorRenderTest): org/apache/wicket/resource/aggregator/ResourceAggregatorTest1Page_results.html expected:<.../1999/xhtml\">(..)", 
+    "testPage2(org.apache.wicket.resource.aggregator.ResourceAggregatorRenderTest): org/apache/wicket/resource/aggregator/ResourceAggregatorTest2Page_results.html expected:<.../1999/xhtml\">(..)", 
+    "headerScoping2(org.apache.wicket.markup.html.header.HeaderScopingTest): org/apache/wicket/markup/html/header/MyPage2_ExpectedResult.html expected:<...EN\">(..)", 
+    "testAllMarkup(org.apache.wicket.markup.html.header.response.HeaderResponseTest): org/apache/wicket/markup/html/header/response/ExpectedResult.html expected:<...lWithHeader</title>(..)"
+  ], 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/markup/renderStrategy/ChildFirstHeaderRenderStrategy.java b/wicket-core/src/main/java/org/apache/wicket/markup/renderStrategy/ChildFirstHeaderRenderStrategy.java\nindex cf4d8da..8938182 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/markup/renderStrategy/ChildFirstHeaderRenderStrategy.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/markup/renderStrategy/ChildFirstHeaderRenderStrategy.java\n@@ -80,8 +80,11 @@ protected void renderChildHeaders(final HtmlHeaderContainer headerContainer,\n \t\t\t\t@Override\n \t\t\t\tpublic void component(final Component component, final IVisit<Void> visit)\n \t\t\t\t{\n+\t\t\t\t\tif (component != rootComponent)\n+\t\t\t\t\t{\n \t\t\t\t\t\tcomponent.renderHead(headerContainer);\n \t\t\t\t\t}\n+\t\t\t\t}\n \n \t\t\t\t@Override\n \t\t\t\tpublic boolean preCheck(Component component)\n", 
+  "project": "wicket", 
+  "linesAdd": 3, 
+  "jira_id": "4000", 
+  "nb_skipped": 4, 
+  "commit": "38e928c1", 
+  "nb_failure": 4, 
+  "linesRem": 0
+}

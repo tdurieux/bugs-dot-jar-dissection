@@ -1,0 +1,26 @@
+{
+  "files": 1, 
+  "nb_test": 5030, 
+  "nb_error": 5, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "VmMultipleConsumersMultipleContextTest>TestSupport.runBare:58->testVmMultipleConsumersDifferentEndpoints:145 mock://route1 Received message count. Expected: <100> but was: <95>", 
+    "VmMultipleConsumersMultipleContextTest>TestSupport.runBare:58->testVmMultipleConsumersMultipleContext:96 mock://route1 Received message count. Expected: <100> but was: <105>", 
+    "ManagedThrottlerTest>TestSupport.runBare:58->testThrottleAsyncVisableViaJmx:189 expected:<10> but was:<9>", 
+    "PropertiesComponentLoadPropertiesFromFileTest>TestSupport.runBare:58->PropertiesComponentTest.testPropertiesComponentParameterizedPropertyPrefix:306 \u00bb FailedToCreateRoute", 
+    "PropertiesComponentTest>TestSupport.runBare:58->testPropertiesComponentParameterizedPropertyPrefix:306 \u00bb FailedToCreateRoute", 
+    "VmMultipleContextsStartStopTest>TestSupport.runBare:58->AbstractVmTestSupport.setUp:48 \u00bb IllegalArgument", 
+    "VmQueueTest>TestSupport.runBare:58->AbstractVmTestSupport.setUp:48 \u00bb FailedToCreateRoute", 
+    "VmShouldNotUseSameThreadTest>TestSupport.runBare:58->AbstractVmTestSupport.setUp:39->ContextTestSupport.setUp:117->ContextTestSupport.startCamelContext:174 \u00bb IllegalArgument"
+  ], 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/component/properties/PropertiesComponent.java b/camel-core/src/main/java/org/apache/camel/component/properties/PropertiesComponent.java\nindex 7d0e75c..3a7c13d 100644\n--- a/camel-core/src/main/java/org/apache/camel/component/properties/PropertiesComponent.java\n+++ b/camel-core/src/main/java/org/apache/camel/component/properties/PropertiesComponent.java\n@@ -204,6 +204,9 @@ public String getPropertyPrefix() {\n \n     public void setPropertyPrefix(String propertyPrefix) {\n         this.propertyPrefix = propertyPrefix;\n+        if (ObjectHelper.isNotEmpty(this.propertyPrefix)) {\n+            this.propertyPrefix = FilePathResolver.resolvePath(this.propertyPrefix);\n+        }\n     }\n \n     public String getPropertySuffix() {\n@@ -212,6 +215,9 @@ public String getPropertySuffix() {\n \n     public void setPropertySuffix(String propertySuffix) {\n         this.propertySuffix = propertySuffix;\n+        if (ObjectHelper.isNotEmpty(this.propertySuffix)) {\n+            this.propertySuffix = FilePathResolver.resolvePath(this.propertySuffix);\n+        }\n     }\n \n     public boolean isFallbackToUnaugmentedProperty() {\n", 
+  "project": "camel", 
+  "linesAdd": 6, 
+  "jira_id": "7456", 
+  "nb_skipped": 3, 
+  "commit": "02da984a", 
+  "nb_failure": 3, 
+  "linesRem": 0
+}

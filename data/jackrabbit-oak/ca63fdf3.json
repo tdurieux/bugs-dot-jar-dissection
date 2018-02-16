@@ -1,0 +1,19 @@
+{
+  "files": 1, 
+  "nb_test": 17, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "verifyPrivileges(org.apache.jackrabbit.oak.upgrade.RepositoryUpgradeTest): Miss match in aggregate privilege jcr:write expected [jcr:modifyProperties, rep:addProperties, rep:alterProperties, rep:removeProperties, jcr:addChildNodes, jcr:removeChildNodes, jcr:removeNode] actual [jcr:addChildNodes, jcr:removeChildNodes, jcr:removeNode, jcr:modifyProperties]"
+  ], 
+  "patch": "diff --git a/oak-upgrade/src/main/java/org/apache/jackrabbit/oak/upgrade/RepositoryUpgrade.java b/oak-upgrade/src/main/java/org/apache/jackrabbit/oak/upgrade/RepositoryUpgrade.java\nindex 6db5152..27e82ab 100644\n--- a/oak-upgrade/src/main/java/org/apache/jackrabbit/oak/upgrade/RepositoryUpgrade.java\n+++ b/oak-upgrade/src/main/java/org/apache/jackrabbit/oak/upgrade/RepositoryUpgrade.java\n@@ -257,6 +257,9 @@ public void copy(RepositoryInitializer initializer) throws RepositoryException {\n                 initializer.initialize(builder);\n             }\n             for (SecurityConfiguration sc : security.getConfigurations()) {\n+                sc.getRepositoryInitializer().initialize(builder);\n+            }\n+            for (SecurityConfiguration sc : security.getConfigurations()) {\n                 sc.getWorkspaceInitializer().initialize(builder, workspaceName);\n             }\n \n", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 3, 
+  "jira_id": "2047", 
+  "nb_skipped": 0, 
+  "commit": "ca63fdf3", 
+  "nb_failure": 1, 
+  "linesRem": 0
+}

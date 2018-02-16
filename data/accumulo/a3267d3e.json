@@ -1,0 +1,19 @@
+{
+  "files": 1, 
+  "nb_test": 697, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "ReverseLexicoderTest.testReverseSortDates:55->LexicoderTest.assertSortOrder:57 expected:<[Tue Jul 26 05:06:42 PDT 2016, Tue Jul 26 05:06:33 PDT 2016, Tue Jul 26 05:06:32 PDT 2016, Mon Feb 02 03:04:05 PST 1920]> but was:<[Mon Feb 02 03:04:05 PST 1920, Tue Jul 26 05:06:42 PDT 2016, Tue Jul 26 05:06:33 PDT 2016, Tue Jul 26 05:06:32 PDT 2016]>"
+  ], 
+  "patch": "diff --git a/core/src/main/java/org/apache/accumulo/core/client/lexicoder/DateLexicoder.java b/core/src/main/java/org/apache/accumulo/core/client/lexicoder/DateLexicoder.java\nindex c93ba70..8533bfe 100644\n--- a/core/src/main/java/org/apache/accumulo/core/client/lexicoder/DateLexicoder.java\n+++ b/core/src/main/java/org/apache/accumulo/core/client/lexicoder/DateLexicoder.java\n@@ -20,11 +20,12 @@\n \n /**\n  * A lexicoder for date objects. It preserves the native Java sort order for Date.\n+ *\n  * @since 1.6.0\n  */\n public class DateLexicoder implements Lexicoder<Date> {\n \n-  private ULongLexicoder longEncoder = new ULongLexicoder();\n+  private LongLexicoder longEncoder = new LongLexicoder();\n \n   @Override\n   public byte[] encode(Date data) {\n", 
+  "project": "accumulo", 
+  "linesAdd": 2, 
+  "jira_id": "3385", 
+  "nb_skipped": 2, 
+  "commit": "a3267d3e", 
+  "nb_failure": 1, 
+  "linesRem": 1
+}

@@ -1,0 +1,25 @@
+{
+  "files": 0, 
+  "nb_test": 128, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "validateMigration(org.apache.jackrabbit.oak.upgrade.cli.blob.FbsToFbsTest): expected:<123> but was:<null>", 
+    "validateMigration(org.apache.jackrabbit.oak.upgrade.cli.blob.CopyReferencesTest): expected:<123> but was:<null>", 
+    "validateMigration(org.apache.jackrabbit.oak.upgrade.cli.blob.FdsToFbsTest): expected:<123> but was:<null>", 
+    "validateMigration(org.apache.jackrabbit.oak.upgrade.cli.blob.FbsToFdsTest): expected:<123> but was:<null>", 
+    "validateMigration(org.apache.jackrabbit.oak.upgrade.cli.SegmentToSegmentTarTest): expected:<123> but was:<null>", 
+    "validateMigration(org.apache.jackrabbit.oak.upgrade.cli.SegmentTarToSegmentTest): expected:<123> but was:<null>", 
+    "validateMigration(org.apache.jackrabbit.oak.upgrade.cli.SegmentToSegmentTest): expected:<123> but was:<null>"
+  ], 
+  "patch": "", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 0, 
+  "jira_id": "4420", 
+  "nb_skipped": 7, 
+  "commit": "d645112f", 
+  "nb_failure": 7, 
+  "linesRem": 0
+}

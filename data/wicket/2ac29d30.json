@@ -1,0 +1,40 @@
+{
+  "files": 2, 
+  "nb_test": 1679, 
+  "nb_error": 22, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "WebPageRendererTest.testRedirectPolicyNever:233 \u00bb WicketRuntime There is no ap...", 
+    "WebPageRendererTest.testRedirectToBufferIsFallback:983 \u00bb WicketRuntime There i...", 
+    "WebPageRendererTest.testRedirectPolicyAlways:359 \u00bb WicketRuntime There is no a...", 
+    "WebPageRendererTest.testShouldPreserveClientUrlAndAjaxRequest:1007 \u00bb WicketRuntime", 
+    "WebPageRendererTest.testOnePassRenderAndAjaxRequest:201 \u00bb WicketRuntime There ...", 
+    "WebPageRendererTest.testSameUrlsAndRedirectToRender:266 \u00bb WicketRuntime There ...", 
+    "WebPageRendererTest.testRedirectToBufferStatefulPageAndSameUrls:928 \u00bb WicketRuntime", 
+    "WebPageRendererTest.testDifferentUrlsTemporarySessionAndStatelessPage:427 \u00bb WicketRuntime", 
+    "WebPageRendererTest.testRedirectToBufferStatelessPageAndRedirectIsDisabled:521 \u00bb WicketRuntime", 
+    "WebPageRendererTest.testSameUrlsAndStatefulPage:292 \u00bb WicketRuntime There is n...", 
+    "WebPageRendererTest.testDifferentUrlsAndNewPageInstance:448 \u00bb WicketRuntime Th...", 
+    "WebPageRendererTest.testRedirectToBufferStatelessPageAndRedirectIsEsabled:558 \u00bb WicketRuntime", 
+    "WebPageRendererTest.testShouldPreserveClientUrl:313 \u00bb WicketRuntime There is n...", 
+    "WebPageRendererTest.testSameUrlsAndAjaxRequest:380 \u00bb WicketRuntime There is no...", 
+    "WebPageRendererTest.testRedirectToRender:404 \u00bb WicketRuntime There is no appli...", 
+    "WebPageRendererTest.testShouldPreserveClientUrlOverruledByRedirectPolicyAlwaysRedirect:337 \u00bb WicketRuntime", 
+    "WebPageRendererTest.testRedirectToBufferStatefulPage:593 \u00bb WicketRuntime There...", 
+    "WebPageRendererTest.testOnePassRenderDifferentProtocols:141 \u00bb WicketRuntime Th...", 
+    "WebPageRendererTest.testOnePassRenderWithAlwaysRedirect:177 \u00bb WicketRuntime Th...", 
+    "WebPageRendererTest.testRedirectToBufferNoPageToRender:483 \u00bb WicketRuntime The...", 
+    "WebPageRendererTest.testNeverRedirectButAjaxRequest:1030 \u00bb WicketRuntime There...", 
+    "WebPageRendererTest.testOnePassRender:101 \u00bb WicketRuntime There is no applicat..."
+  ], 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/protocol/http/WebApplication.java b/wicket-core/src/main/java/org/apache/wicket/protocol/http/WebApplication.java\nindex 52d41ca..0ff49bc 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/protocol/http/WebApplication.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/protocol/http/WebApplication.java\n@@ -876,10 +876,12 @@ public boolean hasBufferedResponse(String sessionId, Url url)\n \t}\n \n \t/**\n+\t * Retrieves a stored buffered response for a given sessionId and url.\n \t *\n-\t * @param sessionId\n \t * @param url\n-\t * @return buffered response\n+\t *          The url used as a key\n+\t * @return the stored buffered response. {@code null} if there is no stored response for the given url\n+\t * @see org.apache.wicket.settings.IRequestCycleSettings.RenderStrategy#REDIRECT_TO_BUFFER\n \t */\n \tpublic BufferedWebResponse getAndRemoveBufferedResponse(String sessionId, Url url)\n \t{\ndiff --git a/wicket-core/src/main/java/org/apache/wicket/request/handler/render/WebPageRenderer.java b/wicket-core/src/main/java/org/apache/wicket/request/handler/render/WebPageRenderer.java\nindex aee0104..00a8ea2 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/request/handler/render/WebPageRenderer.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/request/handler/render/WebPageRenderer.java\n@@ -87,11 +87,6 @@ protected void storeBufferedResponse(Url url, BufferedWebResponse response)\n \t\tWebApplication.get().storeBufferedResponse(getSessionId(), url, response);\n \t}\n \t\n-\tprotected BufferedWebResponse getAndRemoveBufferedResponse(Url url)\n-\t{\n-\t\treturn WebApplication.get().getAndRemoveBufferedResponse(getSessionId(), url);\n-\t}\n-\n \t/**\n \t * Renders page to a {@link BufferedWebResponse}. All URLs in page will be rendered relative to\n \t * <code>targetUrl</code>\n@@ -195,17 +190,7 @@ public void respond(RequestCycle requestCycle)\n \t\t// 3 rendering strategies and two kind of requests (ajax and normal)\n \t\t//\n \n-\t\t// try to get an already rendered buffered response for current URL\n-\t\tBufferedWebResponse bufferedResponse = getAndRemoveBufferedResponse(currentUrl);\n-\n-\t\tif (bufferedResponse != null)\n-\t\t{\n-\t\t\tlogger\n-\t\t\t\t.warn(\"The Buffered response should be handled by BufferedResponseRequestHandler\");\n-\t\t\t// if there is saved response for this URL render it\n-\t\t\tbufferedResponse.writeTo((WebResponse)requestCycle.getResponse());\n-\t\t}\n-\t\telse if (shouldRenderPageAndWriteResponse(requestCycle, currentUrl, targetUrl))\n+\t\tif (shouldRenderPageAndWriteResponse(requestCycle, currentUrl, targetUrl))\n \t\t{\n \t\t\tBufferedWebResponse response = renderPage(currentUrl, requestCycle);\n \t\t\tif (response != null)\n", 
+  "project": "wicket", 
+  "linesAdd": 5, 
+  "jira_id": "5689", 
+  "nb_skipped": 1, 
+  "commit": "2ac29d30", 
+  "nb_failure": 0, 
+  "linesRem": 18
+}

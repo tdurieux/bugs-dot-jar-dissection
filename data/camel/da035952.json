@@ -1,0 +1,26 @@
+{
+  "files": 1, 
+  "nb_test": 5545, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "org.apache.camel.impl.DefaultExchangeTest.testFaultSafeCopy(org.apache.camel.impl.DefaultExchangeTest)", 
+    "Run 1: DefaultExchangeTest>TestSupport.runBare:58->testFaultSafeCopy:224->testFaultCopy:234 Fault property was not copied to IN message expected:<true> but was:<false>", 
+    "Run 2: DefaultExchangeTest>TestSupport.runBare:58->testFaultSafeCopy:224->testFaultCopy:234 Fault property was not copied to IN message expected:<true> but was:<false>", 
+    "Run 3: DefaultExchangeTest>TestSupport.runBare:58->testFaultSafeCopy:224->testFaultCopy:234 Fault property was not copied to IN message expected:<true> but was:<false>", 
+    "Flaked tests:", 
+    "org.apache.camel.management.ManagedRouteSuspendAndResumeTest.testSuspendAndResume(org.apache.camel.management.ManagedRouteSuspendAndResumeTest)", 
+    "Run 1: ManagedRouteSuspendAndResumeTest>TestSupport.runBare:58->testSuspendAndResume:92 expected:<2> but was:<1>", 
+    "Run 2: PASS"
+  ], 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/impl/DefaultExchange.java b/camel-core/src/main/java/org/apache/camel/impl/DefaultExchange.java\nindex e1f83f6..923c0d8 100644\n--- a/camel-core/src/main/java/org/apache/camel/impl/DefaultExchange.java\n+++ b/camel-core/src/main/java/org/apache/camel/impl/DefaultExchange.java\n@@ -98,6 +98,7 @@ public Exchange copy(boolean safeCopy) {\n \n         if (safeCopy) {\n             exchange.getIn().setBody(getIn().getBody());\n+            exchange.getIn().setFault(getIn().isFault());\n             if (getIn().hasHeaders()) {\n                 exchange.getIn().setHeaders(safeCopyHeaders(getIn().getHeaders()));\n                 // just copy the attachments here\n@@ -105,6 +106,7 @@ public Exchange copy(boolean safeCopy) {\n             }\n             if (hasOut()) {\n                 exchange.getOut().setBody(getOut().getBody());\n+                exchange.getOut().setFault(getOut().isFault());\n                 if (getOut().hasHeaders()) {\n                     exchange.getOut().setHeaders(safeCopyHeaders(getOut().getHeaders()));\n                 }\n", 
+  "project": "camel", 
+  "linesAdd": 2, 
+  "jira_id": "9666", 
+  "nb_skipped": 4, 
+  "commit": "da035952", 
+  "nb_failure": 1, 
+  "linesRem": 0
+}

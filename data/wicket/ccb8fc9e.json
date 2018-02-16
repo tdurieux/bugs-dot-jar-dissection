@@ -1,0 +1,21 @@
+{
+  "files": 1, 
+  "nb_test": 1333, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "inlineEnclosurePage_1(org.apache.wicket.markup.html.internal.InlineEnclosureTest): org/apache/wicket/markup/html/internal/InlineEnclosurePageExpectedResult_1.html expected:<...tomInlineEnclosureId[7]\"><span>Test Label 1...> but was:<...tomInlineEnclosureId[]\"><span>Test Label 1...>", 
+    "inlineEnclosureWithWicketMessageVisible(org.apache.wicket.markup.html.internal.InlineEnclosureTest): org/apache/wicket/markup/html/internal/InlineEnclosureWithWicketMessagePage_visible_expected.html expected:<...v id=\"_message_attr_[1]\" title=\"Some title\"...> but was:<...v id=\"_message_attr_[]\" title=\"Some title\"...>", 
+    "inlineEnclosureWithWicketMessageInvisible(org.apache.wicket.markup.html.internal.InlineEnclosureTest): org/apache/wicket/markup/html/internal/InlineEnclosureWithWicketMessagePage_invisible_expected.html expected:<...v id=\"_message_attr_[1]\" style=\"display:non...> but was:<...v id=\"_message_attr_[]\" style=\"display:non...>"
+  ], 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/markup/parser/filter/InlineEnclosureHandler.java b/wicket-core/src/main/java/org/apache/wicket/markup/parser/filter/InlineEnclosureHandler.java\nindex 06a193a..e059657 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/markup/parser/filter/InlineEnclosureHandler.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/markup/parser/filter/InlineEnclosureHandler.java\n@@ -176,11 +176,7 @@ public Component resolve(final MarkupContainer container, final MarkupStream mar\n \t\tString inlineEnclosureChildId = getInlineEnclosureAttribute(tag);\r\n \t\tif (Strings.isEmpty(inlineEnclosureChildId) == false)\r\n \t\t{\r\n-\t\t\tString id = tag.getId();\r\n-\t\t\tif (id.equals(INLINE_ENCLOSURE_ID_PREFIX))\r\n-\t\t\t{\r\n-\t\t\t\tid = id + container.getPage().getAutoIndex();\r\n-\t\t\t}\r\n+\t\t\tString id = tag.getId() + container.getPage().getAutoIndex();\r\n \t\t\t// Yes, we handled the tag\r\n \t\t\treturn new InlineEnclosure(id, inlineEnclosureChildId);\r\n \t\t}\r\n", 
+  "project": "wicket", 
+  "linesAdd": 1, 
+  "jira_id": "4520", 
+  "nb_skipped": 8, 
+  "commit": "ccb8fc9e", 
+  "nb_failure": 3, 
+  "linesRem": 5
+}

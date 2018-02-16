@@ -1,0 +1,28 @@
+{
+  "files": 1, 
+  "nb_test": 328, 
+  "nb_error": 9, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "preExtractedProviderBindBeforeActivate(org.apache.jackrabbit.oak.plugins.index.lucene.LuceneIndexProviderServiceTest)", 
+    "testScore(org.apache.jackrabbit.oak.jcr.query.QueryFulltextTest): Failed to get Repository instance.", 
+    "testSurrogateFulltext(org.apache.jackrabbit.oak.jcr.query.QueryFulltextTest): Failed to get Repository instance.", 
+    "testFulltextRelativeProperty(org.apache.jackrabbit.oak.jcr.query.QueryFulltextTest): Failed to get Repository instance.", 
+    "testScoreWithOr(org.apache.jackrabbit.oak.jcr.query.QueryFulltextTest): Failed to get Repository instance.", 
+    "testFulltext(org.apache.jackrabbit.oak.jcr.query.QueryFulltextTest): Failed to get Repository instance.", 
+    "testFileContains(org.apache.jackrabbit.oak.jcr.query.TextExtractionQueryTest): Failed to get Repository instance.", 
+    "testNtFile(org.apache.jackrabbit.oak.jcr.query.TextExtractionQueryTest): Failed to get Repository instance.", 
+    "testScoreWithoutFulltext(org.apache.jackrabbit.oak.jcr.query.TextExtractionQueryTest): Failed to get Repository instance.", 
+    "testConcurrent(org.apache.jackrabbit.oak.jcr.query.MultiSessionQueryTest): GC overhead limit exceeded"
+  ], 
+  "patch": "diff --git a/oak-lucene/src/main/java/org/apache/jackrabbit/oak/plugins/index/lucene/LuceneIndexProviderService.java b/oak-lucene/src/main/java/org/apache/jackrabbit/oak/plugins/index/lucene/LuceneIndexProviderService.java\nindex c8f0cfe..29a893a 100644\n--- a/oak-lucene/src/main/java/org/apache/jackrabbit/oak/plugins/index/lucene/LuceneIndexProviderService.java\n+++ b/oak-lucene/src/main/java/org/apache/jackrabbit/oak/plugins/index/lucene/LuceneIndexProviderService.java\n@@ -190,7 +190,7 @@\n     private IndexAugmentorFactory augmentorFactory;\n \n     @Reference(policy = ReferencePolicy.DYNAMIC,\n-            cardinality = ReferenceCardinality.OPTIONAL_MULTIPLE,\n+            cardinality = ReferenceCardinality.OPTIONAL_UNARY,\n             policyOption = ReferencePolicyOption.GREEDY\n     )\n     private volatile PreExtractedTextProvider extractedTextProvider;\n@@ -441,7 +441,9 @@ private void initializeExtractedTextCache(BundleContext bundleContext, Map<Strin\n                 PROP_EXTRACTED_TEXT_CACHE_EXPIRY_DEFAULT);\n \n         extractedTextCache = new ExtractedTextCache(cacheSizeInMB * ONE_MB, cacheExpiryInSecs);\n-\n+        if (extractedTextProvider != null){\n+            registerExtractedTextProvider(extractedTextProvider);\n+        }\n         CacheStats stats = extractedTextCache.getCacheStats();\n         if (stats != null){\n             oakRegs.add(registerMBean(whiteboard,\n", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 4, 
+  "jira_id": "4036", 
+  "nb_skipped": 5, 
+  "commit": "f4324736", 
+  "nb_failure": 1, 
+  "linesRem": 2
+}

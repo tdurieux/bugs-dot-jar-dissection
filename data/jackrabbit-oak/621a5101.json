@@ -1,0 +1,34 @@
+{
+  "files": 1, 
+  "nb_test": 265, 
+  "nb_error": 16, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "sql1(org.apache.jackrabbit.oak.query.index.TraversingIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "sql2(org.apache.jackrabbit.oak.query.index.TraversingIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "xpath(org.apache.jackrabbit.oak.query.index.TraversingIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "bindVariableTest(org.apache.jackrabbit.oak.query.index.TraversingIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "sql1(org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "sql2(org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "xpath(org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "bindVariableTest(org.apache.jackrabbit.oak.plugins.index.property.PropertyIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "sql1(org.apache.jackrabbit.oak.plugins.index.lucene.LuceneIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "sql2(org.apache.jackrabbit.oak.plugins.index.lucene.LuceneIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "xpath(org.apache.jackrabbit.oak.plugins.index.lucene.LuceneIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "bindVariableTest(org.apache.jackrabbit.oak.plugins.index.lucene.LuceneIndexQueryTest): No LoginModules configured for jackrabbit.oak", 
+    "sql2Explain(org.apache.jackrabbit.oak.plugins.index.old.QueryTest): No LoginModules configured for jackrabbit.oak", 
+    "sql1(org.apache.jackrabbit.oak.plugins.index.old.QueryTest): No LoginModules configured for jackrabbit.oak", 
+    "xpath(org.apache.jackrabbit.oak.plugins.index.old.QueryTest): No LoginModules configured for jackrabbit.oak", 
+    "bindVariableTest(org.apache.jackrabbit.oak.plugins.index.old.QueryTest): No LoginModules configured for jackrabbit.oak"
+  ], 
+  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/security/SecurityProviderImpl.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/security/SecurityProviderImpl.java\nindex 5e199bf..6d6487b 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/security/SecurityProviderImpl.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/security/SecurityProviderImpl.java\n@@ -77,6 +77,11 @@ public LoginContextProvider getLoginContextProvider(NodeStore nodeStore) {\n             loginConfig = new OakConfiguration();\n             Configuration.setConfiguration(loginConfig);\n         }\n+        if (loginConfig.getAppConfigurationEntry(appName) == null) {\n+            log.warn(\"Failed to retrieve login configuration for {}: using default configuration.\", appName);\n+            loginConfig = new OakConfiguration();\n+            Configuration.setConfiguration(loginConfig);\n+        }\n         return new LoginContextProviderImpl(appName, loginConfig, nodeStore, this);\n     }\n \n", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 5, 
+  "jira_id": "379", 
+  "nb_skipped": 7, 
+  "commit": "621a5101", 
+  "nb_failure": 0, 
+  "linesRem": 0
+}

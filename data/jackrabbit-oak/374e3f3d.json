@@ -1,0 +1,23 @@
+{
+  "files": 0, 
+  "nb_test": 126, 
+  "nb_error": 5, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "referencedOlderThanOrphaned(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/old", 
+    "copyAllVersions(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/old", 
+    "onlyReferencedAfterDate(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/young", 
+    "onlyReferenced(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/old", 
+    "referencedSinceDate(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/young"
+  ], 
+  "patch": "", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 0, 
+  "jira_id": "4166", 
+  "nb_skipped": 7, 
+  "commit": "374e3f3d", 
+  "nb_failure": 0, 
+  "linesRem": 0
+}

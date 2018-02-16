@@ -1,0 +1,26 @@
+{
+  "files": 1, 
+  "nb_test": 4740, 
+  "nb_error": 3, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "VmMultipleConsumersMultipleContextTest>TestSupport.runBare:58->testVmMultipleConsumersDifferentEndpoints:145 mock://route1 Received message count. Expected: <100> but was: <36>", 
+    "VmMultipleConsumersMultipleContextTest>TestSupport.runBare:58->testVmMultipleConsumersMultipleContext:96 mock://route1 Received message count. Expected: <100> but was: <102>", 
+    "VmMultipleConsumersRemoteRouteTest.testVmMultipleConsumersRemoteRoute:66 mock://route1 Received message count. Expected: <100> but was: <147>", 
+    "DefaultProducerCacheTest>TestSupport.runBare:58->testReleaseProducerInvokesStopAndShutdownByNonSingeltonProducers:94 expected:<3> but was:<0>", 
+    "ManagedThrottlerTest>TestSupport.runBare:58->testThrottleVisableViaJmx:137 null", 
+    "VmMultipleContextsStartStopTest>TestSupport.runBare:58->AbstractVmTestSupport.setUp:48 \u00bb IllegalArgument", 
+    "VmQueueTest>TestSupport.runBare:58->AbstractVmTestSupport.setUp:48 \u00bb FailedToCreateRoute", 
+    "VmShouldNotUseSameThreadTest>TestSupport.runBare:58->AbstractVmTestSupport.setUp:39->ContextTestSupport.setUp:117->ContextTestSupport.startCamelContext:174 \u00bb IllegalArgument"
+  ], 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/impl/ProducerCache.java b/camel-core/src/main/java/org/apache/camel/impl/ProducerCache.java\nindex 6b292c0..b35eca5 100644\n--- a/camel-core/src/main/java/org/apache/camel/impl/ProducerCache.java\n+++ b/camel-core/src/main/java/org/apache/camel/impl/ProducerCache.java\n@@ -30,6 +30,7 @@\n import org.apache.camel.Producer;\n import org.apache.camel.ProducerCallback;\n import org.apache.camel.ServicePoolAware;\n+import org.apache.camel.ShutdownableService;\n import org.apache.camel.processor.UnitOfWorkProducer;\n import org.apache.camel.spi.ServicePool;\n import org.apache.camel.support.ServiceSupport;\n@@ -137,6 +138,11 @@ public void releaseProducer(Endpoint endpoint, Producer producer) throws Excepti\n         } else if (!producer.isSingleton()) {\n             // stop non singleton producers as we should not leak resources\n             producer.stop();\n+\n+            // shutdown as well in case the producer is shutdownable\n+            if (producer instanceof ShutdownableService) {\n+                ShutdownableService.class.cast(producer).shutdown();\n+            }\n         }\n     }\n \n", 
+  "project": "camel", 
+  "linesAdd": 6, 
+  "jira_id": "6948", 
+  "nb_skipped": 1, 
+  "commit": "f744afd9", 
+  "nb_failure": 5, 
+  "linesRem": 0
+}

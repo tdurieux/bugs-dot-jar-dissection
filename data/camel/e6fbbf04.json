@@ -1,0 +1,21 @@
+{
+  "files": 1, 
+  "nb_test": 4887, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "SimpleTest>TestSupport.runBare:58->testBodyAs:467->LanguageTestSupport.assertExpression:69->LanguageTestSupport.assertExpression:62->ContextTestSupport.assertExpression:314->TestSupport.assertExpression:241 Expression: bodyAs[String] on Exchange: Exchange[Message: hello] expected:<hello.test> but was:<hello>", 
+    "SimpleTest>TestSupport.runBare:58->testMandatoryBodyAs:499->LanguageTestSupport.assertExpression:69->LanguageTestSupport.assertExpression:62->ContextTestSupport.assertExpression:314->TestSupport.assertExpression:241 Expression: mandatoryBodyAs[String] on Exchange: Exchange[Message: 456] expected:<hello.test> but was:<456>", 
+    "ManagedThrottlerTest>TestSupport.runBare:58->testThrottleAsyncVisableViaJmx:189 expected:<10> but was:<9>"
+  ], 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/language/simple/ast/SimpleFunctionExpression.java b/camel-core/src/main/java/org/apache/camel/language/simple/ast/SimpleFunctionExpression.java\nindex d02f050..32a22b2 100644\n--- a/camel-core/src/main/java/org/apache/camel/language/simple/ast/SimpleFunctionExpression.java\n+++ b/camel-core/src/main/java/org/apache/camel/language/simple/ast/SimpleFunctionExpression.java\n@@ -195,9 +195,11 @@ private Expression createSimpleExpressionBodyOrHeader(String function, boolean s\n         String remainder = ifStartsWithReturnRemainder(\"bodyAs\", function);\n         if (remainder != null) {\n             String type = ObjectHelper.between(remainder, \"(\", \")\");\n-            if (type == null) {\n+            remainder = ObjectHelper.after(remainder, \")\");\n+            if (type == null || ObjectHelper.isNotEmpty(remainder)) {\n                 throw new SimpleParserException(\"Valid syntax: ${bodyAs(type)} was: \" + function, token.getIndex());\n             }\n+            \n             type = StringHelper.removeQuotes(type);\n             return ExpressionBuilder.bodyExpression(type);\n         }\n@@ -205,7 +207,8 @@ private Expression createSimpleExpressionBodyOrHeader(String function, boolean s\n         remainder = ifStartsWithReturnRemainder(\"mandatoryBodyAs\", function);\n         if (remainder != null) {\n             String type = ObjectHelper.between(remainder, \"(\", \")\");\n-            if (type == null) {\n+            remainder = ObjectHelper.after(remainder, \")\");\n+            if (type == null || ObjectHelper.isNotEmpty(remainder)) {\n                 throw new SimpleParserException(\"Valid syntax: ${mandatoryBodyAs(type)} was: \" + function, token.getIndex());\n             }\n             type = StringHelper.removeQuotes(type);\n", 
+  "project": "camel", 
+  "linesAdd": 5, 
+  "jira_id": "7359", 
+  "nb_skipped": 3, 
+  "commit": "e6fbbf04", 
+  "nb_failure": 3, 
+  "linesRem": 2
+}

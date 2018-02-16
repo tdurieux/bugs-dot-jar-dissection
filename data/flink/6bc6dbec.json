@@ -1,0 +1,20 @@
+{
+  "files": 2, 
+  "nb_test": 150, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "SlidingTimeGroupedPreReducerTest.testPreReduce1:173 expected:<[[(2,2), (1,1)], [(2,6), (3,3)], [(4,10), (5,5)], [(6,14), (7,7)], [(8,18), (9,9)], [(10,22), (11,11)], [(27,2), (26,1)], [(27,6), (28,3)], [(29,10), (30,5)], [(31,14), (32,7)], [(33,18), (34,9)], [(35,22), (36,11)]]> but was:<[[(2,2), (1,1)], [(2,6), (3,3)], [(4,10), (5,5)], [(6,14), (7,7)], [(8,18), (9,9)], [(10,22), (11,11)], [(27,2), (26,1)], [(27,6), (26,4)], [(29,10), (28,8)], [(31,14), (30,12)], [(33,18), (32,16)], [(35,22), (34,20)]]>", 
+    "SlidingTimePreReducerTest.testPreReduce1:142 expected:<[[(1,3)], [(2,9)], [(4,15)], [(6,21)], [(8,27)], [(10,33)], [(26,3)], [(27,9)], [(29,15)], [(31,21)], [(33,27)], [(35,33)]]> but was:<[[(1,3)], [(2,9)], [(4,15)], [(6,21)], [(8,27)], [(10,33)], [(26,3)], [(26,10)], [(28,18)], [(30,26)], [(32,34)], [(34,42)]]>"
+  ], 
+  "patch": "diff --git a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/windowing/windowbuffer/SlidingGroupedPreReducer.java b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/windowing/windowbuffer/SlidingGroupedPreReducer.java\nindex 0872c6e..09fadf9 100644\n--- a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/windowing/windowbuffer/SlidingGroupedPreReducer.java\n+++ b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/windowing/windowbuffer/SlidingGroupedPreReducer.java\n@@ -143,6 +143,7 @@ protected void addCurrentToBuffer(T element) throws Exception {\n \t@Override\n \tprotected void resetCurrent() {\n \t\tcurrentReducedMap = null;\n+\t\telementsSinceLastPreAggregate = 0;\n \t}\n \n \t@Override\ndiff --git a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/windowing/windowbuffer/SlidingTimePreReducer.java b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/windowing/windowbuffer/SlidingTimePreReducer.java\nindex 7652d81..d84505c 100644\n--- a/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/windowing/windowbuffer/SlidingTimePreReducer.java\n+++ b/flink-staging/flink-streaming/flink-streaming-core/src/main/java/org/apache/flink/streaming/api/windowing/windowbuffer/SlidingTimePreReducer.java\n@@ -89,6 +89,7 @@ public void evict(int n) {\n \n \t\tif (toRemove > 0 && lastPreAggregateSize == null) {\n \t\t\tcurrentReduced = null;\n+\t\t\telementsSinceLastPreAggregate = 0;\n \t\t\ttoRemove = 0;\n \t\t}\n \t}\n", 
+  "project": "flink", 
+  "linesAdd": 2, 
+  "jira_id": "2074", 
+  "nb_skipped": 1, 
+  "commit": "6bc6dbec", 
+  "nb_failure": 2, 
+  "linesRem": 0
+}

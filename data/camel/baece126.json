@@ -1,0 +1,22 @@
+{
+  "files": 0, 
+  "nb_test": 5519, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "RecipientListShareUnitOfWorkOnExceptionHandledFalseIssueTest>TestSupport.runBare:58->testRecipientList:34->TestSupport.assertIsInstanceOf:166 Expected an instance of type: java.lang.IllegalArgumentException but was null", 
+    "SplitSubUnitOfWorkTest>TestSupport.runBare:58->testError:57->ContextTestSupport.assertMockEndpointsSatisfied:343 mock://result Received message count. Expected: <0> but was: <1>", 
+    "SplitSubUnitOfWorkWithMDCLoggingTest>TestSupport.runBare:58->SplitSubUnitOfWorkTest.testError:57->ContextTestSupport.assertMockEndpointsSatisfied:343 mock://result Received message count. Expected: <0> but was: <1>", 
+    "SplitTwoSubUnitOfWorkTest>TestSupport.runBare:58->testError:61->ContextTestSupport.assertMockEndpointsSatisfied:343 mock://result Received message count. Expected: <0> but was: <1>"
+  ], 
+  "patch": "", 
+  "project": "camel", 
+  "linesAdd": 0, 
+  "jira_id": "9444", 
+  "nb_skipped": 4, 
+  "commit": "baece126", 
+  "nb_failure": 4, 
+  "linesRem": 0
+}

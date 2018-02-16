@@ -1,0 +1,19 @@
+{
+  "files": 1, 
+  "nb_test": 4796, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "CustomListAggregationStrategySplitTest>TestSupport.runBare:58->testCustomAggregationStrategy:49->ContextTestSupport.assertMockEndpointsSatisfied:343 Assertion error at index 0 on mock mock://result with predicate: body instanceof java.util.List on Exchange[Message: 100]"
+  ], 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/processor/MulticastProcessor.java b/camel-core/src/main/java/org/apache/camel/processor/MulticastProcessor.java\nindex 84c488a..69e4667 100644\n--- a/camel-core/src/main/java/org/apache/camel/processor/MulticastProcessor.java\n+++ b/camel-core/src/main/java/org/apache/camel/processor/MulticastProcessor.java\n@@ -47,6 +47,7 @@\n import org.apache.camel.Producer;\n import org.apache.camel.Traceable;\n import org.apache.camel.processor.aggregate.AggregationStrategy;\n+import org.apache.camel.processor.aggregate.CompletionAwareAggregationStrategy;\n import org.apache.camel.processor.aggregate.TimeoutAwareAggregationStrategy;\n import org.apache.camel.spi.RouteContext;\n import org.apache.camel.spi.TracedRouteNodes;\n@@ -747,6 +748,12 @@ protected void doDone(Exchange original, Exchange subExchange, final Iterable<Pr\n             IOHelper.close((Closeable) pairs, \"pairs\", LOG);\n         }\n \n+        AggregationStrategy strategy = getAggregationStrategy(subExchange);\n+        // invoke the on completion callback\n+        if (strategy instanceof CompletionAwareAggregationStrategy) {\n+            ((CompletionAwareAggregationStrategy) strategy).onCompletion(subExchange);\n+        }\n+\n         // cleanup any per exchange aggregation strategy\n         removeAggregationStrategyFromExchange(original);\n \n", 
+  "project": "camel", 
+  "linesAdd": 7, 
+  "jira_id": "7167", 
+  "nb_skipped": 3, 
+  "commit": "1e33fcbc", 
+  "nb_failure": 1, 
+  "linesRem": 0
+}

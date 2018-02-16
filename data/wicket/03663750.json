@@ -1,0 +1,23 @@
+{
+  "files": 1, 
+  "nb_test": 1792, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "RerenderPageTest.wicket5960:70 pattern '<!-- I should be present 2 -->' not found in:", 
+    "<!DOCTYPE html>", 
+    "<html>", 
+    "<body></body>", 
+    "</html>"
+  ], 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/markup/html/internal/HtmlHeaderContainer.java b/wicket-core/src/main/java/org/apache/wicket/markup/html/internal/HtmlHeaderContainer.java\nindex 1ce6809..e906560 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/markup/html/internal/HtmlHeaderContainer.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/markup/html/internal/HtmlHeaderContainer.java\n@@ -314,9 +314,8 @@ public boolean okToRenderComponent(final String scope, final String id)\n \t}\n \n \t@Override\n-\tprotected void onDetach()\n-\t{\n-\t\tsuper.onDetach();\n+\tprotected void onAfterRender() {\n+\t\tsuper.onAfterRender();\n \n \t\trenderedComponentsPerScope = null;\n \t\theaderResponse = null;\n", 
+  "project": "wicket", 
+  "linesAdd": 2, 
+  "jira_id": "5960", 
+  "nb_skipped": 1, 
+  "commit": "03663750", 
+  "nb_failure": 1, 
+  "linesRem": 3
+}

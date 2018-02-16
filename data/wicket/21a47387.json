@@ -1,0 +1,19 @@
+{
+  "files": 1, 
+  "nb_test": 1406, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "testTwoBundlesWithDependenciesAndPriority(org.apache.wicket.resource.aggregator.ResourceAggregatorTest): expected:<[JavaScriptReferenceHeaderItem(./wicket/resource/org.apache.wicket.Application/ab.js), JavaScriptReferenceHeaderItem(./wicket/resource/org.apache.wicket.Application/cd.js)]> but was:<[PriorityHeaderItem(JavaScriptReferenceHeaderItem(./wicket/resource/org.apache.wicket.resource.aggregator.ResourceAggregatorTest/a.js)), PriorityHeaderItem(JavaScriptReferenceHeaderItem(./wicket/resource/org.apache.wicket.resource.aggregator.ResourceAggregatorTest/b.js)), JavaScriptReferenceHeaderItem(./wicket/resource/org.apache.wicket.Application/ab.js), JavaScriptReferenceHeaderItem(./wicket/resource/org.apache.wicket.Application/cd.js)]>"
+  ], 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/markup/head/ResourceAggregator.java b/wicket-core/src/main/java/org/apache/wicket/markup/head/ResourceAggregator.java\nindex bce6a11..02221e7 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/markup/head/ResourceAggregator.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/markup/head/ResourceAggregator.java\n@@ -126,7 +126,7 @@ public String toString()\n \t\tpublic RecordedHeaderItem(HeaderItem item)\n \t\t{\n \t\t\tthis.item = item;\n-\t\t\tthis.locations = new ArrayList<RecordedHeaderItemLocation>();\n+\t\t\tlocations = new ArrayList<RecordedHeaderItemLocation>();\n \t\t}\n \n \t\t/**\n@@ -186,9 +186,9 @@ public ResourceAggregator(IHeaderResponse real)\n \t{\n \t\tsuper(real);\n \n-\t\tthis.itemsToBeRendered = new LinkedHashMap<HeaderItem, RecordedHeaderItem>();\n-\t\tthis.domReadyItemsToBeRendered = new ArrayList<OnDomReadyHeaderItem>();\n-\t\tthis.loadItemsToBeRendered = new ArrayList<OnLoadHeaderItem>();\n+\t\titemsToBeRendered = new LinkedHashMap<HeaderItem, RecordedHeaderItem>();\n+\t\tdomReadyItemsToBeRendered = new ArrayList<OnDomReadyHeaderItem>();\n+\t\tloadItemsToBeRendered = new ArrayList<OnLoadHeaderItem>();\n \t}\n \n \t@Override\n@@ -375,6 +375,10 @@ private void renderSeperateEventScripts()\n \t */\n \tprivate HeaderItem getItemToBeRendered(HeaderItem item)\n \t{\n+\t\twhile (item instanceof IWrappedHeaderItem)\n+\t\t{\n+\t\t\titem = ((IWrappedHeaderItem)item).getWrapped();\n+\t\t}\n \t\tif (getRealResponse().wasRendered(item))\n \t\t{\n \t\t\treturn NoHeaderItem.get();\n", 
+  "project": "wicket", 
+  "linesAdd": 8, 
+  "jira_id": "4753", 
+  "nb_skipped": 5, 
+  "commit": "21a47387", 
+  "nb_failure": 1, 
+  "linesRem": 4
+}

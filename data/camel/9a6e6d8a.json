@@ -1,0 +1,27 @@
+{
+  "files": 1, 
+  "nb_test": 5540, 
+  "nb_error": 1, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "org.apache.camel.language.simple.SimpleTest.testSimpleFileDir(org.apache.camel.language.simple.SimpleTest)", 
+    "Run 1: SimpleTest>TestSupport.runBare:58->testSimpleFileDir:110->LanguageTestSupport.assertExpression:69->LanguageTestSupport.assertExpression:62->ContextTestSupport.assertExpression:311 \u00bb SimpleParser", 
+    "Run 2: SimpleTest>TestSupport.runBare:58->testSimpleFileDir:110->LanguageTestSupport.assertExpression:69->LanguageTestSupport.assertExpression:62->ContextTestSupport.assertExpression:311 \u00bb SimpleParser", 
+    "Run 3: SimpleTest>TestSupport.runBare:58->testSimpleFileDir:110->LanguageTestSupport.assertExpression:69->LanguageTestSupport.assertExpression:62->ContextTestSupport.assertExpression:311 \u00bb SimpleParser", 
+    "Flaked tests:", 
+    "org.apache.camel.management.ManagedThrottlerTest.testThrottleAsyncVisableViaJmx(org.apache.camel.management.ManagedThrottlerTest)", 
+    "Run 1: ManagedThrottlerTest>TestSupport.runBare:58->testThrottleAsyncVisableViaJmx:180 expected:<10> but was:<9>", 
+    "Run 2: ManagedThrottlerTest>TestSupport.runBare:58->testThrottleAsyncVisableViaJmx:180 expected:<10> but was:<9>", 
+    "Run 3: PASS"
+  ], 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/language/simple/ast/SimpleFunctionExpression.java b/camel-core/src/main/java/org/apache/camel/language/simple/ast/SimpleFunctionExpression.java\nindex be5e4ac..5110ae9 100644\n--- a/camel-core/src/main/java/org/apache/camel/language/simple/ast/SimpleFunctionExpression.java\n+++ b/camel-core/src/main/java/org/apache/camel/language/simple/ast/SimpleFunctionExpression.java\n@@ -141,8 +141,8 @@ private Expression createSimpleExpression(String function, boolean strict) {\n         // file: prefix\n         remainder = ifStartsWithReturnRemainder(\"file:\", function);\n         if (remainder != null) {\n-            Expression fileExpression = createSimpleFileExpression(remainder);\n-            if (function != null) {\n+            Expression fileExpression = createSimpleFileExpression(remainder, strict);\n+            if (fileExpression != null) {\n                 return fileExpression;\n             }\n         }\n@@ -388,7 +388,7 @@ private Expression createSimpleExpressionDirectly(String expression) {\n         return null;\n     }\n \n-    private Expression createSimpleFileExpression(String remainder) {\n+    private Expression createSimpleFileExpression(String remainder, boolean strict) {\n         if (ObjectHelper.equal(remainder, \"name\")) {\n             return ExpressionBuilder.fileNameExpression();\n         } else if (ObjectHelper.equal(remainder, \"name.noext\")) {\n@@ -418,8 +418,11 @@ private Expression createSimpleFileExpression(String remainder) {\n         } else if (ObjectHelper.equal(remainder, \"modified\")) {\n             return ExpressionBuilder.fileLastModifiedExpression();\n         }\n+        if (strict) {\n             throw new SimpleParserException(\"Unknown file language syntax: \" + remainder, token.getIndex());\n         }\n+        return null;\n+    }\n \n     private String ifStartsWithReturnRemainder(String prefix, String text) {\n         if (text.startsWith(prefix)) {\n", 
+  "project": "camel", 
+  "linesAdd": 6, 
+  "jira_id": "9641", 
+  "nb_skipped": 4, 
+  "commit": "9a6e6d8a", 
+  "nb_failure": 0, 
+  "linesRem": 3
+}

@@ -1,0 +1,28 @@
+{
+  "files": 1, 
+  "nb_test": 1343, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "test_1(org.apache.wicket.util.tester.apps_4.FormTesterTest): expected:<[wrong email address pattern for email]> but was:<[ValidationErrorFeedback{message=wrong email address pattern for email}]>", 
+    "test1(org.apache.wicket.markup.html.form.ValidatorPropertiesTest): expected:<[text1label is required]> but was:<[ValidationErrorFeedback{message=text1label is required}]>", 
+    "wicket891(org.apache.wicket.markup.html.form.LocalizedErrorMessageTest): (..)", 
+    "wicket_1927(org.apache.wicket.markup.html.form.LocalizedErrorMessageTest): (..)", 
+    "innerFeedback(org.apache.wicket.markup.html.form.validation.innerfeedback.InnerFeedbackTest): (..)", 
+    "testActAsValidator(org.apache.wicket.validation.ValidatorBehaviorTest): expected:<[MAX]> but was:<[ValidationErrorFeedback{message=MAX}]>", 
+    "submitWithoutUploadFile(org.apache.wicket.util.tester.FormTesterTest): (..)", 
+    "createBook_validateFail(org.apache.wicket.util.tester.WicketTesterTest): (..)", 
+    "interfaceValidator(org.apache.wicket.resource.loader.ValidatorStringResourceLoaderTest): (..)", 
+    "classValidator(org.apache.wicket.resource.loader.ValidatorStringResourceLoaderTest): (..)"
+  ], 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/markup/html/form/ValidationErrorFeedback.java b/wicket-core/src/main/java/org/apache/wicket/markup/html/form/ValidationErrorFeedback.java\nindex f6e1ce7..48b8d0b 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/markup/html/form/ValidationErrorFeedback.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/markup/html/form/ValidationErrorFeedback.java\n@@ -78,8 +78,6 @@ public Serializable getMessage()\n \t@Override\n \tpublic String toString()\n \t{\n-\t\treturn \"ValidationErrorFeedback{\" +\n-\t\t\t\t\"message=\" + message +\n-\t\t\t\t'}';\n+\t\treturn message != null ? message.toString() : \"\";\n \t}\n }\n", 
+  "project": "wicket", 
+  "linesAdd": 1, 
+  "jira_id": "4548", 
+  "nb_skipped": 8, 
+  "commit": "9a6a06be", 
+  "nb_failure": 10, 
+  "linesRem": 3
+}

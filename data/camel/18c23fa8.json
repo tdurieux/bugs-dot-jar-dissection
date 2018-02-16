@@ -1,0 +1,21 @@
+{
+  "files": 1, 
+  "nb_test": 4839, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "FileConsumerIdempotentTest>TestSupport.runBare:58->testIdempotent:56->ContextTestSupport.assertMockEndpointsSatisfied:343 mock://result Body of message: 0. Expected: <Hello World> but was: <null>", 
+    "NIOConverterTest>TestSupport.runBare:58->testByteBufferToStringConversion:69 expected:<123456789[]> but was:<123456789[\u0000\u0000\u0000\u0000\u0000\u0000\u0000]>", 
+    "AggregateTimeoutTest>TestSupport.runBare:58->testAggregateTimeout:51 expected:<1> but was:<0>"
+  ], 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java b/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java\nindex 41273b6..e1cf6d6 100644\n--- a/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java\n+++ b/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java\n@@ -54,7 +54,7 @@ private NIOConverter() {\n \n     @Converter\n     public static String toString(ByteBuffer buffer, Exchange exchange) throws IOException {\n-        return IOConverter.toString(buffer.array(), exchange);\n+        return IOConverter.toString(toByteArray(buffer), exchange);\n     }\n \n     @Converter\n", 
+  "project": "camel", 
+  "linesAdd": 1, 
+  "jira_id": "7241", 
+  "nb_skipped": 3, 
+  "commit": "18c23fa8", 
+  "nb_failure": 3, 
+  "linesRem": 1
+}

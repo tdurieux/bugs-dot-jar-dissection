@@ -1,0 +1,22 @@
+{
+  "files": 1, 
+  "nb_test": 608, 
+  "nb_error": 1, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "NetworkBufferPoolTest.testDestroyAll:125 Should fail with an IllegalStateException", 
+    "LocalBufferPoolTest.destroyAndVerifyAllBuffersReturned:77 Did not return all buffers to memory segment pool after test. expected:<1024> but was:<1023>", 
+    "LocalBufferPoolTest.testRequestAfterDestroy:118 Call should have failed with an IllegalStateException", 
+    "LocalBufferPoolTest.testDestroyDuringBlockingRequest:323 \u00bb Execution java.lang..."
+  ], 
+  "patch": "diff --git a/flink-runtime/src/main/java/org/apache/flink/runtime/io/network/buffer/LocalBufferPool.java b/flink-runtime/src/main/java/org/apache/flink/runtime/io/network/buffer/LocalBufferPool.java\nindex 1da2b8b..4cb1521 100644\n--- a/flink-runtime/src/main/java/org/apache/flink/runtime/io/network/buffer/LocalBufferPool.java\n+++ b/flink-runtime/src/main/java/org/apache/flink/runtime/io/network/buffer/LocalBufferPool.java\n@@ -141,7 +141,7 @@ private Buffer requestBuffer(boolean isBlocking) throws InterruptedException, IO\n \n \t\t\twhile (availableMemorySegments.isEmpty()) {\n \t\t\t\tif (isDestroyed) {\n-\t\t\t\t\treturn null;\n+\t\t\t\t\tthrow new IllegalStateException(\"Buffer pool is destroyed.\");\n \t\t\t\t}\n \n \t\t\t\tif (numberOfRequestedMemorySegments < currentPoolSize) {\n", 
+  "project": "flink", 
+  "linesAdd": 1, 
+  "jira_id": "1930", 
+  "nb_skipped": 0, 
+  "commit": "4dbf030a", 
+  "nb_failure": 3, 
+  "linesRem": 1
+}

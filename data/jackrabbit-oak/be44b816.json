@@ -1,0 +1,21 @@
+{
+  "files": 1, 
+  "nb_test": 1607, 
+  "nb_error": 0, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "testOak1096[2](org.apache.jackrabbit.oak.jcr.query.QueryTest): False amount of hits expected:<1> but was:<0>", 
+    "testOak1096[0](org.apache.jackrabbit.oak.jcr.query.QueryTest): False amount of hits expected:<1> but was:<0>", 
+    "testOak1096[1](org.apache.jackrabbit.oak.jcr.query.QueryTest): False amount of hits expected:<1> but was:<0>"
+  ], 
+  "patch": "diff --git a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/query/QueryImpl.java b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/query/QueryImpl.java\nindex 0ee38df..acff663 100644\n--- a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/query/QueryImpl.java\n+++ b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/query/QueryImpl.java\n@@ -34,9 +34,10 @@\n \n import org.apache.jackrabbit.JcrConstants;\n import org.apache.jackrabbit.oak.commons.PathUtils;\n+import org.apache.jackrabbit.oak.jcr.delegate.NodeDelegate;\n import org.apache.jackrabbit.oak.jcr.session.NodeImpl;\n import org.apache.jackrabbit.oak.jcr.session.SessionContext;\n-import org.apache.jackrabbit.oak.jcr.delegate.NodeDelegate;\n+import org.apache.jackrabbit.oak.jcr.session.operation.SessionOperation;\n \n /**\n  * The implementation of the corresponding JCR interface.\n@@ -86,7 +87,14 @@ private void parse() throws InvalidQueryException {\n \n     @Override\n     public QueryResult execute() throws RepositoryException {\n-        return manager.executeQuery(statement, language, limit, offset, bindVariableMap);\n+        return sessionContext.getSessionDelegate().perform(\n+                new SessionOperation<QueryResult>() {\n+                    @Override\n+                    public QueryResult perform() throws RepositoryException {\n+                        return manager.executeQuery(statement, language, limit,\n+                                offset, bindVariableMap);\n+                    }\n+                });\n     }\n \n     @Override\n", 
+  "project": "jackrabbit-oak", 
+  "linesAdd": 10, 
+  "jira_id": "1096", 
+  "nb_skipped": 3, 
+  "commit": "be44b816", 
+  "nb_failure": 3, 
+  "linesRem": 2
+}

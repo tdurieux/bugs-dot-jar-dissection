@@ -1,0 +1,23 @@
+{
+  "files": 1, 
+  "nb_test": 5464, 
+  "nb_error": 3, 
+  "classification": {
+    "singleLine": false
+  }, 
+  "failing_tests": [
+    "BeanHandlerMethodTest>TestSupport.runBare:58->testInterfaceBeanMethod:38 expected:<[hello]> but was:<[doCompute]>", 
+    "VmMultipleConsumersMultipleContextTest>TestSupport.runBare:58->testVmMultipleConsumersDifferentEndpoints:145 mock://route1 Received message count. Expected: <100> but was: <76>", 
+    "VmMultipleContextsStartStopTest>TestSupport.runBare:58->AbstractVmTestSupport.setUp:48 \u00bb IllegalArgument", 
+    "VmQueueTest>TestSupport.runBare:58->AbstractVmTestSupport.setUp:48 \u00bb FailedToCreateRoute", 
+    "VmShouldNotUseSameThreadTest>TestSupport.runBare:58->AbstractVmTestSupport.setUp:39->ContextTestSupport.setUp:117->ContextTestSupport.startCamelContext:174 \u00bb IllegalArgument"
+  ], 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/component/bean/BeanInfo.java b/camel-core/src/main/java/org/apache/camel/component/bean/BeanInfo.java\nindex d3c7214..a2f6ce8 100644\n--- a/camel-core/src/main/java/org/apache/camel/component/bean/BeanInfo.java\n+++ b/camel-core/src/main/java/org/apache/camel/component/bean/BeanInfo.java\n@@ -987,7 +987,9 @@ private void removeAllAbstractMethods(List<MethodInfo> methods) {\n         Iterator<MethodInfo> it = methods.iterator();\n         while (it.hasNext()) {\n             MethodInfo info = it.next();\n-            if (Modifier.isAbstract(info.getMethod().getModifiers())) {\n+            // if the class is an interface then keep the method\n+            boolean isFromInterface = Modifier.isInterface(info.getMethod().getDeclaringClass().getModifiers());\n+            if (!isFromInterface && Modifier.isAbstract(info.getMethod().getModifiers())) {\n                 // we cannot invoke an abstract method\n                 it.remove();\n             }\n", 
+  "project": "camel", 
+  "linesAdd": 3, 
+  "jira_id": "9243", 
+  "nb_skipped": 4, 
+  "commit": "1957a828", 
+  "nb_failure": 2, 
+  "linesRem": 1
+}
