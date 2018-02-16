@@ -106,12 +106,12 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 			$ctrl.classifications = $scope.$parent.classifications;
 		});
 
-		var getIndex = function (project, id) {
+		var getIndex = function (project, commit) {
 			if ($ctrl.bugs == null) {
 				return -1;
 			}
 			for (var i = 0; i < $ctrl.bugs.length; i++) {
-				if ($ctrl.bugs[i].project == project && $ctrl.bugs[i].id == id) {
+				if ($ctrl.bugs[i].project == project && $ctrl.bugs[i].commit == commit) {
 					return i;
 				}
 			}
@@ -158,7 +158,7 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 	  if (index == $ctrl.bugs.length)  {
 		index = 0;
 	  }
-	  $location.path( "/bug/" + $ctrl.bugs[index]["project"] + "/" + $ctrl.bugs[index]["id"] );
+	  $location.path( "/bug/" + $ctrl.bugs[index]["project"] + "/" + $ctrl.bugs[index]["commit"] );
 			return false;
 		};
 		var previousBug = function () {
@@ -166,7 +166,7 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 	  if (index < 0) {
 		index = $ctrl.bugs.length - 1;
 	  }
-	  $location.path( "/bug/" + $ctrl.bugs[index]["project"] + "/" + $ctrl.bugs[index]["id"] );
+	  $location.path( "/bug/" + $ctrl.bugs[index]["project"] + "/" + $ctrl.bugs[index]["commit"] );
 			return false;
 		};
 
@@ -184,7 +184,7 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 	$rootScope.$on('previous_bug', previousBug);
 	})
 	.controller('mainController', function($scope, $location, $rootScope, $http, $uibModal) {
-		$scope.sortType     = ['project', 'id']; // set the default sort type
+		$scope.sortType     = ['project', 'commit']; // set the default sort type
 		$scope.sortReverse  = false;
 		$scope.match  = "all";
 		$scope.filter   = {};
@@ -224,7 +224,7 @@ angular.module('defects4j-website', ['ngRoute', 'ui.bootstrap', 'anguFixedHeader
 		}
 
 		$scope.openBug = function (bug) {
-			$location.path( "/bug/" + bug["project"] + "/" + bug["id"] );
+			$location.path( "/bug/" + bug["project"] + "/" + bug["commit"] );
 		};
 
 		$scope.sort = function (sort) {

@@ -90,7 +90,7 @@
 							<thead>
 								<tr>
 									<th>
-										<a href="#" ng-click="sort(['project', 'id'])">
+										<a href="#" ng-click="sort(['project', 'commit'])">
 											Bug id
 											<span ng-show="sortType[0] == 'project' && sortReverse" class="fa fa-caret-down"></span>
 											<span ng-show="sortType[0] == 'project' && !sortReverse" class="fa fa-caret-up"></span>
@@ -166,7 +166,7 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="bug in bugs| orderBy:sortType:sortReverse| filter:bugsFilter as filteredBug" ng-click="openBug(bug)">
-								  <td>{{ bug.project }} {{ bug.id }}</td>
+								  <td>{{ bug.project }} {{ bug.commit }}</td>
 								  <td>{{ bug.files }}</td>
 								  <td>{{ bug.classes }}</td>
 								  <td>{{ bug.methods }}</td>
@@ -190,7 +190,7 @@
 	</body>
 	<script type="text/ng-template" id="modelBug.html">
 		<div class="modal-header">
-			<h3 class="modal-title" id="modal-title">{{ $ctrl.bug.project }} {{ $ctrl.bug.id }}</h3>
+			<h3 class="modal-title" id="modal-title">{{ $ctrl.bug.project }} {{ $ctrl.bug.commit }}</h3>
 			<a ng-click="$ctrl.previousBug()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous Bug</a> | <a ng-click="$ctrl.nextBug()">Next Bug <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
 		</div>
 		<div class="modal-body" id="modal-body">
