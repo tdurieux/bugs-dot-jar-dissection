@@ -102,18 +102,19 @@ for project_name in os.listdir(REPOSITORIES_PATH):
 
     branches = get_bug_branches(project_path)
     for branch in branches:
-        (jira_id, fix_commit) = extract_bug_id(branch)
-        bug_path = os.path.join(bug_project_path, jira_id)
-        bug_data_path = os.path.join(project_data_path, jira_id + ".json")
+        (jira_id, commit) = extract_bug_id(branch)
+        bug_path = os.path.join(bug_project_path, commit)
+        bug_data_path = os.path.join(project_data_path, commit + ".json")
 
         if not os.path.exists(bug_path):
-            print("[Checkout] %s %s %s" % (project_name, jira_id, fix_commit))
+            print("[Checkout] %s %s %s" % (project_name, jira_id, commit))
             create_bug(project_path, branch, bug_path)
 
         bug = {
             "project": project_name,
-            "id": jira_id,
-            "fix_commit": fix_commit,
+            "jira_id": jira_id,
+            "commit": commit,
+            "classification": {}
         }
 
         # human patch
@@ -121,7 +122,7 @@ for project_name in os.listdir(REPOSITORIES_PATH):
         bug['files'] = bug['patch'].count("+++ b/")
         bug['linesAdd'] = bug['patch'].count("\n+") - bug['files']
         bug['linesRem'] = bug['patch'].count("\n-") - bug['files']
-        bug['singleLine'] = (bug['linesAdd'] == 1 and bug['linesRem'] == 0) or (
+        bug["classification"]['singleLine'] = (bug['linesAdd'] == 1 and bug['linesRem'] == 0) or (
             bug['linesAdd'] == 0 and bug['linesRem'] == 1)
 
         # failing tests
