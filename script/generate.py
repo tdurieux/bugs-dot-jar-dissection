@@ -25,7 +25,7 @@ for project_name in os.listdir(DATA_PATH):
           continue
         lineType = line[0]
         line = line[1::].strip()
-        if len(line) > 0 and (line[0:3] == '++ ' or line[0:3] == '-- ' or line[0] == '*' or line[0:2] == '/*' or line[0:2] == '*/'):
+        if len(line) > 0 and (line[0:3] == '++ ' or line[0:3] == '-- ' or line[0] == '*' or line[0:2] == '/*' or line[0:2] == '*/' or line[0:2] == '//'):
           continue
         if lineType == '+':
           bug['linesAdd'] += 1
