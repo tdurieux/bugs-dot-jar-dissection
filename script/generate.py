@@ -18,8 +18,21 @@ for project_name in os.listdir(DATA_PATH):
       bug = json.load(fd)
       bug['project'] = project_name
       bug['files'] = bug['patch'].count("+++ b/")
-      bug['linesAdd'] = bug['patch'].count("\n+") - bug['files']
-      bug['linesRem'] = bug['patch'].count("\n-") - bug['files']
+      bug['linesAdd'] = 0
+      bug['linesRem'] = 0
+      for line in bug['patch'].split("\n"):
+        if len(line) == 0:
+          continue
+        lineType = line[0]
+        line = line[1::].strip()
+        if len(line) > 0 and (line[0:3] == '++ ' or line[0:3] == '-- ' or line[0] == '*' or line[0:2] == '/*' or line[0:2] == '*/'):
+          continue
+        if lineType == '+':
+          bug['linesAdd'] += 1
+        if lineType == '-':
+          bug['linesRem'] += 1
+
+      #bug['linesRem'] = bug['patch'].count("\n-") - bug['files']
       bug['singleLine'] = (bug['linesAdd'] == 1 and bug['linesRem'] == 0) or (bug['linesAdd'] == 0 and bug['linesRem'] == 1)
       if project_name in patches and bug["commit"] in patches[project_name]:
         for repair_tool in patches[project_name][bug["commit"]]:
