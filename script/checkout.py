@@ -21,7 +21,8 @@ def create_bug(project_path, branch_name, destination):
     subprocess.call(cmd, shell=True, stdout=FNULL, stderr=FNULL)
     with open(os.path.join(destination, ".bugs-dot-jar", "developer-patch.diff"), 'w') as fd:
         fd.write(human_patch)
-    shutil.rmtree(os.path.join(destination, ".git"))
+    if os.path.exists(os.path.join(destination, ".git")):
+        shutil.rmtree(os.path.join(destination, ".git"))
 
 
 def checkout(bug, destination):
