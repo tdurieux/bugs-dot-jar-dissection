@@ -1,0 +1,24 @@
+[submodule "repositories/accumulo"]
+	path = repositories/accumulo
+	url = https://github.com/bugs-dot-jar/accumulo.git
+[submodule "repositories/camel"]
+	path = repositories/camel
+	url = https://github.com/bugs-dot-jar/camel.git
+[submodule "repositories/flink"]
+	path = repositories/flink
+	url = https://github.com/bugs-dot-jar/flink.git
+[submodule "repositories/commons-math"]
+	path = repositories/commons-math
+	url = https://github.com/bugs-dot-jar/commons-math.git
+[submodule "repositories/maven"]
+	path = repositories/maven
+	url = https://github.com/bugs-dot-jar/maven.git
+[submodule "repositories/jackrabbit-oak"]
+	path = repositories/jackrabbit-oak
+	url = https://github.com/bugs-dot-jar/jackrabbit-oak.git
+[submodule "repositories/wicket"]
+	path =repositories/wicket
+	url = https://github.com/bugs-dot-jar/wicket.git
+[submodule "repositories/logging-log4j2"]
+	path = repositories/logging-log4j2
+	url = https://github.com/bugs-dot-jar/logging-log4j2
