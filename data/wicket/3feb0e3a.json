@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testDetachRemovedChildrenTree(org.apache.wicket.model.DetachableTest)"
+    "org.apache.wicket.model.DetachableTest"
   ], 
-  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java b/wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java\nindex 17f43d7..b72702e 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java\n@@ -644,7 +644,7 @@ public MarkupContainer removeAll()\n \t\t\t\t\t// Do not call remove() because the state change would than be\n \t\t\t\t\t// recorded twice.\n \t\t\t\t\tchild.internalOnRemove();\n-\t\t\t\t\tchild.detachModel();\n+\t\t\t\t\tchild.detach();\n \t\t\t\t\tchild.setParent(null);\n \t\t\t\t}\n \t\t\t}\n", 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java b/wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java\nindex 17f43d72da..b72702e19d 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java\n@@ -644,7 +644,7 @@ public MarkupContainer removeAll()\n \t\t\t\t\t// Do not call remove() because the state change would than be\n \t\t\t\t\t// recorded twice.\n \t\t\t\t\tchild.internalOnRemove();\n-\t\t\t\t\tchild.detachModel();\n+\t\t\t\t\tchild.detach();\n \t\t\t\t\tchild.setParent(null);\n \t\t\t\t}\n \t\t\t}\n", 
   "project": "wicket", 
   "linesAdd": 1, 
   "jira_id": "3872", 

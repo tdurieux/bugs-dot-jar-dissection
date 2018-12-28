@@ -6,10 +6,10 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "RecipientListShareUnitOfWorkOnExceptionHandledFalseIssueTest>TestSupport.runBare:58->testRecipientList:34->TestSupport.assertIsInstanceOf:166 Expected an instance of type: java.lang.IllegalArgumentException but was null", 
-    "SplitSubUnitOfWorkTest>TestSupport.runBare:58->testError:57->ContextTestSupport.assertMockEndpointsSatisfied:343 mock://result Received message count. Expected: <0> but was: <1>", 
-    "SplitSubUnitOfWorkWithMDCLoggingTest>TestSupport.runBare:58->SplitSubUnitOfWorkTest.testError:57->ContextTestSupport.assertMockEndpointsSatisfied:343 mock://result Received message count. Expected: <0> but was: <1>", 
-    "SplitTwoSubUnitOfWorkTest>TestSupport.runBare:58->testError:61->ContextTestSupport.assertMockEndpointsSatisfied:343 mock://result Received message count. Expected: <0> but was: <1>"
+    "org.apache.camel.issues.RecipientListShareUnitOfWorkOnExceptionHandledFalseIssueTest", 
+    "org.apache.camel.processor.SplitSubUnitOfWorkWithMDCLoggingTest", 
+    "org.apache.camel.processor.SplitTwoSubUnitOfWorkTest", 
+    "org.apache.camel.processor.SplitSubUnitOfWorkTest"
   ], 
   "patch": "", 
   "project": "camel", 

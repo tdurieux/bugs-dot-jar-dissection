@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "InterpolatorTest.testLookupWithDefaultInterpolator:96 No Date"
+    "org.apache.logging.log4j.core.lookup.InterpolatorTest"
   ], 
-  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\nindex a768f4e..f50293f 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\n@@ -71,6 +71,8 @@ public Interpolator(Map<String, String> properties) {\n         lookups.put(\"sys\", new SystemPropertiesLookup());\n         lookups.put(\"env\", new EnvironmentLookup());\n         lookups.put(\"jndi\", new JndiLookup());\n+        lookups.put(\"date\", new DateLookup());\n+        lookups.put(\"ctx\", new ContextMapLookup());\n         try {\n             if (Class.forName(\"javax.servlet.ServletContext\") != null) {\n                 lookups.put(\"web\", new WebLookup());\n", 
+  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\nindex a768f4e7d..f50293ffb 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/Interpolator.java\n@@ -71,6 +71,8 @@ public Interpolator(Map<String, String> properties) {\n         lookups.put(\"sys\", new SystemPropertiesLookup());\n         lookups.put(\"env\", new EnvironmentLookup());\n         lookups.put(\"jndi\", new JndiLookup());\n+        lookups.put(\"date\", new DateLookup());\n+        lookups.put(\"ctx\", new ContextMapLookup());\n         try {\n             if (Class.forName(\"javax.servlet.ServletContext\") != null) {\n                 lookups.put(\"web\", new WebLookup());\n", 
   "project": "logging-log4j2", 
   "linesAdd": 2, 
   "jira_id": "378", 

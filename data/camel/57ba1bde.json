@@ -6,10 +6,10 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "EndpointWithRawUriParameterTest>TestSupport.runBare:58->testRawUriParameter:99->ContextTestSupport.assertMockEndpointsSatisfied:343 mock://result Header with name password for message: 0. Expected: <++%%w?rd)> but was: <++%%w?rd>", 
-    "ManagedThrottlerTest>TestSupport.runBare:58->testThrottleAsyncVisableViaJmx:189 expected:<10> but was:<9>"
+    "org.apache.camel.issues.EndpointWithRawUriParameterTest", 
+    "org.apache.camel.management.ManagedThrottlerTest"
   ], 
-  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/util/URISupport.java b/camel-core/src/main/java/org/apache/camel/util/URISupport.java\nindex 4b06a13..0f37a2c 100644\n--- a/camel-core/src/main/java/org/apache/camel/util/URISupport.java\n+++ b/camel-core/src/main/java/org/apache/camel/util/URISupport.java\n@@ -155,7 +155,7 @@ public static String sanitizePath(String path) {\n                 char ch = uri.charAt(i);\n                 // look ahead of the next char\n                 char next;\n-                if (i < uri.length() - 2) {\n+                if (i <= uri.length() - 2) {\n                     next = uri.charAt(i + 1);\n                 } else {\n                     next = '\\u0000';\n", 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/util/URISupport.java b/camel-core/src/main/java/org/apache/camel/util/URISupport.java\nindex 4b06a13e39..0f37a2c2dc 100644\n--- a/camel-core/src/main/java/org/apache/camel/util/URISupport.java\n+++ b/camel-core/src/main/java/org/apache/camel/util/URISupport.java\n@@ -155,7 +155,7 @@ public static String sanitizePath(String path) {\n                 char ch = uri.charAt(i);\n                 // look ahead of the next char\n                 char next;\n-                if (i < uri.length() - 2) {\n+                if (i <= uri.length() - 2) {\n                     next = uri.charAt(i + 1);\n                 } else {\n                     next = '\\u0000';\n", 
   "project": "camel", 
   "linesAdd": 1, 
   "jira_id": "7459", 

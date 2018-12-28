@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testComponentAndFragmentWithSameId(org.apache.wicket.markup.html.panel.FragmentTest)"
+    "org.apache.wicket.markup.html.panel.FragmentTest"
   ], 
-  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/markup/html/panel/FragmentMarkupSourcingStrategy.java b/wicket-core/src/main/java/org/apache/wicket/markup/html/panel/FragmentMarkupSourcingStrategy.java\nindex ac47e37..400ea8d 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/markup/html/panel/FragmentMarkupSourcingStrategy.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/markup/html/panel/FragmentMarkupSourcingStrategy.java\n@@ -152,7 +152,7 @@ public IMarkupFragment getMarkup(final MarkupContainer container, final Componen\n \t\t\t{\n \t\t\t\tthrow new MarkupNotFoundException(\"Markup found for Fragment '\" + markupId\n \t\t\t\t\t+ \"' in providing markup container \" + getMarkupProvider(container)\n-\t\t\t\t\t+ \" is not a fragment tag\");\n+\t\t\t\t\t+ \" is not a <wicket:fragment> tag\");\n \t\t\t}\n \t\t}\n \n", 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/markup/html/panel/FragmentMarkupSourcingStrategy.java b/wicket-core/src/main/java/org/apache/wicket/markup/html/panel/FragmentMarkupSourcingStrategy.java\nindex ac47e37d07..400ea8df5c 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/markup/html/panel/FragmentMarkupSourcingStrategy.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/markup/html/panel/FragmentMarkupSourcingStrategy.java\n@@ -152,7 +152,7 @@ public IMarkupFragment getMarkup(final MarkupContainer container, final Componen\n \t\t\t{\n \t\t\t\tthrow new MarkupNotFoundException(\"Markup found for Fragment '\" + markupId\n \t\t\t\t\t+ \"' in providing markup container \" + getMarkupProvider(container)\n-\t\t\t\t\t+ \" is not a fragment tag\");\n+\t\t\t\t\t+ \" is not a <wicket:fragment> tag\");\n \t\t\t}\n \t\t}\n \n", 
   "project": "wicket", 
   "linesAdd": 1, 
   "jira_id": "5060", 

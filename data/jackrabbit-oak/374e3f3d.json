@@ -6,11 +6,7 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "referencedOlderThanOrphaned(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/old", 
-    "copyAllVersions(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/old", 
-    "onlyReferencedAfterDate(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/young", 
-    "onlyReferenced(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/old", 
-    "referencedSinceDate(org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest): jcr:versionHistory not found on /versionables/mix:simpleVersionable/young"
+    "org.apache.jackrabbit.oak.upgrade.CopyVersionHistoryTest"
   ], 
   "patch": "", 
   "project": "jackrabbit-oak", 

@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "StringsTest.testJoin:570->Assert.assertEquals:144->Assert.assertEquals:115 expected:<foo[barb]az> but was:<foo[ar]az>"
+    "org.apache.wicket.util.string.StringsTest"
   ], 
-  "patch": "diff --git a/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java b/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java\nindex f3ebe1b..fdb75a4 100755\n--- a/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java\n+++ b/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java\n@@ -677,7 +677,7 @@ else if (fragments.length < 2)\n \t\t\t\t{\r\n \t\t\t\t\tboolean lhsClosed = fragments[i - 1].endsWith(separator);\r\n \t\t\t\t\tboolean rhsClosed = fragment.startsWith(separator);\r\n-\t\t\t\t\tif (lhsClosed && rhsClosed)\r\n+\t\t\t\t\tif (!Strings.isEmpty(separator) && lhsClosed && rhsClosed)\r\n \t\t\t\t\t{\r\n \t\t\t\t\t\tbuff.append(fragment.substring(1));\r\n \t\t\t\t\t}\r\n", 
+  "patch": "diff --git a/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java b/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java\nindex f3ebe1bca1..fdb75a471c 100755\n--- a/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java\n+++ b/wicket-util/src/main/java/org/apache/wicket/util/string/Strings.java\n@@ -677,7 +677,7 @@ else if (fragments.length < 2)\n \t\t\t\t{\r\n \t\t\t\t\tboolean lhsClosed = fragments[i - 1].endsWith(separator);\r\n \t\t\t\t\tboolean rhsClosed = fragment.startsWith(separator);\r\n-\t\t\t\t\tif (lhsClosed && rhsClosed)\r\n+\t\t\t\t\tif (!Strings.isEmpty(separator) && lhsClosed && rhsClosed)\r\n \t\t\t\t\t{\r\n \t\t\t\t\t\tbuff.append(fragment.substring(1));\r\n \t\t\t\t\t}\r\n", 
   "project": "wicket", 
   "linesAdd": 1, 
   "jira_id": "5720", 

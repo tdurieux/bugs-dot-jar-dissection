@@ -6,8 +6,7 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testNonBookmarkablePage(org.apache.wicket.devutils.stateless.StatelessCheckerTest)", 
-    "testPositive(org.apache.wicket.devutils.stateless.StatelessCheckerTest)"
+    "org.apache.wicket.devutils.stateless.StatelessCheckerTest"
   ], 
   "patch": "", 
   "project": "wicket", 

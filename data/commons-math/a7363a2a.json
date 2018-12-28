@@ -6,10 +6,10 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "MonotoneChainTest>ConvexHullGenerator2DAbstractTest.testCollinearPointOnExistingBoundary:223 \u00bb Convergence", 
-    "AklToussaintHeuristicTest>ConvexHullGenerator2DAbstractTest.testCollinearPointOnExistingBoundary:223 \u00bb Convergence"
+    "org.apache.commons.math3.geometry.euclidean.twod.hull.AklToussaintHeuristicTest", 
+    "org.apache.commons.math3.geometry.euclidean.twod.hull.MonotoneChainTest"
   ], 
-  "patch": "diff --git a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/hull/MonotoneChain.java b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/hull/MonotoneChain.java\nindex 2ade7a6..50fd6b7 100644\n--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/hull/MonotoneChain.java\n+++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/hull/MonotoneChain.java\n@@ -160,9 +160,9 @@ private void updateHull(final Vector2D point, final List<Vector2D> hull) {\n                 } else {\n                     if (distanceToCurrent > distanceToLast) {\n                         hull.remove(size - 1);\n-                    }\n                         hull.add(point);\n                     }\n+                }\n                 return;\n             } else if (offset > 0) {\n                 hull.remove(size - 1);\n", 
+  "patch": "diff --git a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/hull/MonotoneChain.java b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/hull/MonotoneChain.java\nindex 2ade7a69e..50fd6b752 100644\n--- a/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/hull/MonotoneChain.java\n+++ b/src/main/java/org/apache/commons/math3/geometry/euclidean/twod/hull/MonotoneChain.java\n@@ -160,9 +160,9 @@ private void updateHull(final Vector2D point, final List<Vector2D> hull) {\n                 } else {\n                     if (distanceToCurrent > distanceToLast) {\n                         hull.remove(size - 1);\n-                    }\n                         hull.add(point);\n                     }\n+                }\n                 return;\n             } else if (offset > 0) {\n                 hull.remove(size - 1);\n", 
   "project": "commons-math", 
   "linesAdd": 1, 
   "jira_id": "1135", 

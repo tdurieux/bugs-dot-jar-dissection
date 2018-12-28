@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "PackageMapperTest.testGetCompatibilityScore:658->Assert.assertEquals:542->Assert.assertEquals:555->Assert.assertEquals:118->Assert.failNotEquals:743->Assert.fail:88 expected:<2> but was:<0>"
+    "org.apache.wicket.core.request.mapper.PackageMapperTest"
   ], 
-  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/core/request/mapper/PackageMapper.java b/wicket-core/src/main/java/org/apache/wicket/core/request/mapper/PackageMapper.java\nindex ad15d6d..2037356 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/core/request/mapper/PackageMapper.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/core/request/mapper/PackageMapper.java\n@@ -225,7 +225,13 @@ protected boolean pageMustHaveBeenCreatedBookmarkable()\n \t@Override\n \tpublic int getCompatibilityScore(Request request)\n \t{\n-\t\t// always return 0 here so that the mounts have higher priority\n+\t\tif (urlStartsWith(request.getUrl(), mountSegments))\n+\t\t{\n+\t\t    return mountSegments.length;\n+\t\t}\n+\t\telse\n+\t\t{\n \t\t    return 0;\n \t\t}\n \t}\n+}\n", 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/core/request/mapper/PackageMapper.java b/wicket-core/src/main/java/org/apache/wicket/core/request/mapper/PackageMapper.java\nindex ad15d6d2e1..2037356c10 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/core/request/mapper/PackageMapper.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/core/request/mapper/PackageMapper.java\n@@ -225,7 +225,13 @@ protected boolean pageMustHaveBeenCreatedBookmarkable()\n \t@Override\n \tpublic int getCompatibilityScore(Request request)\n \t{\n-\t\t// always return 0 here so that the mounts have higher priority\n+\t\tif (urlStartsWith(request.getUrl(), mountSegments))\n+\t\t{\n+\t\t    return mountSegments.length;\n+\t\t}\n+\t\telse\n+\t\t{\n \t\t    return 0;\n \t\t}\n \t}\n+}\n", 
   "project": "wicket", 
   "linesAdd": 7, 
   "jira_id": "5565", 

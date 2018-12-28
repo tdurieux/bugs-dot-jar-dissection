@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testImportUserWithPwdHistory(org.apache.jackrabbit.oak.jcr.security.user.UserImportHistoryTest): rep:pwdHistory = {sha1}8efd86fb78a56a5145ed7739dcb00c78581c5375 is single-valued."
+    "org.apache.jackrabbit.oak.jcr.security.user.UserImportHistoryTest"
   ], 
-  "patch": "diff --git a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/SysViewImportHandler.java b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/SysViewImportHandler.java\nindex d9cbf9c..121511a 100644\n--- a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/SysViewImportHandler.java\n+++ b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/SysViewImportHandler.java\n@@ -277,7 +277,8 @@ public void endElement(String namespaceURI, String localName, String qName)\n                 PropInfo prop = new PropInfo(\n                         currentPropName == null ? null : currentPropName.getRepoQualifiedName(),\n                         currentPropType,\n-                        currentPropValues);\n+                        currentPropValues,\n+                        currentPropMultipleStatus);\n                 state.props.add(prop);\n             }\n             // reset temp fields\n", 
+  "patch": "diff --git a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/SysViewImportHandler.java b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/SysViewImportHandler.java\nindex d9cbf9c35f..121511a445 100644\n--- a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/SysViewImportHandler.java\n+++ b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/xml/SysViewImportHandler.java\n@@ -277,7 +277,8 @@ public void endElement(String namespaceURI, String localName, String qName)\n                 PropInfo prop = new PropInfo(\n                         currentPropName == null ? null : currentPropName.getRepoQualifiedName(),\n                         currentPropType,\n-                        currentPropValues);\n+                        currentPropValues,\n+                        currentPropMultipleStatus);\n                 state.props.add(prop);\n             }\n             // reset temp fields\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 2, 
   "jira_id": "3930", 

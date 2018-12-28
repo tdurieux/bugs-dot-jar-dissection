@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "test2(org.apache.wicket.markup.parser.MergedMarkupTest)"
+    "org.apache.wicket.markup.parser.MergedMarkupTest"
   ], 
-  "patch": "diff --git a/wicket/src/main/java/org/apache/wicket/markup/MergedMarkup.java b/wicket/src/main/java/org/apache/wicket/markup/MergedMarkup.java\nindex 1e686c2..c1194ff 100644\n--- a/wicket/src/main/java/org/apache/wicket/markup/MergedMarkup.java\n+++ b/wicket/src/main/java/org/apache/wicket/markup/MergedMarkup.java\n@@ -63,6 +63,12 @@ public MergedMarkup(final Markup markup, final Markup baseMarkup, int extendInde\n \n \t\tgetMarkupResourceStream().setBaseMarkup(baseMarkup);\n \n+\t\t// Copy settings from derived markup\n+\t\tMarkupResourceStream baseResourceStream = baseMarkup.getMarkupResourceStream();\n+\t\tgetMarkupResourceStream().setXmlDeclaration(baseResourceStream.getXmlDeclaration());\n+\t\tgetMarkupResourceStream().setEncoding(baseResourceStream.getEncoding());\n+\t\tgetMarkupResourceStream().setWicketNamespace(baseResourceStream.getWicketNamespace());\n+\n \t\tif (log.isDebugEnabled())\n \t\t{\n \t\t\tString derivedResource = Strings.afterLast(markup.getMarkupResourceStream()\n", 
+  "patch": "diff --git a/wicket/src/main/java/org/apache/wicket/markup/MergedMarkup.java b/wicket/src/main/java/org/apache/wicket/markup/MergedMarkup.java\nindex 1e686c2525..c1194fffa1 100644\n--- a/wicket/src/main/java/org/apache/wicket/markup/MergedMarkup.java\n+++ b/wicket/src/main/java/org/apache/wicket/markup/MergedMarkup.java\n@@ -63,6 +63,12 @@ public MergedMarkup(final Markup markup, final Markup baseMarkup, int extendInde\n \n \t\tgetMarkupResourceStream().setBaseMarkup(baseMarkup);\n \n+\t\t// Copy settings from derived markup\n+\t\tMarkupResourceStream baseResourceStream = baseMarkup.getMarkupResourceStream();\n+\t\tgetMarkupResourceStream().setXmlDeclaration(baseResourceStream.getXmlDeclaration());\n+\t\tgetMarkupResourceStream().setEncoding(baseResourceStream.getEncoding());\n+\t\tgetMarkupResourceStream().setWicketNamespace(baseResourceStream.getWicketNamespace());\n+\n \t\tif (log.isDebugEnabled())\n \t\t{\n \t\t\tString derivedResource = Strings.afterLast(markup.getMarkupResourceStream()\n", 
   "project": "wicket", 
   "linesAdd": 6, 
   "jira_id": "2569", 

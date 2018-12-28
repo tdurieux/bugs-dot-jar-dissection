@@ -6,7 +6,7 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "parseForwardAttributes(org.apache.wicket.protocol.http.servlet.ServletWebRequestTest): expected:<[some/forwarded/url]> but was:<[request/Uri]>"
+    "org.apache.wicket.protocol.http.servlet.ServletWebRequestTest"
   ], 
   "patch": "", 
   "project": "wicket", 

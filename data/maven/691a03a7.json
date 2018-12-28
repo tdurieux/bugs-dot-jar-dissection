@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testCloneWithActiveProfile(org.apache.maven.project.MavenProjectTest)"
+    "org.apache.maven.project.MavenProjectTest"
   ], 
-  "patch": "diff --git a/maven-core/src/main/java/org/apache/maven/project/MavenProject.java b/maven-core/src/main/java/org/apache/maven/project/MavenProject.java\nindex 8a7d64b..de3c278 100644\n--- a/maven-core/src/main/java/org/apache/maven/project/MavenProject.java\n+++ b/maven-core/src/main/java/org/apache/maven/project/MavenProject.java\n@@ -1407,7 +1407,7 @@ public ArtifactRepository getDistributionManagementArtifactRepository()\n \n     public void setActiveProfiles( List<Profile> activeProfiles )\n     {\n-        this.activeProfiles.addAll( activeProfiles );\n+        this.activeProfiles = activeProfiles;\n     }\n \n     public List<Profile> getActiveProfiles()\n", 
+  "patch": "diff --git a/maven-core/src/main/java/org/apache/maven/project/MavenProject.java b/maven-core/src/main/java/org/apache/maven/project/MavenProject.java\nindex 8a7d64b6f..de3c278e8 100644\n--- a/maven-core/src/main/java/org/apache/maven/project/MavenProject.java\n+++ b/maven-core/src/main/java/org/apache/maven/project/MavenProject.java\n@@ -1407,7 +1407,7 @@ public ArtifactRepository getDistributionManagementArtifactRepository()\n \n     public void setActiveProfiles( List<Profile> activeProfiles )\n     {\n-        this.activeProfiles.addAll( activeProfiles );\n+        this.activeProfiles = activeProfiles;\n     }\n \n     public List<Profile> getActiveProfiles()\n", 
   "project": "maven", 
   "linesAdd": 1, 
   "jira_id": "4918", 

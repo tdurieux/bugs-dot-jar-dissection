@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "org.apache.maven.DefaultMavenTest#testThatErrorDuringProjectDependencyGraphCreationAreStored AssertionFailedError"
+    "org.apache.maven.DefaultMavenTest"
   ], 
-  "patch": "diff --git a/maven-core/src/main/java/org/apache/maven/DefaultMaven.java b/maven-core/src/main/java/org/apache/maven/DefaultMaven.java\nindex 6328819..ab47efd 100644\n--- a/maven-core/src/main/java/org/apache/maven/DefaultMaven.java\n+++ b/maven-core/src/main/java/org/apache/maven/DefaultMaven.java\n@@ -267,13 +267,13 @@ private MavenExecutionResult doExecute( MavenExecutionRequest request )\n         //\n         ProjectDependencyGraph projectDependencyGraph = createProjectDependencyGraph( projects, request, result, true );\n \n-        session.setProjects( projectDependencyGraph.getSortedProjects() );\n-        \n         if ( result.hasExceptions() )\n         {\n             return result;\n         }\n \n+        session.setProjects( projectDependencyGraph.getSortedProjects() );\n+\n         try\n         {\n             session.setProjectMap( getProjectMap( session.getProjects() ) );\n", 
+  "patch": "diff --git a/maven-core/src/main/java/org/apache/maven/DefaultMaven.java b/maven-core/src/main/java/org/apache/maven/DefaultMaven.java\nindex 632881916..ab47efd00 100644\n--- a/maven-core/src/main/java/org/apache/maven/DefaultMaven.java\n+++ b/maven-core/src/main/java/org/apache/maven/DefaultMaven.java\n@@ -267,13 +267,13 @@ private MavenExecutionResult doExecute( MavenExecutionRequest request )\n         //\n         ProjectDependencyGraph projectDependencyGraph = createProjectDependencyGraph( projects, request, result, true );\n \n-        session.setProjects( projectDependencyGraph.getSortedProjects() );\n-        \n         if ( result.hasExceptions() )\n         {\n             return result;\n         }\n \n+        session.setProjects( projectDependencyGraph.getSortedProjects() );\n+\n         try\n         {\n             session.setProjectMap( getProjectMap( session.getProjects() ) );\n", 
   "project": "maven", 
   "linesAdd": 2, 
   "jira_id": "5613", 

@@ -6,10 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testStringPrimaryType(org.apache.jackrabbit.oak.plugins.segment.RecordTest)", 
-    "testStringMixinTypes(org.apache.jackrabbit.oak.plugins.segment.RecordTest)"
+    "org.apache.jackrabbit.oak.plugins.segment.RecordTest"
   ], 
-  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeState.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeState.java\nindex fe5221b..9eb6cd9 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeState.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeState.java\n@@ -116,10 +116,14 @@ public boolean hasProperty(String name) {\n     public PropertyState getProperty(String name) {\n         checkNotNull(name);\n         Template template = getTemplate();\n+        PropertyState property = null;\n         if (JCR_PRIMARYTYPE.equals(name)) {\n-            return template.getPrimaryType();\n+            property = template.getPrimaryType();\n         } else if (JCR_MIXINTYPES.equals(name)) {\n-            return template.getMixinTypes();\n+            property = template.getMixinTypes();\n+        }\n+        if (property != null) {\n+            return property;\n         }\n \n         PropertyTemplate propertyTemplate =\n", 
+  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeState.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeState.java\nindex fe5221b005..9eb6cd9ef4 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeState.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/SegmentNodeState.java\n@@ -116,10 +116,14 @@ public boolean hasProperty(String name) {\n     public PropertyState getProperty(String name) {\n         checkNotNull(name);\n         Template template = getTemplate();\n+        PropertyState property = null;\n         if (JCR_PRIMARYTYPE.equals(name)) {\n-            return template.getPrimaryType();\n+            property = template.getPrimaryType();\n         } else if (JCR_MIXINTYPES.equals(name)) {\n-            return template.getMixinTypes();\n+            property = template.getMixinTypes();\n+        }\n+        if (property != null) {\n+            return property;\n         }\n \n         PropertyTemplate propertyTemplate =\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 6, 
   "jira_id": "1916", 

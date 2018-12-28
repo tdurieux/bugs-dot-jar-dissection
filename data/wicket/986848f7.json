@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testSubmitMultipartForm(org.apache.wicket.util.tester.FormTesterTest)"
+    "org.apache.wicket.util.tester.FormTesterTest"
   ], 
-  "patch": "diff --git a/wicket/src/main/java/org/apache/wicket/protocol/http/MockHttpServletRequest.java b/wicket/src/main/java/org/apache/wicket/protocol/http/MockHttpServletRequest.java\nindex e282be1..c521441 100644\n--- a/wicket/src/main/java/org/apache/wicket/protocol/http/MockHttpServletRequest.java\n+++ b/wicket/src/main/java/org/apache/wicket/protocol/http/MockHttpServletRequest.java\n@@ -487,8 +487,6 @@ public String getHeader(final String name)\n \t */\n \tpublic ServletInputStream getInputStream() throws IOException\n \t{\n-\t\tif (uploadedFiles != null && uploadedFiles.size() > 0)\n-\t\t{\n \t\tbyte[] request = buildRequest();\n \n \t\t// Ok lets make an input stream to return\n@@ -503,18 +501,6 @@ public int read()\n \t\t\t}\n \t\t};\n \t}\n-\t\telse\n-\t\t{\n-\t\t\treturn new ServletInputStream()\n-\t\t\t{\n-\t\t\t\t@Override\n-\t\t\t\tpublic int read()\n-\t\t\t\t{\n-\t\t\t\t\treturn -1;\n-\t\t\t\t}\n-\t\t\t};\n-\t\t}\n-\t}\n \n \t/**\n \t * Get the given header as an int.\n", 
+  "patch": "diff --git a/wicket/src/main/java/org/apache/wicket/protocol/http/MockHttpServletRequest.java b/wicket/src/main/java/org/apache/wicket/protocol/http/MockHttpServletRequest.java\nindex e282be1ad6..c521441f7f 100644\n--- a/wicket/src/main/java/org/apache/wicket/protocol/http/MockHttpServletRequest.java\n+++ b/wicket/src/main/java/org/apache/wicket/protocol/http/MockHttpServletRequest.java\n@@ -486,8 +486,6 @@ public String getHeader(final String name)\n \t *             If an I/O related problem occurs\n \t */\n \tpublic ServletInputStream getInputStream() throws IOException\n-\t{\n-\t\tif (uploadedFiles != null && uploadedFiles.size() > 0)\n \t{\n \t\tbyte[] request = buildRequest();\n \n@@ -503,18 +501,6 @@ public int read()\n \t\t\t}\n \t\t};\n \t}\n-\t\telse\n-\t\t{\n-\t\t\treturn new ServletInputStream()\n-\t\t\t{\n-\t\t\t\t@Override\n-\t\t\t\tpublic int read()\n-\t\t\t\t{\n-\t\t\t\t\treturn -1;\n-\t\t\t\t}\n-\t\t\t};\n-\t\t}\n-\t}\n \n \t/**\n \t * Get the given header as an int.\n", 
   "project": "wicket", 
   "linesAdd": 0, 
   "jira_id": "1931", 

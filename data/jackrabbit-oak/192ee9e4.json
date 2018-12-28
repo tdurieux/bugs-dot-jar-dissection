@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "splitRevisionsManyClusterNodes(org.apache.jackrabbit.oak.plugins.document.DocumentSplitTest): expected:<2> but was:<0>"
+    "org.apache.jackrabbit.oak.plugins.document.DocumentSplitTest"
   ], 
-  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/NodeDocument.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/NodeDocument.java\nindex bb5984c..bd753f7 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/NodeDocument.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/NodeDocument.java\n@@ -969,7 +969,8 @@ boolean isConflicting(@Nonnull UpdateOp op,\n             UpdateUtils.applyChanges(oldDoc, old, context.getRevisionComparator());\n             setSplitDocProps(this, oldDoc, old, high);\n             // only split if enough of the data can be moved to old document\n-            if (oldDoc.getMemory() > getMemory() * SPLIT_RATIO) {\n+            if (oldDoc.getMemory() > getMemory() * SPLIT_RATIO\n+                    || numValues >= NUM_REVS_THRESHOLD) {\n                 splitOps.add(old);\n             } else {\n                 main = null;\n", 
+  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/NodeDocument.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/NodeDocument.java\nindex bb5984c169..bd753f7d7f 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/NodeDocument.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/document/NodeDocument.java\n@@ -969,7 +969,8 @@ boolean isConflicting(@Nonnull UpdateOp op,\n             UpdateUtils.applyChanges(oldDoc, old, context.getRevisionComparator());\n             setSplitDocProps(this, oldDoc, old, high);\n             // only split if enough of the data can be moved to old document\n-            if (oldDoc.getMemory() > getMemory() * SPLIT_RATIO) {\n+            if (oldDoc.getMemory() > getMemory() * SPLIT_RATIO\n+                    || numValues >= NUM_REVS_THRESHOLD) {\n                 splitOps.add(old);\n             } else {\n                 main = null;\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 2, 
   "jira_id": "1770", 

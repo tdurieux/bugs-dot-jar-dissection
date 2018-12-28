@@ -6,9 +6,9 @@
     "singleLine": true
   }, 
   "failing_tests": [
-    "redirectToAbsoluteUrlTest(org.apache.wicket.util.tester.WicketTesterTest): expected:<302> but was:<200>"
+    "org.apache.wicket.util.tester.WicketTesterTest"
   ], 
-  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/protocol/http/mock/MockHttpServletResponse.java b/wicket-core/src/main/java/org/apache/wicket/protocol/http/mock/MockHttpServletResponse.java\nindex 01581ef..af09060 100755\n--- a/wicket-core/src/main/java/org/apache/wicket/protocol/http/mock/MockHttpServletResponse.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/protocol/http/mock/MockHttpServletResponse.java\n@@ -604,6 +604,7 @@ private String getURL()\n \tpublic void sendRedirect(String location) throws IOException\n \t{\n \t\tredirectLocation = location;\n+\t\tstatus = HttpServletResponse.SC_FOUND;\n \t}\n \n \t/**\n", 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/protocol/http/mock/MockHttpServletResponse.java b/wicket-core/src/main/java/org/apache/wicket/protocol/http/mock/MockHttpServletResponse.java\nindex 01581ef201..af090609a4 100755\n--- a/wicket-core/src/main/java/org/apache/wicket/protocol/http/mock/MockHttpServletResponse.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/protocol/http/mock/MockHttpServletResponse.java\n@@ -604,6 +604,7 @@ private String getURL()\n \tpublic void sendRedirect(String location) throws IOException\n \t{\n \t\tredirectLocation = location;\n+\t\tstatus = HttpServletResponse.SC_FOUND;\n \t}\n \n \t/**\n", 
   "project": "wicket", 
   "linesAdd": 1, 
   "jira_id": "4610", 

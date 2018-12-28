@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "ThrowableProxyTest.testLogStackTraceWithClassThatCannotInitialize:111 \u00bb NoClassDefFound"
+    "org.apache.logging.log4j.core.impl.ThrowableProxyTest"
   ], 
-  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\nindex 2320ad7..51a924e 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n@@ -500,7 +500,7 @@ private boolean ignoreElement(final StackTraceElement element, final List<String\n                 if (clazz != null) {\n                     return clazz;\n                 }\n-            } catch (final Exception ignore) {\n+            } catch (final Throwable ignore) {\n                 // Ignore exception.\n             }\n         }\n", 
+  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\nindex 2320ad7db..51a924e6c 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/impl/ThrowableProxy.java\n@@ -500,7 +500,7 @@ private boolean ignoreElement(final StackTraceElement element, final List<String\n                 if (clazz != null) {\n                     return clazz;\n                 }\n-            } catch (final Exception ignore) {\n+            } catch (final Throwable ignore) {\n                 // Ignore exception.\n             }\n         }\n", 
   "project": "logging-log4j2", 
   "linesAdd": 1, 
   "jira_id": "832", 

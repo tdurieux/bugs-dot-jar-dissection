@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "sumAllColumns(org.apache.accumulo.core.iterators.user.CombinerTest): expected:<[2]> but was:<[6]>"
+    "org.apache.accumulo.core.iterators.user.CombinerTest"
   ], 
-  "patch": "diff --git a/core/src/main/java/org/apache/accumulo/core/iterators/Combiner.java b/core/src/main/java/org/apache/accumulo/core/iterators/Combiner.java\nindex 6e72073..584eb14 100644\n--- a/core/src/main/java/org/apache/accumulo/core/iterators/Combiner.java\n+++ b/core/src/main/java/org/apache/accumulo/core/iterators/Combiner.java\n@@ -63,7 +63,7 @@\n      */\n     public ValueIterator(SortedKeyValueIterator<Key,Value> source) {\n       this.source = source;\n-      topKey = source.getTopKey();\n+      topKey = new Key(source.getTopKey());\n       hasNext = _hasNext();\n     }\n     \n", 
+  "patch": "diff --git a/core/src/main/java/org/apache/accumulo/core/iterators/Combiner.java b/core/src/main/java/org/apache/accumulo/core/iterators/Combiner.java\nindex 6e7207363..584eb1468 100644\n--- a/core/src/main/java/org/apache/accumulo/core/iterators/Combiner.java\n+++ b/core/src/main/java/org/apache/accumulo/core/iterators/Combiner.java\n@@ -63,7 +63,7 @@\n      */\n     public ValueIterator(SortedKeyValueIterator<Key,Value> source) {\n       this.source = source;\n-      topKey = source.getTopKey();\n+      topKey = new Key(source.getTopKey());\n       hasNext = _hasNext();\n     }\n     \n", 
   "project": "accumulo", 
   "linesAdd": 1, 
   "jira_id": "907", 

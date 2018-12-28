@@ -6,10 +6,10 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "oak2219(org.apache.jackrabbit.oak.plugins.index.property.OrderedPropertyIndexQueryTest): Expected path /content/a not found", 
-    "oak2219(org.apache.jackrabbit.oak.plugins.index.property.OrderedPropertyIndexDescendingQueryTest): Expected path /content/a not found"
+    "org.apache.jackrabbit.oak.plugins.index.property.OrderedPropertyIndexQueryTest", 
+    "org.apache.jackrabbit.oak.plugins.index.property.OrderedPropertyIndexDescendingQueryTest"
   ], 
-  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/OrderedPropertyIndex.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/OrderedPropertyIndex.java\nindex 0574916..b675324 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/OrderedPropertyIndex.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/OrderedPropertyIndex.java\n@@ -191,7 +191,7 @@ public Cursor query(IndexPlan plan, NodeState root) {\n         PropertyRestriction pr = plan.getPropertyRestriction();\n         if (pr != null) {\n             String propertyName = PathUtils.getName(pr.propertyName);\n-            depth = PathUtils.getDepth(propertyName);\n+            depth = PathUtils.getDepth(pr.propertyName);\n             paths = strategy.query(plan.getFilter(), propertyName,\n                     plan.getDefinition(), pr, pathPrefix);\n         }\n", 
+  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/OrderedPropertyIndex.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/OrderedPropertyIndex.java\nindex 0574916b5a..b6753249db 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/OrderedPropertyIndex.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/index/property/OrderedPropertyIndex.java\n@@ -191,7 +191,7 @@ public Cursor query(IndexPlan plan, NodeState root) {\n         PropertyRestriction pr = plan.getPropertyRestriction();\n         if (pr != null) {\n             String propertyName = PathUtils.getName(pr.propertyName);\n-            depth = PathUtils.getDepth(propertyName);\n+            depth = PathUtils.getDepth(pr.propertyName);\n             paths = strategy.query(plan.getFilter(), propertyName,\n                     plan.getDefinition(), pr, pathPrefix);\n         }\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 1, 
   "jira_id": "2219", 

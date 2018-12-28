@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testPluginRealmCache(org.apache.maven.plugin.PluginManagerTest): expected:<1> but was:<0>"
+    "org.apache.maven.plugin.PluginManagerTest"
   ], 
-  "patch": "diff --git a/maven-core/src/main/java/org/apache/maven/plugin/DefaultPluginDescriptorCache.java b/maven-core/src/main/java/org/apache/maven/plugin/DefaultPluginDescriptorCache.java\nindex 96b8274..8bb6909 100644\n--- a/maven-core/src/main/java/org/apache/maven/plugin/DefaultPluginDescriptorCache.java\n+++ b/maven-core/src/main/java/org/apache/maven/plugin/DefaultPluginDescriptorCache.java\n@@ -96,6 +96,8 @@ protected static PluginDescriptor clone( PluginDescriptor original )\n             clone.setId( original.getId() );\n             clone.setIsolatedRealm( original.isIsolatedRealm() );\n             clone.setSource( original.getSource() );\n+\n+            clone.setDependencies( original.getDependencies() );\n         }\n \n         return clone;\n", 
+  "patch": "diff --git a/maven-core/src/main/java/org/apache/maven/plugin/DefaultPluginDescriptorCache.java b/maven-core/src/main/java/org/apache/maven/plugin/DefaultPluginDescriptorCache.java\nindex 96b82740b..8bb69095e 100644\n--- a/maven-core/src/main/java/org/apache/maven/plugin/DefaultPluginDescriptorCache.java\n+++ b/maven-core/src/main/java/org/apache/maven/plugin/DefaultPluginDescriptorCache.java\n@@ -96,6 +96,8 @@ protected static PluginDescriptor clone( PluginDescriptor original )\n             clone.setId( original.getId() );\n             clone.setIsolatedRealm( original.isIsolatedRealm() );\n             clone.setSource( original.getSource() );\n+\n+            clone.setDependencies( original.getDependencies() );\n         }\n \n         return clone;\n", 
   "project": "maven", 
   "linesAdd": 2, 
   "jira_id": "5212", 

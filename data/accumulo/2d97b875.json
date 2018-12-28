@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testThrift_Invalid(org.apache.accumulo.core.data.MutationTest): Expected exception: java.lang.IllegalArgumentException"
+    "org.apache.accumulo.core.data.MutationTest"
   ], 
-  "patch": "diff --git a/core/src/main/java/org/apache/accumulo/core/data/Mutation.java b/core/src/main/java/org/apache/accumulo/core/data/Mutation.java\nindex 407dbc0..56ae7a6 100644\n--- a/core/src/main/java/org/apache/accumulo/core/data/Mutation.java\n+++ b/core/src/main/java/org/apache/accumulo/core/data/Mutation.java\n@@ -223,6 +223,13 @@ public Mutation(TMutation tmutation) {\n     this.data = ByteBufferUtil.toBytes(tmutation.data);\n     this.entries = tmutation.entries;\n     this.values = ByteBufferUtil.toBytesList(tmutation.values);\n+    \n+    if (this.row == null) {\n+      throw new IllegalArgumentException(\"null row\");\n+    }\n+    if (this.data == null) {\n+      throw new IllegalArgumentException(\"null serialized data\");\n+    }\n   }\n   \n   public Mutation(Mutation m) {\n", 
+  "patch": "diff --git a/core/src/main/java/org/apache/accumulo/core/data/Mutation.java b/core/src/main/java/org/apache/accumulo/core/data/Mutation.java\nindex 407dbc046..56ae7a6e4 100644\n--- a/core/src/main/java/org/apache/accumulo/core/data/Mutation.java\n+++ b/core/src/main/java/org/apache/accumulo/core/data/Mutation.java\n@@ -223,6 +223,13 @@ public Mutation(TMutation tmutation) {\n     this.data = ByteBufferUtil.toBytes(tmutation.data);\n     this.entries = tmutation.entries;\n     this.values = ByteBufferUtil.toBytesList(tmutation.values);\n+    \n+    if (this.row == null) {\n+      throw new IllegalArgumentException(\"null row\");\n+    }\n+    if (this.data == null) {\n+      throw new IllegalArgumentException(\"null serialized data\");\n+    }\n   }\n   \n   public Mutation(Mutation m) {\n", 
   "project": "accumulo", 
   "linesAdd": 7, 
   "jira_id": "1986", 

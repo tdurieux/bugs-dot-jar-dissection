@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testMissingRootLogger(org.apache.logging.log4j.core.config.BaseConfigurationTest): sampleAppenders Size expected:<1> but was:<0>"
+    "org.apache.logging.log4j.core.config.BaseConfigurationTest"
   ], 
-  "patch": "diff --git a/core/src/main/java/org/apache/logging/log4j/core/config/BaseConfiguration.java b/core/src/main/java/org/apache/logging/log4j/core/config/BaseConfiguration.java\nindex dcdb988..8821f76 100644\n--- a/core/src/main/java/org/apache/logging/log4j/core/config/BaseConfiguration.java\n+++ b/core/src/main/java/org/apache/logging/log4j/core/config/BaseConfiguration.java\n@@ -206,9 +206,9 @@ protected void doConfigure() {\n             setToDefault();\n             return;\n         } else if (!setRoot) {\n-            LOGGER.warn(\"No Root logger was configured, using default\");\n+            LOGGER.warn(\"No Root logger was configured, creating default ERROR-level Root logger with Console appender\");\n             setToDefault();\n-            return;\n+            // return; // LOG4J2-219: creating default root=ok, but don't exclude configured Loggers\n         }\n \n         for (final Map.Entry<String, LoggerConfig> entry : loggers.entrySet()) {\n", 
+  "patch": "diff --git a/core/src/main/java/org/apache/logging/log4j/core/config/BaseConfiguration.java b/core/src/main/java/org/apache/logging/log4j/core/config/BaseConfiguration.java\nindex dcdb9881f..8821f7615 100644\n--- a/core/src/main/java/org/apache/logging/log4j/core/config/BaseConfiguration.java\n+++ b/core/src/main/java/org/apache/logging/log4j/core/config/BaseConfiguration.java\n@@ -206,9 +206,9 @@ protected void doConfigure() {\n             setToDefault();\n             return;\n         } else if (!setRoot) {\n-            LOGGER.warn(\"No Root logger was configured, using default\");\n+            LOGGER.warn(\"No Root logger was configured, creating default ERROR-level Root logger with Console appender\");\n             setToDefault();\n-            return;\n+            // return; // LOG4J2-219: creating default root=ok, but don't exclude configured Loggers\n         }\n \n         for (final Map.Entry<String, LoggerConfig> entry : loggers.entrySet()) {\n", 
   "project": "logging-log4j2", 
   "linesAdd": 2, 
   "jira_id": "219", 

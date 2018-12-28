@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testInvalidJcrPaths(org.apache.jackrabbit.oak.namepath.NamePathMapperImplTest): foo:bar]baz"
+    "org.apache.jackrabbit.oak.namepath.NamePathMapperImplTest"
   ], 
-  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/NamePathMapperImpl.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/NamePathMapperImpl.java\nindex a257e69..9108966 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/NamePathMapperImpl.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/NamePathMapperImpl.java\n@@ -256,6 +256,9 @@ private boolean needsFullMapping(String path) {\n             switch (path.charAt(i)) {\n                 case '{': // possibly an expanded name\n                 case '[': // possibly an index\n+                case ']': // illegal character if not part of index\n+                case '|': // illegal character\n+                case '*': // illegal character\n                     return true;\n                 case '.':\n                     if (i == slash + 1) {\n", 
+  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/NamePathMapperImpl.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/NamePathMapperImpl.java\nindex a257e6904a..910896626d 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/NamePathMapperImpl.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/namepath/NamePathMapperImpl.java\n@@ -256,6 +256,9 @@ private boolean needsFullMapping(String path) {\n             switch (path.charAt(i)) {\n                 case '{': // possibly an expanded name\n                 case '[': // possibly an index\n+                case ']': // illegal character if not part of index\n+                case '|': // illegal character\n+                case '*': // illegal character\n                     return true;\n                 case '.':\n                     if (i == slash + 1) {\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 3, 
   "jira_id": "1168", 

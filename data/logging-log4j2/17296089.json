@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testFilter(org.apache.logging.log4j.core.filter.ThreadContextMapFilterTest)"
+    "org.apache.logging.log4j.core.filter.ThreadContextMapFilterTest"
   ], 
-  "patch": "diff --git a/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java b/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\nindex 9ad6cab..b3f3838 100644\n--- a/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\n+++ b/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\n@@ -96,7 +96,7 @@ private Result filter() {\n                 }\n             }\n         } else {\n-            match = key.equals(ThreadContext.get(key));\n+            match = value.equals(ThreadContext.get(key));\n         }\n         return match ? onMatch : onMismatch;\n     }\n", 
+  "patch": "diff --git a/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java b/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\nindex 9ad6cab59..b3f38381b 100644\n--- a/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\n+++ b/core/src/main/java/org/apache/logging/log4j/core/filter/ThreadContextMapFilter.java\n@@ -96,7 +96,7 @@ private Result filter() {\n                 }\n             }\n         } else {\n-            match = key.equals(ThreadContext.get(key));\n+            match = value.equals(ThreadContext.get(key));\n         }\n         return match ? onMatch : onMismatch;\n     }\n", 
   "project": "logging-log4j2", 
   "linesAdd": 1, 
   "jira_id": "147", 

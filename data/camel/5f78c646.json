@@ -6,9 +6,9 @@
     "singleLine": true
   }, 
   "failing_tests": [
-    "XmlConverterTest>TestSupport.runBare:58->testToStreamSourceByByteBuffer:344 \u00bb TypeConversion"
+    "org.apache.camel.converter.jaxp.XmlConverterTest"
   ], 
-  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java b/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java\nindex 9a2b60a..0bf08ac 100644\n--- a/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java\n+++ b/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java\n@@ -99,6 +99,7 @@ public static ByteBuffer toByteBuffer(String value, Exchange exchange) {\n             bytes = value.getBytes();\n         }\n         buf.put(bytes);\n+        buf.flip();\n         return buf;\n     }\n \n", 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java b/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java\nindex 9a2b60a846..0bf08ac554 100644\n--- a/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java\n+++ b/camel-core/src/main/java/org/apache/camel/converter/NIOConverter.java\n@@ -99,6 +99,7 @@ public static ByteBuffer toByteBuffer(String value, Exchange exchange) {\n             bytes = value.getBytes();\n         }\n         buf.put(bytes);\n+        buf.flip();\n         return buf;\n     }\n \n", 
   "project": "camel", 
   "linesAdd": 1, 
   "jira_id": "7209", 

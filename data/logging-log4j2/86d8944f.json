@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "MarkerTest.testRemoveNullMarker:105 \u00bb NullPointer"
+    "org.apache.logging.log4j.MarkerTest"
   ], 
-  "patch": "diff --git a/log4j-slf4j-impl/src/main/java/org/apache/logging/slf4j/Log4jMarker.java b/log4j-slf4j-impl/src/main/java/org/apache/logging/slf4j/Log4jMarker.java\nindex c2273f5..d57cf19 100644\n--- a/log4j-slf4j-impl/src/main/java/org/apache/logging/slf4j/Log4jMarker.java\n+++ b/log4j-slf4j-impl/src/main/java/org/apache/logging/slf4j/Log4jMarker.java\n@@ -56,7 +56,7 @@ public void add(final Marker marker) {\n \r\n     @Override\r\n \tpublic boolean remove(final Marker marker) {\r\n-        return this.marker.remove(MarkerManager.getMarker(marker.getName()));\r\n+\t\treturn marker != null ? this.marker.remove(MarkerManager.getMarker(marker.getName())) : false;\r\n \t}\r\n \r\n     @Override\r\n", 
+  "patch": "diff --git a/log4j-slf4j-impl/src/main/java/org/apache/logging/slf4j/Log4jMarker.java b/log4j-slf4j-impl/src/main/java/org/apache/logging/slf4j/Log4jMarker.java\nindex c2273f5c9..d57cf1907 100644\n--- a/log4j-slf4j-impl/src/main/java/org/apache/logging/slf4j/Log4jMarker.java\n+++ b/log4j-slf4j-impl/src/main/java/org/apache/logging/slf4j/Log4jMarker.java\n@@ -56,7 +56,7 @@ public void add(final Marker marker) {\n \r\n     @Override\r\n \tpublic boolean remove(final Marker marker) {\r\n-        return this.marker.remove(MarkerManager.getMarker(marker.getName()));\r\n+\t\treturn marker != null ? this.marker.remove(MarkerManager.getMarker(marker.getName())) : false;\r\n \t}\r\n \r\n     @Override\r\n", 
   "project": "logging-log4j2", 
   "linesAdd": 1, 
   "jira_id": "1061", 

@@ -6,8 +6,7 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "resetConflictAddExistingNode(org.apache.jackrabbit.oak.plugins.mongomk.MongoMKResetTest): /foo does not exist", 
-    "resetConflictRemoveRemovedNode(org.apache.jackrabbit.oak.plugins.mongomk.MongoMKResetTest): /foo should not exist"
+    "org.apache.jackrabbit.oak.plugins.mongomk.MongoMKResetTest"
   ], 
   "patch": "", 
   "project": "jackrabbit-oak", 

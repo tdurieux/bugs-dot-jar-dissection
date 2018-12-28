@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testRestart(org.apache.camel.impl.DefaultCamelContextWithLifecycleStrategyRestartTest): expected:<2> but was:<1>"
+    "org.apache.camel.impl.DefaultCamelContextWithLifecycleStrategyRestartTest"
   ], 
-  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java b/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\nindex 5cc505b..7857a78 100644\n--- a/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\n+++ b/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\n@@ -1560,7 +1560,7 @@ protected synchronized void doStop() throws Exception {\n         // shutdown management as the last one\n         shutdownServices(managementStrategy);\n         shutdownServices(lifecycleStrategies);\n-        lifecycleStrategies.clear();\n+        // do not clear lifecycleStrategies as we can start Camel again and get the route back as before\n \n         // stop the lazy created so they can be re-created on restart\n         forceStopLazyInitialization();\n", 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java b/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\nindex 5cc505b8cc..7857a78f3a 100644\n--- a/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\n+++ b/camel-core/src/main/java/org/apache/camel/impl/DefaultCamelContext.java\n@@ -1560,7 +1560,7 @@ protected synchronized void doStop() throws Exception {\n         // shutdown management as the last one\n         shutdownServices(managementStrategy);\n         shutdownServices(lifecycleStrategies);\n-        lifecycleStrategies.clear();\n+        // do not clear lifecycleStrategies as we can start Camel again and get the route back as before\n \n         // stop the lazy created so they can be re-created on restart\n         forceStopLazyInitialization();\n", 
   "project": "camel", 
   "linesAdd": 1, 
   "jira_id": "4682", 

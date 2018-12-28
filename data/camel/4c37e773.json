@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testInterceptLog(org.apache.camel.processor.intercept.InterceptFromEndpointNotUriTest)"
+    "org.apache.camel.processor.intercept.InterceptFromEndpointNotUriTest"
   ], 
-  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/model/FromDefinition.java b/camel-core/src/main/java/org/apache/camel/model/FromDefinition.java\nindex 63e4710..7fb6666 100644\n--- a/camel-core/src/main/java/org/apache/camel/model/FromDefinition.java\n+++ b/camel-core/src/main/java/org/apache/camel/model/FromDefinition.java\n@@ -77,8 +77,15 @@ public Endpoint resolveEndpoint(RouteContext context) {\n \n     // Properties\n     // -----------------------------------------------------------------------\n+\n     public String getUri() {\n+        if (uri != null) {\n             return uri;\n+        } else if (endpoint != null) {\n+            return endpoint.getEndpointUri();\n+        } else {\n+            return null;\n+        }\n     }\n \n     /**\n", 
+  "patch": "diff --git a/camel-core/src/main/java/org/apache/camel/model/FromDefinition.java b/camel-core/src/main/java/org/apache/camel/model/FromDefinition.java\nindex 63e4710256..7fb66669eb 100644\n--- a/camel-core/src/main/java/org/apache/camel/model/FromDefinition.java\n+++ b/camel-core/src/main/java/org/apache/camel/model/FromDefinition.java\n@@ -77,8 +77,15 @@ public Endpoint resolveEndpoint(RouteContext context) {\n \n     // Properties\n     // -----------------------------------------------------------------------\n+\n     public String getUri() {\n+        if (uri != null) {\n             return uri;\n+        } else if (endpoint != null) {\n+            return endpoint.getEndpointUri();\n+        } else {\n+            return null;\n+        }\n     }\n \n     /**\n", 
   "project": "camel", 
   "linesAdd": 7, 
   "jira_id": "3709", 

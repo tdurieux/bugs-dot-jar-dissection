@@ -6,12 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "getNodeSNS[0](org.apache.jackrabbit.oak.jcr.RepositoryTest): Invalid name or path: /foo[1]/bar[2]", 
-    "getNodeSNS[3](org.apache.jackrabbit.oak.jcr.RepositoryTest): Invalid name or path: /foo[1]/bar[2]", 
-    "getNodeSNS[2](org.apache.jackrabbit.oak.jcr.RepositoryTest): Invalid name or path: /foo[1]/bar[2]", 
-    "getNodeSNS[1](org.apache.jackrabbit.oak.jcr.RepositoryTest): Invalid name or path: /foo[1]/bar[2]"
+    "org.apache.jackrabbit.oak.jcr.RepositoryTest"
   ], 
-  "patch": "diff --git a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/session/SessionContext.java b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/session/SessionContext.java\nindex dff9421..86ca4bd 100644\n--- a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/session/SessionContext.java\n+++ b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/session/SessionContext.java\n@@ -328,8 +328,14 @@ public String getOakPathOrThrow(String jcrPath) throws RepositoryException {\n         if (oakPath != null) {\n             return oakPath;\n         } else {\n+            // check if the path is an SNS path with an index > 1 and throw a PathNotFoundException instead (see OAK-1216)\n+            if (getOakPathKeepIndex(jcrPath) != null) {\n+                throw new PathNotFoundException(jcrPath);\n+            } else {\n                 throw new RepositoryException(\"Invalid name or path: \" + jcrPath);\n             }\n+\n+        }\n     }\n \n     /**\n", 
+  "patch": "diff --git a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/session/SessionContext.java b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/session/SessionContext.java\nindex dff9421eea..86ca4bd63d 100644\n--- a/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/session/SessionContext.java\n+++ b/oak-jcr/src/main/java/org/apache/jackrabbit/oak/jcr/session/SessionContext.java\n@@ -327,9 +327,15 @@ public String getOakPathOrThrow(String jcrPath) throws RepositoryException {\n         String oakPath = getOakPath(jcrPath);\n         if (oakPath != null) {\n             return oakPath;\n+        } else {\n+            // check if the path is an SNS path with an index > 1 and throw a PathNotFoundException instead (see OAK-1216)\n+            if (getOakPathKeepIndex(jcrPath) != null) {\n+                throw new PathNotFoundException(jcrPath);\n             } else {\n                 throw new RepositoryException(\"Invalid name or path: \" + jcrPath);\n             }\n+\n+        }\n     }\n \n     /**\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 6, 
   "jira_id": "1216", 

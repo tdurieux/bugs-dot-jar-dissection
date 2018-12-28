@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testUnivariateDistribution(org.apache.commons.math3.distribution.MultivariateNormalDistributionTest): expected:<2.8901320810991885E-8> but was:<7.244486791901361E-8>"
+    "org.apache.commons.math3.distribution.MultivariateNormalDistributionTest"
   ], 
-  "patch": "diff --git a/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java b/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java\nindex 1570681..fd18c28 100644\n--- a/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java\n+++ b/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java\n@@ -180,7 +180,7 @@ public double density(final double[] vals) throws DimensionMismatchException {\n             throw new DimensionMismatchException(vals.length, dim);\n         }\n \n-        return FastMath.pow(2 * FastMath.PI, -dim / 2) *\n+        return FastMath.pow(2 * FastMath.PI, -0.5 * dim) *\n             FastMath.pow(covarianceMatrixDeterminant, -0.5) *\n             getExponentTerm(vals);\n     }\n", 
+  "patch": "diff --git a/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java b/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java\nindex 15706811b..fd18c281b 100644\n--- a/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java\n+++ b/src/main/java/org/apache/commons/math3/distribution/MultivariateNormalDistribution.java\n@@ -180,7 +180,7 @@ public double density(final double[] vals) throws DimensionMismatchException {\n             throw new DimensionMismatchException(vals.length, dim);\n         }\n \n-        return FastMath.pow(2 * FastMath.PI, -dim / 2) *\n+        return FastMath.pow(2 * FastMath.PI, -0.5 * dim) *\n             FastMath.pow(covarianceMatrixDeterminant, -0.5) *\n             getExponentTerm(vals);\n     }\n", 
   "project": "commons-math", 
   "linesAdd": 1, 
   "jira_id": "929", 

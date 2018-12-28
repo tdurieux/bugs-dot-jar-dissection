@@ -6,10 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "readWriteBatchOneShotWithColumnFamilyOnly(org.apache.accumulo.proxy.TestProxyReadWrite): expected:<100000> but was:<50000>", 
-    "readWriteBatchOneShotWithFullColumn(org.apache.accumulo.proxy.TestProxyReadWrite): expected:<100000> but was:<50000>"
+    "org.apache.accumulo.proxy.TestProxyReadWrite"
   ], 
-  "patch": "diff --git a/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java b/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\nindex 911d187..167cecc 100644\n--- a/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\n+++ b/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\n@@ -819,7 +819,17 @@ public String createBatchScanner(ByteBuffer login, String tableName, BatchScanOp\n           }\n         }\n         scanner.setRanges(ranges);\n+\n+        if (opts.columns != null) {\n+          for (ScanColumn col : opts.columns) {\n+            if (col.isSetColQualifier())\n+              scanner.fetchColumn(ByteBufferUtil.toText(col.colFamily), ByteBufferUtil.toText(col.colQualifier));\n+            else\n+              scanner.fetchColumnFamily(ByteBufferUtil.toText(col.colFamily));\n+          }\n         }\n+      }\n+\n       UUID uuid = UUID.randomUUID();\n       \n       ScannerPlusIterator spi = new ScannerPlusIterator();\n", 
+  "patch": "diff --git a/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java b/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\nindex 911d18740..167cecc54 100644\n--- a/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\n+++ b/proxy/src/main/java/org/apache/accumulo/proxy/ProxyServer.java\n@@ -819,7 +819,17 @@ public String createBatchScanner(ByteBuffer login, String tableName, BatchScanOp\n           }\n         }\n         scanner.setRanges(ranges);\n+\n+        if (opts.columns != null) {\n+          for (ScanColumn col : opts.columns) {\n+            if (col.isSetColQualifier())\n+              scanner.fetchColumn(ByteBufferUtil.toText(col.colFamily), ByteBufferUtil.toText(col.colQualifier));\n+            else\n+              scanner.fetchColumnFamily(ByteBufferUtil.toText(col.colFamily));\n+          }\n         }\n+      }\n+\n       UUID uuid = UUID.randomUUID();\n       \n       ScannerPlusIterator spi = new ScannerPlusIterator();\n", 
   "project": "accumulo", 
   "linesAdd": 10, 
   "jira_id": "1183", 

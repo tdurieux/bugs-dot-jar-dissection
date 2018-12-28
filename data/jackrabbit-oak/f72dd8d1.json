@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testListWithLotsOfReferences(org.apache.jackrabbit.oak.plugins.segment.RecordTest)"
+    "org.apache.jackrabbit.oak.plugins.segment.RecordTest"
   ], 
-  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/ListRecord.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/ListRecord.java\nindex cc59163..fd6e50b 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/ListRecord.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/ListRecord.java\n@@ -21,7 +21,7 @@\n \r\n class ListRecord extends Record {\r\n \r\n-    static final int LEVEL_SIZE = 1 << 8; // 256\r\n+    static final int LEVEL_SIZE = Segment.SEGMENT_REFERENCE_LIMIT;\r\n \r\n     private final int size;\r\n \r\n", 
+  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/ListRecord.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/ListRecord.java\nindex cc591633a5..fd6e50b3c6 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/ListRecord.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/ListRecord.java\n@@ -21,7 +21,7 @@\n \r\n class ListRecord extends Record {\r\n \r\n-    static final int LEVEL_SIZE = 1 << 8; // 256\r\n+    static final int LEVEL_SIZE = Segment.SEGMENT_REFERENCE_LIMIT;\r\n \r\n     private final int size;\r\n \r\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 1, 
   "jira_id": "1184", 

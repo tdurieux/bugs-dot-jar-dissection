@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "removeRecentKey[0](org.apache.jackrabbit.oak.plugins.segment.CompactionMapTest): Compaction map must not contain removed key"
+    "org.apache.jackrabbit.oak.plugins.segment.CompactionMapTest"
   ], 
-  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/PersistedCompactionMap.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/PersistedCompactionMap.java\nindex ae5c14b..51a065b 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/PersistedCompactionMap.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/PersistedCompactionMap.java\n@@ -229,9 +229,9 @@ private void compress(@Nonnull Set<UUID> removed) {\n                     \", baseId=\" + previousBaseId + '}';\n             writer.writeString(mapInfo);\n             writer.flush();\n-            recent.clear();\n         }\n \n+        recent.clear();\n         if (recordCount == 0) {\n             entries = null;\n         }\n", 
+  "patch": "diff --git a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/PersistedCompactionMap.java b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/PersistedCompactionMap.java\nindex ae5c14b0af..51a065b3c0 100644\n--- a/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/PersistedCompactionMap.java\n+++ b/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/segment/PersistedCompactionMap.java\n@@ -229,9 +229,9 @@ private void compress(@Nonnull Set<UUID> removed) {\n                     \", baseId=\" + previousBaseId + '}';\n             writer.writeString(mapInfo);\n             writer.flush();\n-            recent.clear();\n         }\n \n+        recent.clear();\n         if (recordCount == 0) {\n             entries = null;\n         }\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 1, 
   "jira_id": "3511", 

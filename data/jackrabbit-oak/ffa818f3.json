@@ -6,10 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "idCompareToGreaterThanOneByteTest(org.apache.jackrabbit.mk.model.IdTest): 0000000000000070 should be less than 00000000000000c0", 
-    "idCompareToGreaterThanTwoBytesTest(org.apache.jackrabbit.mk.model.IdTest): 0000000000000270 should be less than 00000000000002c0"
+    "org.apache.jackrabbit.mk.model.IdTest"
   ], 
-  "patch": "diff --git a/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java b/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\nindex a263ddb..021b5ef 100644\n--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\n+++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\n@@ -113,7 +113,9 @@ public int compareTo(Id o) {\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                final int rawValue = raw[i] & 0xFF; // unsigned value\n+                final int otherValue = other[i] & 0xFF; // unsigned value\n+                return rawValue - otherValue;\n             }\n         }\n         return raw.length - other.length;\n", 
+  "patch": "diff --git a/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java b/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\nindex a263ddb345..021b5ef6f3 100644\n--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\n+++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/model/Id.java\n@@ -113,7 +113,9 @@ public int compareTo(Id o) {\n         \n         for (int i = 0; i < len; i++) {\n             if (raw[i] != other[i]) {\n-                return raw[i] - other[i];\n+                final int rawValue = raw[i] & 0xFF; // unsigned value\n+                final int otherValue = other[i] & 0xFF; // unsigned value\n+                return rawValue - otherValue;\n             }\n         }\n         return raw.length - other.length;\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 3, 
   "jira_id": "539", 

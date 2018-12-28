@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "emptyCommit(org.apache.jackrabbit.mk.MicroKernelImplTest): empty branch commit must return current head of branch revision expected:<000000000000000[3]> but was:<000000000000000[1]>"
+    "org.apache.jackrabbit.mk.MicroKernelImplTest"
   ], 
-  "patch": "diff --git a/oak-mk/src/main/java/org/apache/jackrabbit/mk/core/MicroKernelImpl.java b/oak-mk/src/main/java/org/apache/jackrabbit/mk/core/MicroKernelImpl.java\nindex 35126ae..05b6309 100644\n--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/core/MicroKernelImpl.java\n+++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/core/MicroKernelImpl.java\n@@ -411,7 +411,7 @@ public String commit(String path, String jsonDiff, String revisionId, String mes\n             throw new IllegalArgumentException(\"absolute path expected: \" + path);\n         }\n         if (jsonDiff == null || jsonDiff.length() == 0) {\n-            return getHeadRevision();\n+            return revisionId != null ? revisionId : getHeadRevision();\n         }\n \n         Id revId = revisionId == null ? getHeadRevisionId() : Id.fromString(revisionId);\n", 
+  "patch": "diff --git a/oak-mk/src/main/java/org/apache/jackrabbit/mk/core/MicroKernelImpl.java b/oak-mk/src/main/java/org/apache/jackrabbit/mk/core/MicroKernelImpl.java\nindex 35126ae551..05b6309ab6 100644\n--- a/oak-mk/src/main/java/org/apache/jackrabbit/mk/core/MicroKernelImpl.java\n+++ b/oak-mk/src/main/java/org/apache/jackrabbit/mk/core/MicroKernelImpl.java\n@@ -411,7 +411,7 @@ public String commit(String path, String jsonDiff, String revisionId, String mes\n             throw new IllegalArgumentException(\"absolute path expected: \" + path);\n         }\n         if (jsonDiff == null || jsonDiff.length() == 0) {\n-            return getHeadRevision();\n+            return revisionId != null ? revisionId : getHeadRevision();\n         }\n \n         Id revId = revisionId == null ? getHeadRevisionId() : Id.fromString(revisionId);\n", 
   "project": "jackrabbit-oak", 
   "linesAdd": 1, 
   "jira_id": "1122", 

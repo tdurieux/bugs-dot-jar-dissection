@@ -6,7 +6,7 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "ignoreBOM(org.apache.wicket.util.io.XmlReaderTest): expected:<UTF-8> but was:<null>"
+    "org.apache.wicket.util.io.XmlReaderTest"
   ], 
   "patch": "", 
   "project": "wicket", 

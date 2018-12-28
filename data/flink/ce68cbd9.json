@@ -6,8 +6,7 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "FlinkTopologyBuilderTest.testFieldsGroupingOnMultipleBoltOutputStreams:73 \u00bb InvalidProgram", 
-    "FlinkTopologyBuilderTest.testFieldsGroupingOnMultipleSpoutOutputStreams:61 \u00bb InvalidProgram"
+    "org.apache.flink.stormcompatibility.api.FlinkTopologyBuilderTest"
   ], 
   "patch": "", 
   "project": "flink", 

@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "ServerTest.testEscapeEscapesCarriageReturn:117 \u00bb MalformedObjectName Invalid c..."
+    "org.apache.logging.log4j.core.jmx.ServerTest"
   ], 
-  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/jmx/Server.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/jmx/Server.java\nindex 537b029..898e5e1 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/jmx/Server.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/jmx/Server.java\n@@ -87,6 +87,14 @@ public static String escape(final String name) {\n                 // no need to escape these, but value must be quoted\n                 needsQuotes = true;\n                 break;\n+            case '\\r':\n+                // replace by \\\\r, no need to quote\n+                sb.append(\"\\\\r\");\n+                continue;\n+            case '\\n':\n+                // replace by \\\\n, no need to quote\n+                sb.append(\"\\\\n\");\n+                continue;\n             }\n             sb.append(c);\n         }\n", 
+  "patch": "diff --git a/log4j-core/src/main/java/org/apache/logging/log4j/core/jmx/Server.java b/log4j-core/src/main/java/org/apache/logging/log4j/core/jmx/Server.java\nindex 537b029ad..898e5e177 100644\n--- a/log4j-core/src/main/java/org/apache/logging/log4j/core/jmx/Server.java\n+++ b/log4j-core/src/main/java/org/apache/logging/log4j/core/jmx/Server.java\n@@ -87,6 +87,14 @@ public static String escape(final String name) {\n                 // no need to escape these, but value must be quoted\n                 needsQuotes = true;\n                 break;\n+            case '\\r':\n+                // replace by \\\\r, no need to quote\n+                sb.append(\"\\\\r\");\n+                continue;\n+            case '\\n':\n+                // replace by \\\\n, no need to quote\n+                sb.append(\"\\\\n\");\n+                continue;\n             }\n             sb.append(c);\n         }\n", 
   "project": "logging-log4j2", 
   "linesAdd": 8, 
   "jira_id": "492", 

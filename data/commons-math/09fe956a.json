@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "ResizableDoubleArrayTest.testConstructors:131 array lengths differed, expected.length=1 actual.length=0"
+    "org.apache.commons.math4.util.ResizableDoubleArrayTest"
   ], 
-  "patch": "diff --git a/src/main/java/org/apache/commons/math4/util/ResizableDoubleArray.java b/src/main/java/org/apache/commons/math4/util/ResizableDoubleArray.java\nindex 6377141..7d9547c 100644\n--- a/src/main/java/org/apache/commons/math4/util/ResizableDoubleArray.java\n+++ b/src/main/java/org/apache/commons/math4/util/ResizableDoubleArray.java\n@@ -287,7 +287,7 @@ public ResizableDoubleArray(int initialCapacity,\n         numElements = 0;\n         startIndex = 0;\n \n-        if (data != null && data.length > 1) {\n+        if (data != null && data.length > 0) {\n             addElements(data);\n         }\n     }\n", 
+  "patch": "diff --git a/src/main/java/org/apache/commons/math4/util/ResizableDoubleArray.java b/src/main/java/org/apache/commons/math4/util/ResizableDoubleArray.java\nindex 6377141a0..7d9547c0f 100644\n--- a/src/main/java/org/apache/commons/math4/util/ResizableDoubleArray.java\n+++ b/src/main/java/org/apache/commons/math4/util/ResizableDoubleArray.java\n@@ -287,7 +287,7 @@ public ResizableDoubleArray(int initialCapacity,\n         numElements = 0;\n         startIndex = 0;\n \n-        if (data != null && data.length > 1) {\n+        if (data != null && data.length > 0) {\n             addElements(data);\n         }\n     }\n", 
   "project": "commons-math", 
   "linesAdd": 1, 
   "jira_id": "1252", 

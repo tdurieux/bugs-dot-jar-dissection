@@ -6,9 +6,9 @@
     "singleLine": true
   }, 
   "failing_tests": [
-    "testSeeding(org.apache.commons.math.random.ISAACTest)"
+    "org.apache.commons.math.random.ISAACTest"
   ], 
-  "patch": "diff --git a/src/main/java/org/apache/commons/math/random/ISAACRandom.java b/src/main/java/org/apache/commons/math/random/ISAACRandom.java\nindex 3db6de1..011a704 100644\n--- a/src/main/java/org/apache/commons/math/random/ISAACRandom.java\n+++ b/src/main/java/org/apache/commons/math/random/ISAACRandom.java\n@@ -235,6 +235,7 @@ private void initState() {\n         }\n         isaac();\n         count = SIZE - 1;\n+        clear();\n     }\n \n     /** Shuffle array. */\n", 
+  "patch": "diff --git a/src/main/java/org/apache/commons/math/random/ISAACRandom.java b/src/main/java/org/apache/commons/math/random/ISAACRandom.java\nindex 3db6de1be..011a70454 100644\n--- a/src/main/java/org/apache/commons/math/random/ISAACRandom.java\n+++ b/src/main/java/org/apache/commons/math/random/ISAACRandom.java\n@@ -235,6 +235,7 @@ private void initState() {\n         }\n         isaac();\n         count = SIZE - 1;\n+        clear();\n     }\n \n     /** Shuffle array. */\n", 
   "project": "commons-math", 
   "linesAdd": 1, 
   "jira_id": "723", 

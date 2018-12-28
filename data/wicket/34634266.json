@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "detachEvenNotAttached(org.apache.wicket.model.StringResourceModelTest)"
+    "org.apache.wicket.model.StringResourceModelTest"
   ], 
-  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/model/StringResourceModel.java b/wicket-core/src/main/java/org/apache/wicket/model/StringResourceModel.java\nindex 95b37f8..35ef7bb 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/model/StringResourceModel.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/model/StringResourceModel.java\n@@ -590,13 +590,10 @@ protected final String load()\n \t\treturn getString();\n \t}\n \n-\t/**\n-\t * @see org.apache.wicket.model.IDetachable#detach()\n-\t */\n \t@Override\n-\tprotected final void onDetach()\n+\tpublic final void detach()\n \t{\n-\t\tsuper.onDetach();\n+\t\tsuper.detach();\n \n \t\t// detach any model\n \t\tif (model != null)\n", 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/model/StringResourceModel.java b/wicket-core/src/main/java/org/apache/wicket/model/StringResourceModel.java\nindex 95b37f8121..35ef7bbe7d 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/model/StringResourceModel.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/model/StringResourceModel.java\n@@ -590,13 +590,10 @@ protected final String load()\n \t\treturn getString();\n \t}\n \n-\t/**\n-\t * @see org.apache.wicket.model.IDetachable#detach()\n-\t */\n \t@Override\n-\tprotected final void onDetach()\n+\tpublic final void detach()\n \t{\n-\t\tsuper.onDetach();\n+\t\tsuper.detach();\n \n \t\t// detach any model\n \t\tif (model != null)\n", 
   "project": "wicket", 
   "linesAdd": 2, 
   "jira_id": "5176", 

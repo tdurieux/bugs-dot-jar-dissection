@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "FastMathTest.testIntPowLongMinValue:1237 \u00bb  test timed out after 5000 millisec..."
+    "org.apache.commons.math4.util.FastMathTest"
   ], 
-  "patch": "diff --git a/src/main/java/org/apache/commons/math4/util/FastMath.java b/src/main/java/org/apache/commons/math4/util/FastMath.java\nindex a4a9a1b..46c8752 100644\n--- a/src/main/java/org/apache/commons/math4/util/FastMath.java\n+++ b/src/main/java/org/apache/commons/math4/util/FastMath.java\n@@ -1711,7 +1711,7 @@ public Split reciprocal() {\n         }\n \n         /** Computes this^e.\n-         * @param e exponent (beware, here it MUST be > 0)\n+         * @param e exponent (beware, here it MUST be > 0; the only exclusion is Long.MIN_VALUE)\n          * @return d^e, split in high and low bits\n          * @since 4.0\n          */\n@@ -1723,7 +1723,7 @@ private Split pow(final long e) {\n             // d^(2p)\n             Split d2p = new Split(full, high, low);\n \n-            for (long p = e; p != 0; p >>= 1) {\n+            for (long p = e; p != 0; p >>>= 1) {\n \n                 if ((p & 0x1) != 0) {\n                     // accurate multiplication result = result * d^(2p) using Veltkamp TwoProduct algorithm\n", 
+  "patch": "diff --git a/src/main/java/org/apache/commons/math4/util/FastMath.java b/src/main/java/org/apache/commons/math4/util/FastMath.java\nindex a4a9a1b10..46c8752a0 100644\n--- a/src/main/java/org/apache/commons/math4/util/FastMath.java\n+++ b/src/main/java/org/apache/commons/math4/util/FastMath.java\n@@ -1711,7 +1711,7 @@ public Split reciprocal() {\n         }\n \n         /** Computes this^e.\n-         * @param e exponent (beware, here it MUST be > 0)\n+         * @param e exponent (beware, here it MUST be > 0; the only exclusion is Long.MIN_VALUE)\n          * @return d^e, split in high and low bits\n          * @since 4.0\n          */\n@@ -1723,7 +1723,7 @@ private Split pow(final long e) {\n             // d^(2p)\n             Split d2p = new Split(full, high, low);\n \n-            for (long p = e; p != 0; p >>= 1) {\n+            for (long p = e; p != 0; p >>>= 1) {\n \n                 if ((p & 0x1) != 0) {\n                     // accurate multiplication result = result * d^(2p) using Veltkamp TwoProduct algorithm\n", 
   "project": "commons-math", 
   "linesAdd": 2, 
   "jira_id": "1272", 

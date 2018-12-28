@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "unrenderedFeedbackMessages(org.apache.wicket.markup.html.form.FormValidationTest)"
+    "org.apache.wicket.markup.html.form.FormValidationTest"
   ], 
-  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java b/wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java\nindex 9d46baf..d3c9b8b 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java\n@@ -170,8 +170,7 @@ public void component(final FormComponent<?> formComponent, final IVisit<Void> v\n \t\t\t\treturn;\n \t\t\t}\n \n-\t\t\tif (formComponent.isVisibleInHierarchy() && formComponent.isValid() &&\n-\t\t\t\tformComponent.isEnabledInHierarchy())\n+\t\t\tif (formComponent.isVisibleInHierarchy() && formComponent.isEnabledInHierarchy())\n \t\t\t{\n \t\t\t\tvalidate(formComponent);\n \t\t\t}\n", 
+  "patch": "diff --git a/wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java b/wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java\nindex 9d46baf7cc..d3c9b8bacc 100644\n--- a/wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java\n+++ b/wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java\n@@ -170,8 +170,7 @@ public void component(final FormComponent<?> formComponent, final IVisit<Void> v\n \t\t\t\treturn;\n \t\t\t}\n \n-\t\t\tif (formComponent.isVisibleInHierarchy() && formComponent.isValid() &&\n-\t\t\t\tformComponent.isEnabledInHierarchy())\n+\t\t\tif (formComponent.isVisibleInHierarchy() && formComponent.isEnabledInHierarchy())\n \t\t\t{\n \t\t\t\tvalidate(formComponent);\n \t\t\t}\n", 
   "project": "wicket", 
   "linesAdd": 1, 
   "jira_id": "4757", 

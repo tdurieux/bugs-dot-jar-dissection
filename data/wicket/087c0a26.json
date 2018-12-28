@@ -6,9 +6,7 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "WebSocketTesterRequestCycleListenerTest.verifyRequestCycleListeners:106->Assert.assertThat:832->Assert.assertThat:865", 
-    "Expected: is <true>", 
-    "but: was <false>"
+    "org.apache.wicket.protocol.ws.util.tester.WebSocketTesterRequestCycleListenerTest"
   ], 
   "patch": "", 
   "project": "wicket", 

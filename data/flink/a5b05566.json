@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "CliFrontendInfoTest.testShowExecutionPlan:67 null"
+    "org.apache.flink.client.CliFrontendInfoTest"
   ], 
-  "patch": "diff --git a/flink-clients/src/main/java/org/apache/flink/client/cli/CliFrontendParser.java b/flink-clients/src/main/java/org/apache/flink/client/cli/CliFrontendParser.java\nindex 4e081fd..07d409e 100644\n--- a/flink-clients/src/main/java/org/apache/flink/client/cli/CliFrontendParser.java\n+++ b/flink-clients/src/main/java/org/apache/flink/client/cli/CliFrontendParser.java\n@@ -339,7 +339,7 @@ public static SavepointOptions parseSavepointCommand(String[] args) throws CliAr\n \tpublic static InfoOptions parseInfoCommand(String[] args) throws CliArgsException {\n \t\ttry {\n \t\t\tPosixParser parser = new PosixParser();\n-\t\t\tCommandLine line = parser.parse(INFO_OPTIONS, args, false);\n+\t\t\tCommandLine line = parser.parse(INFO_OPTIONS, args, true);\n \t\t\treturn new InfoOptions(line);\n \t\t}\n \t\tcatch (ParseException e) {\n", 
+  "patch": "diff --git a/flink-clients/src/main/java/org/apache/flink/client/cli/CliFrontendParser.java b/flink-clients/src/main/java/org/apache/flink/client/cli/CliFrontendParser.java\nindex 4e081fdb9b..07d409e3ed 100644\n--- a/flink-clients/src/main/java/org/apache/flink/client/cli/CliFrontendParser.java\n+++ b/flink-clients/src/main/java/org/apache/flink/client/cli/CliFrontendParser.java\n@@ -339,7 +339,7 @@ public static SavepointOptions parseSavepointCommand(String[] args) throws CliAr\n \tpublic static InfoOptions parseInfoCommand(String[] args) throws CliArgsException {\n \t\ttry {\n \t\t\tPosixParser parser = new PosixParser();\n-\t\t\tCommandLine line = parser.parse(INFO_OPTIONS, args, false);\n+\t\t\tCommandLine line = parser.parse(INFO_OPTIONS, args, true);\n \t\t\treturn new InfoOptions(line);\n \t\t}\n \t\tcatch (ParseException e) {\n", 
   "project": "flink", 
   "linesAdd": 1, 
   "jira_id": "3189", 

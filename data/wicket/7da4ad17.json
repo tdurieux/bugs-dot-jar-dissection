@@ -6,9 +6,9 @@
     "singleLine": false
   }, 
   "failing_tests": [
-    "testResourceKeyGenerationForAnonymousEnums(org.apache.wicket.markup.html.form.EnumChoiceRendererTest)"
+    "org.apache.wicket.markup.html.form.EnumChoiceRendererTest"
   ], 
-  "patch": "diff --git a/wicket/src/main/java/org/apache/wicket/markup/html/form/EnumChoiceRenderer.java b/wicket/src/main/java/org/apache/wicket/markup/html/form/EnumChoiceRenderer.java\nindex 3af4e49..9181c8e 100644\n--- a/wicket/src/main/java/org/apache/wicket/markup/html/form/EnumChoiceRenderer.java\n+++ b/wicket/src/main/java/org/apache/wicket/markup/html/form/EnumChoiceRenderer.java\n@@ -94,7 +94,7 @@ public final Object getDisplayValue(T object)\n \t */\r\n \tprotected String resourceKey(T object)\r\n \t{\r\n-\t\treturn object.getClass().getSimpleName() + \".\" + object.name();\r\n+\t\treturn object.getDeclaringClass().getSimpleName() + \".\" + object.name();\r\n \t}\r\n \r\n \t/**\r\n", 
+  "patch": "diff --git a/wicket/src/main/java/org/apache/wicket/markup/html/form/EnumChoiceRenderer.java b/wicket/src/main/java/org/apache/wicket/markup/html/form/EnumChoiceRenderer.java\nindex 3af4e4982e..9181c8ed62 100644\n--- a/wicket/src/main/java/org/apache/wicket/markup/html/form/EnumChoiceRenderer.java\n+++ b/wicket/src/main/java/org/apache/wicket/markup/html/form/EnumChoiceRenderer.java\n@@ -94,7 +94,7 @@ public final Object getDisplayValue(T object)\n \t */\r\n \tprotected String resourceKey(T object)\r\n \t{\r\n-\t\treturn object.getClass().getSimpleName() + \".\" + object.name();\r\n+\t\treturn object.getDeclaringClass().getSimpleName() + \".\" + object.name();\r\n \t}\r\n \r\n \t/**\r\n", 
   "project": "wicket", 
   "linesAdd": 1, 
   "jira_id": "2609", 
